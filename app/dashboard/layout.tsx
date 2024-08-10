@@ -1,6 +1,6 @@
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className= "bg-slate-200">
       {children}
     </div>
   );
