@@ -1,6 +1,7 @@
 import Link from "next/link";
 import LeftSidebar from "../../components/layout/LeftSidebar";
 import { Button } from "@components/ui/Button";
+import CreateSpaceButton from "@components/dashboard/CreateSpaceButton";
 
 const Dashboard = () => {
   return (
@@ -9,6 +10,9 @@ const Dashboard = () => {
 
       <main className="flex-1 p-6">
         <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+
+        <CreateSpaceButton/>
+
         <nav className="mb-6">
           <Link href="/profile">
             <Button>
