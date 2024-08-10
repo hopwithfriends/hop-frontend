@@ -6,7 +6,7 @@ import OnlineFriendsContainer from './OnlineFriendsContainer';
 const LeftSidebar = () => {
   return (
     <div className="bg-gradient-to-b from-gray-600 to-gray-800 text-white p-6 w-80 h-screen flex flex-col shadow-xl rounded-r-lg">
-      <Logo className="mb-6 mx-auto w-36" />
+      <Logo />
       <nav className="flex-1 flex flex-col items-center">
         <Link href="/friends">
           <Button className="w-64 mt-2">
