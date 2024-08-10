@@ -1,8 +1,16 @@
+import { Logo } from '@/components/ui/Logo';
+import Link from 'next/link';
+
 const LeftSidebar = () => {
     return (
       <div className="bg-gray-800 text-white p-4 w-64 h-screen">
-        <h2 className="text-xl mb-4">Sidebar</h2>
-      </div>
+        <Logo className="mb-8 mx-auto" />
+        <nav className="mb-6">
+          <Link href="/friends">
+            <span className="text-blue-500 hover:underline">Friends</span>
+          </Link>
+          </nav>
+        </div>
     );
   };
   
