@@ -1,17 +1,28 @@
 import Link from 'next/link';
+import LeftSidebar from "../../components/layout/LeftSidebar";
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <nav>
-        <Link href="/friends">Friends</Link>
-        <br />
-        <Link href="/profile">Profile</Link>
-        <br />
-        <Link href="/space">Space</Link>
-        <br />
-      </nav>
+    <div className="flex">
+      
+      <LeftSidebar />
+
+      <main className="flex-1 p-6">
+        <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+        <nav className="mb-6">
+          <Link href="/friends">
+            <span className="text-blue-500 hover:underline">Friends</span>
+          </Link>
+          <br />
+          <Link href="/profile">
+            <span className="text-blue-500 hover:underline">Profile</span>
+          </Link>
+          <br />
+          <Link href="/space">
+            <span className="text-blue-500 hover:underline">Space</span>
+          </Link>
+        </nav>
+      </main>
     </div>
   );
 };
