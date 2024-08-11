@@ -1,3 +1,4 @@
+import LeftSidebar from "@components/layout/LeftSidebar";
 import "@styles/globals.css";
 
 export default function RootLayout({
