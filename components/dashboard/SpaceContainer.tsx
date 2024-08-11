@@ -3,6 +3,7 @@ import Link from "next/link";
 import CreateSpaceButton from "@components/dashboard/CreateSpaceButton";
 import { SpaceComponent } from "@components/dashboard/SpaceComponent";
 import { CgProfile } from "react-icons/cg";
+import InviteContainer from "./InviteContainer";
 
 const SpaceContainer = () => {
   return (
@@ -15,9 +16,14 @@ const SpaceContainer = () => {
         </Link>
       </div>
 
-      <div className="mb-6 flex space-x-4">
+      <div className="mb-6 flex">
         <CreateSpaceButton />
-        <nav className="flex space-x-4">
+        <nav className="flex">
+          <Link href="/space/id" passHref>
+            <div>
+              <SpaceComponent />
+            </div>
+          </Link>
           <Link href="/space/id" passHref>
             <div>
               <SpaceComponent />
@@ -30,6 +36,8 @@ const SpaceContainer = () => {
           </Link>
         </nav>
       </div>
+
+      <InviteContainer/>
     </main>
   );
 };

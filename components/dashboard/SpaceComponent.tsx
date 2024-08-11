@@ -19,7 +19,7 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({ link }) => {
           width={100}
           height={100}
           priority
-          className="rounded-xl w-96 h-56"
+          className="rounded-xl w-[90%] h-44"
         />
       </div>
       <div className="flex ml-2 mt-1">
