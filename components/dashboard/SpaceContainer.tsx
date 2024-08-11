@@ -6,10 +6,18 @@ import { CgProfile } from "react-icons/cg";
 import InviteContainer from "./InviteContainer";
 
 interface SpaceContainerProps {
+  link?: string;
   members: number;
+  screen: string;
+  pfp: string;
 }
 
-const SpaceContainer: React.FC<SpaceContainerProps> = ({ members }) => {
+const SpaceContainer: React.FC<SpaceContainerProps> = ({
+  link,
+  members,
+  screen,
+  pfp,
+}) => {
   return (
     <main className="flex-1 p-6 relative">
       <h1 className="text-5xl font-bold mb-6 mt-5">My Spaces</h1>
@@ -23,13 +31,13 @@ const SpaceContainer: React.FC<SpaceContainerProps> = ({ members }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <CreateSpaceButton />
         <Link href="/space/id">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
       </div>
 
@@ -41,28 +49,28 @@ const SpaceContainer: React.FC<SpaceContainerProps> = ({ members }) => {
         </div>
 
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
         <Link href="/space/id" className="col-span-1">
-          <SpaceComponent members={members} />
+          <SpaceComponent members={members} screen={screen} pfp={pfp} />
         </Link>
       </div>
     </main>
