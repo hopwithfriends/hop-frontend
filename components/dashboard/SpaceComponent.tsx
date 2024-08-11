@@ -1,6 +1,5 @@
-import React from "react";
-import Image from "next/image";
-import { IoLink } from "react-icons/io5";
+import Image from 'next/image';
+import { IoLink } from 'react-icons/io5';
 
 interface SpaceComponentProps {
   link?: string;

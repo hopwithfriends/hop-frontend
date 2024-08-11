@@ -1,19 +1,18 @@
-import Image from 'next/image';
-
+import Image from "next/image";
 interface LogoProps {
-  className?: string;
+	className?: string;
 }
 
 export const Logo: React.FC<LogoProps> = () => {
-  return (
-    <Image
-      src="/images/Logo.webp"
-      alt="Logo"
-      objectFit="contain"
-      width={100}
-      height={100}
-      priority
-      className="mx-auto rounded-full mb-5"
-    />
-  );
+	return (
+		<Image
+			src="/images/Logo.webp"
+			alt="Logo"
+			objectFit="contain"
+			width={100}
+			height={100}
+			priority
+			className="mx-auto rounded-full mb-5"
+		/>
+	);
 };
