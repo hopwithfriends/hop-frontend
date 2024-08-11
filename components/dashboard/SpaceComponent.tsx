@@ -5,20 +5,26 @@ import { IoLink } from "react-icons/io5";
 interface SpaceComponentProps {
   link?: string;
   members: number;
+  screen: string;
+  pfp: string;
 }
 
 export const SpaceComponent: React.FC<SpaceComponentProps> = ({
   link,
   members,
+  screen,
+  pfp,
 }) => {
   link = "link placeholder";
   members = 4;
+  screen = "/placeholder.jpg"
+  pfp = "/PFP.jpg";
 
   return (
     <div className="flex flex-col">
       <div className="relative w-full h-56 rounded-2xl border-4 border-gray-800 ">
         <Image
-          src="/placeholder.jpg"
+          src={screen}
           alt="Space"
           layout="fill"
           objectFit="cover"
@@ -36,7 +42,7 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({
         <p className="font-semibold mr-1">{members}</p>
         <div className="relative w-6 h-6">
           <Image
-            src="/PFP.jpg"
+            src={pfp}
             alt="Member Icon"
             layout="fill"
             objectFit="cover"
