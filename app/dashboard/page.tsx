@@ -1,17 +1,11 @@
-import Link from 'next/link';
+import LeftSidebar from "../../components/layout/LeftSidebar";
+import SpaceContainer from "@components/dashboard/SpaceContainer";
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <nav>
-        <Link href="/friends">Friends</Link>
-        <br />
-        <Link href="/profile">Profile</Link>
-        <br />
-        <Link href="/space">Space</Link>
-        <br />
-      </nav>
+    <div className="flex bg-gray-700 text-white">
+      <LeftSidebar />
+      <SpaceContainer />
     </div>
   );
 };
