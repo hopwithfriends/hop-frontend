@@ -26,11 +26,6 @@ const SpaceContainer = () => {
         </nav>
       </div>
 
-      <div className="absolute top-6 right-6">
-        <Link href="/profile" passHref>
-          <Button>Profile</Button>
-        </Link>
-      </div>
     </main>
   );
 };
