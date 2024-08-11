@@ -3,28 +3,52 @@ import { IoLink } from 'react-icons/io5';
 
 interface SpaceComponentProps {
   link?: string;
+  members: number;
+  screen: string;
+  pfp: string;
 }
 
-export const SpaceComponent: React.FC<SpaceComponentProps> = ({ link }) => {
-  link = 'link placeholder';
+export const SpaceComponent: React.FC<SpaceComponentProps> = ({
+  link,
+  members,
+  screen,
+  pfp,
+}) => {
+  link = "link placeholder";
+  members = 4;
+  screen = "/placeholder.jpg"
+  pfp = "/PFP.jpg";
 
   return (
-    <>
-      <div>
+    <div className="flex flex-col">
+      <div className="relative w-full h-56 rounded-2xl border-4 border-gray-800 ">
         <Image
-          src="/placeholder.jpg"
+          src={screen}
           alt="Space"
-          objectFit="contain"
-          width={100}
-          height={100}
+          layout="fill"
+          objectFit="cover"
           priority
-          className="rounded-xl w-96 h-56"
+          className="rounded-xl"
         />
       </div>
-      <div className="flex ml-2 mt-1">
-        <p className="font-bold">Space Name</p>
-        {link && <IoLink className="w-6 h-7 ml-2" />}
+      <div className="flex items-center text-sm sm:text-base">
+        <div className= "pr-60">
+          <div className="flex items-center">
+            <p className="font-bold">Space Name</p>
+            {link && <IoLink className="w-5 h-5 ml-2 text-gray-500" />}
+          </div>
+        </div>
+        <p className="font-semibold mr-1">{members}</p>
+        <div className="relative w-6 h-6">
+          <Image
+            src={pfp}
+            alt="Member Icon"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-[10px]"
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
