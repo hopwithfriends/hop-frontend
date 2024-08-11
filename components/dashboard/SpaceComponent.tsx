@@ -10,22 +10,21 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({ link }) => {
   link = "link placeholder";
 
   return (
-    <>
-      <div>
+    <div className="flex flex-col">
+      <div className="relative w-full h-52">
         <Image
           src="/placeholder.jpg"
           alt="Space"
-          objectFit="contain"
-          width={100}
-          height={100}
+          layout="fill"
+          objectFit="cover"
           priority
-          className="rounded-xl w-[90%] h-44"
+          className="rounded-xl"
         />
       </div>
-      <div className="flex ml-2 mt-1">
-        <p className="font-bold">Space Name</p>
-        {link && <IoLink className="w-6 h-7 ml-2" />}
+      <div className="flex items-center mt-2">
+        <p className="font-bold text-sm sm:text-base">Space Name</p>
+        {link && <IoLink className="w-5 h-5 ml-2" />}
       </div>
-    </>
+    </div>
   );
 };

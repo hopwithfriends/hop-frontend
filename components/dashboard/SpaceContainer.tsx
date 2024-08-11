@@ -12,29 +12,21 @@ const SpaceContainer = () => {
 
       <div className="absolute top-10 right-11">
         <Link href="/profile" passHref>
-          <CgProfile className="text-5xl cursor-pointer" /> 
+          <CgProfile className="text-5xl cursor-pointer" />
         </Link>
       </div>
 
-      <div className="mb-6 flex">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <CreateSpaceButton />
-        <nav className="flex">
-          <Link href="/space/id" passHref>
-            <div>
-              <SpaceComponent />
-            </div>
-          </Link>
-          <Link href="/space/id" passHref>
-            <div>
-              <SpaceComponent />
-            </div>
-          </Link>
-          <Link href="/space/id" passHref>
-            <div>
-              <SpaceComponent />
-            </div>
-          </Link>
-        </nav>
+        <Link href="/space/id" passHref className="col-span-1">
+          <SpaceComponent />
+        </Link>
+        <Link href="/space/id" passHref className="col-span-1">
+          <SpaceComponent />
+        </Link>
+        <Link href="/space/id" passHref className="col-span-1">
+          <SpaceComponent />
+        </Link>
       </div>
 
       <InviteContainer/>
