@@ -21,7 +21,6 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 
   return (
     <div className="flex bg-gray-700 text-white">
-      <LeftSidebar />
       <SpaceContainer screen={screen} pfp={pfp} link={link} members={members} />
     </div>
   );
