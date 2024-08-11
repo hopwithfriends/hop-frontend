@@ -2,7 +2,7 @@ import React from "react";
 
 const InviteComponent = () => {
   return (
-    <div className="w-[90%] mt-2 mb-3 bg-gray-700 rounded-xl h-12 flex items-center px-2">
+    <div className="w-[99%] mt-2 mb-3 bg-gray-700 rounded-xl h-12 flex items-center px-2">
       <div className="w-10 h-10 bg-gray-500 rounded-full flex-shrink-0"></div>
       <div className="flex-1 flex flex-col justify-center ml-3">
         <div className="flex items-center space-x-2">
