@@ -6,8 +6,6 @@ import BottomBar from "@components/space/BottomBar";
 const SpacePage = () => {
 	return (
 		<div className="flex h-screen overflow-hidden">
-			<LeftSidebar />
-
 			<main className="flex-grow flex flex-col overflow-hidden">
 				<div className="flex-grow relative">
 					<div className="absolute inset-0 p-6">

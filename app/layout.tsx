@@ -1,5 +1,5 @@
-import LeftSidebar from "@components/layout/LeftSidebar";
 import "@styles/globals.css";
+import ConditionalLayout from "@components/layout/ConditionalLayout";
 
 export default function RootLayout({
 	children,
@@ -8,8 +8,8 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>
-				<main>{children}</main>
+			<body className="m-0">
+				<ConditionalLayout>{children}</ConditionalLayout>
 			</body>
 		</html>
 	);

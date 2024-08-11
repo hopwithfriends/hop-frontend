@@ -14,11 +14,6 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({
   screen,
   pfp,
 }) => {
-  link = "link placeholder";
-  members = 4;
-  screen = "/placeholder.jpg"
-  pfp = "/PFP.jpg";
-
   return (
     <div className="flex flex-col">
       <div className="relative w-full h-56 rounded-2xl border-4 border-gray-800 ">
