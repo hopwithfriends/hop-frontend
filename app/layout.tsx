@@ -9,8 +9,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <nav>
-          <Link href="/">Home</Link>
+        <nav className= "flex justify-end bg-gray-100">
+          <Link className="text-blue-500 hover:underline" href="/">Home</Link>
         </nav>
         <main>{children}</main>
       </body>
