@@ -1,4 +1,6 @@
 import React from "react";
+import { IoCheckbox } from "react-icons/io5";
+import { FaRectangleXmark } from "react-icons/fa6";
 
 const InviteComponent = () => {
   return (
@@ -11,6 +13,13 @@ const InviteComponent = () => {
         </div>
         <div className="text-gray-400 text-xs">Room Name</div>
       </div>
+      <button>
+        <IoCheckbox className="text-2xl mr-1" />
+      </button>
+
+      <button>
+        <FaRectangleXmark className= "text-[22px]" />
+      </button>
     </div>
   );
 };
