@@ -26,27 +26,8 @@ const InviteComponent: React.FC<InviteProps> = ({
   const handleAdd = async () => {
     setAdd(true);
 
-    /*
-    try {
-      const response = await fetch("/newroom", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          spaceName: spaceName,
-          username: username,
-          pfp: pfp,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to post data");
-      }
-    } catch (error) {
-      console.error("Error posting data:", error);
-    }
-      */
+    // post to db somehow 
+    
     setHandled(true);
     onHandle(id);
   };
