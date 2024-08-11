@@ -11,7 +11,7 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({ link }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="relative w-full h-56">
+      <div className="relative w-full h-56 rounded-2xl border-4 border-gray-800 ">
         <Image
           src="/placeholder.jpg"
           alt="Space"
