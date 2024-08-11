@@ -8,7 +8,7 @@ import InviteContainer from "./InviteContainer";
 const SpaceContainer = () => {
   return (
     <main className="flex-1 p-6 relative">
-      <h1 className="text-5xl font-bold mb-10 mt-5">My Spaces</h1>
+      <h1 className="text-5xl font-bold mb-6 mt-5">My Spaces</h1>
 
       <div className="absolute top-10 right-11">
         <Link href="/profile" passHref>
@@ -28,7 +28,7 @@ const SpaceContainer = () => {
           <SpaceComponent />
         </Link>
       </div>
-
+      <h1 className="text-5xl font-bold mb-5 mt-5" >Recent Spaces</h1>
       <InviteContainer/>
     </main>
   );
