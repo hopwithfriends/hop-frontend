@@ -8,7 +8,7 @@ export default function RegisterPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="p-8 bg-white rounded-lg shadow-md w-96">
-        <Logo className="mb-8 mx-auto" />
+        <Logo />
         <form className="space-y-6">
           <div>
             <Input type="text" placeholder="Username" required />
