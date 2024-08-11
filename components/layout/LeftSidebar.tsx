@@ -9,7 +9,7 @@ const LeftSidebar = () => {
       <Logo />
       <nav className="flex-1 flex flex-col items-center">
         <Link href="/friends">
-          <Button className="w-64 mt-2">
+          <Button className="w-64 mt-2 font-extrabold">
             Friends
           </Button>
         </Link>
