@@ -7,7 +7,7 @@ import OnlineFriendsContainer from "./OnlineFriendsContainer";
 const LeftSidebar = () => {
   return (
     <div className="bg-gray-600 text-white p-6 w-80 h-screen flex flex-col shadow-xl rounded-r-lg">
-      <Link href="/">
+      <Link href="/dashboard">
         <Logo />
       </Link>
       <nav className="flex-1 flex flex-col items-center">
