@@ -10,6 +10,8 @@ const InviteContainer: React.FC = () => {
     { id: "2", spaceName: "Space 2", username: "User 2", pfp: "/PFP.jpg" },
     { id: "3", spaceName: "Space 3", username: "User 3", pfp: "/PFP.jpg" },
     { id: "4", spaceName: "Space 4", username: "User 4", pfp: "/PFP.jpg" },
+    { id: "5", spaceName: "Space 5", username: "User 5", pfp: "/PFP.jpg" },
+    { id: "6", spaceName: "Space 6", username: "User 6", pfp: "/PFP.jpg" },
   ]); // mock, fetch from backend later
 
   const handleInviteUpdate = (id: string) => {
