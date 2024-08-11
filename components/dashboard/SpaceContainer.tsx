@@ -32,12 +32,25 @@ const SpaceContainer = () => {
       <h1 className="text-5xl font-bold mb-5 mt-5">Recent Spaces</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        {/* Ensure InviteContainer takes up one grid column */}
         <div className="col-span-1">
           <InviteContainer />
         </div>
 
-        {/* Ensure three SpaceComponents take up the remaining grid columns */}
+        <Link href="/space/id" className="col-span-1">
+          <SpaceComponent />
+        </Link>
+        <Link href="/space/id" className="col-span-1">
+          <SpaceComponent />
+        </Link>
+        <Link href="/space/id" className="col-span-1">
+          <SpaceComponent />
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <Link href="/space/id" className="col-span-1">
+          <SpaceComponent />
+        </Link>
         <Link href="/space/id" className="col-span-1">
           <SpaceComponent />
         </Link>
