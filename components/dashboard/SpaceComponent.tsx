@@ -4,10 +4,15 @@ import { IoLink } from "react-icons/io5";
 
 interface SpaceComponentProps {
   link?: string;
+  members: number;
 }
 
-export const SpaceComponent: React.FC<SpaceComponentProps> = ({ link }) => {
+export const SpaceComponent: React.FC<SpaceComponentProps> = ({
+  link,
+  members,
+}) => {
   link = "link placeholder";
+  members = 4;
 
   return (
     <div className="flex flex-col">
@@ -21,9 +26,23 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({ link }) => {
           className="rounded-xl"
         />
       </div>
-      <div className="flex items-center mt-2">
-        <p className="font-bold text-sm sm:text-base">Space Name</p>
-        {link && <IoLink className="w-5 h-5 ml-2" />}
+      <div className="flex items-center text-sm sm:text-base">
+        <div className= "pr-60">
+          <div className="flex items-center">
+            <p className="font-bold">Space Name</p>
+            {link && <IoLink className="w-5 h-5 ml-2 text-gray-500" />}
+          </div>
+        </div>
+        <p className="font-semibold mr-1">{members}</p>
+        <div className="relative w-6 h-6">
+          <Image
+            src="/PFP.jpg"
+            alt="Member Icon"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-[10px]"
+          />
+        </div>
       </div>
     </div>
   );
