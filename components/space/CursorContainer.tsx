@@ -6,7 +6,8 @@ const CursorContainer = () => {
   return (
     <div
       className="
-        absolute inset-0
+        absolute 
+        inset-0
         bg-transparent
         z-20   
         pointer-events-none
