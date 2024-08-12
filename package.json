@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^20",
     "@types/randomcolor": "^0.5.9",
     "@types/react": "^18",
