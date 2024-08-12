@@ -1,40 +1,37 @@
 import OnlineFriend from "@components/friends/OnlineFriend";
-interface OnlineProps {
+
+interface Friend {
+	id: string;
+	nickname: string;
 	username: string;
-	spaceName: string;
-	pfp: string;
+	profilePicture?: string;
+	isOnline?: boolean;
+	currentRoom?: string;
 }
 
-const OnlineFriendsContainer: React.FC<OnlineProps> = ({
-	spaceName,
-	username,
-	pfp,
+interface OnlineFriendsContainerProps {
+	friends: Friend[];
+}
+
+const OnlineFriendsContainer: React.FC<OnlineFriendsContainerProps> = ({
+	friends,
 }) => {
-	username = "Username";
-	spaceName = "Space name";
-	pfp = "/PFP.jpg";
+	const onlineFriends = friends.filter((friend) => friend.isOnline);
 
 	return (
 		<div className="bg-gray-800 w-full h-full p-4 rounded-xl shadow-lg border border-gray-700 overflow-auto">
 			<ul className="space-y-3">
-				<li>
-					<OnlineFriend username={username} spaceName={spaceName} pfp={pfp} />
-				</li>
-				<li>
-					<OnlineFriend username={username} spaceName={spaceName} pfp={pfp} />
-				</li>
-				<li>
-					<OnlineFriend username={username} spaceName={spaceName} pfp={pfp} />
-				</li>
-				<li>
-					<OnlineFriend username={username} spaceName={spaceName} pfp={pfp} />
-				</li>
-				<li>
-					<OnlineFriend username={username} spaceName={spaceName} pfp={pfp} />
-				</li>
-				<li>
-					<OnlineFriend username={username} spaceName={spaceName} pfp={pfp} />
-				</li>
+				{onlineFriends.map((friend) => (
+					<li key={friend.id}>
+						<OnlineFriend
+							nickname={friend.nickname}
+							username={friend.username}
+							profilePicture={friend.profilePicture}
+							currentRoom={friend.currentRoom}
+							id={""}
+						/>
+					</li>
+				))}
 			</ul>
 		</div>
 	);
