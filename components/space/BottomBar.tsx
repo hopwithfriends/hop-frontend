@@ -2,12 +2,13 @@ import React from "react";
 import Avatar from "@components/ui/UserAvatar";
 import { Slider } from "@/components/ui/slider";
 import { IoMdVolumeHigh } from "react-icons/io";
+import SelectCursor from "./SelectCursor";
 
 const BottomBar = () => {
 	return (
 		<div className="bg-gray-200 p-4 flex items-center justify-between">
-			<div className="w-1/3" />
-			<div className="flex-1 flex justify-center">
+			<SelectCursor />
+			<div className="flex-1 flex justify-center mr-[3%]">
 				<Avatar userId="currentUser" username="Current User" />
 				<Avatar userId="currentUser" username="Current User" />
 				<Avatar userId="currentUser" username="Current User" />

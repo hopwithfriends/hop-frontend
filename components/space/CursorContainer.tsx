@@ -27,7 +27,7 @@ const renderCursors = (users: Users, color: string) => {
 			<CustomCursor
 				key={uuid}
 				point={[user.state.x, user.state.y]}
-				imageUrl="/me.jpg"
+				imageUrl="/monkey.jpg"
 			/>
 		);
 	});

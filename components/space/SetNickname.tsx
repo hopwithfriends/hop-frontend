@@ -30,7 +30,7 @@ const SetNickname: React.FC<NicknameProps> = ({ onSubmit, setColorProp }) => {
 	};
 
 	return (
-		<div className="bg-gray-600 text-white rounded-xl shadow-lg p-6 w-96 mx-auto mt-[25%] ml-[38%] absolute z-50 ">
+		<div className="bg-gray-600 text-white rounded-xl shadow-lg p-6 w-96 mx-auto mt-[25%] ml-[41%] absolute z-50 ">
 			<p className="text-lg font-semibold mb-4">Set your nickname</p>
 			<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
 				<input

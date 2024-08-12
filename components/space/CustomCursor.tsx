@@ -31,12 +31,11 @@ export function CustomCursor({ point, imageUrl }: CursorProps) {
       ref={rCursor}
       src={imageUrl}
       alt="Custom Cursor"
+      className="rounded-xl w-10 h-10"
       style={{
         position: "absolute",
         top: -15,
-        left: -15, 
-        width: 40,
-        height: 40, 
+        left: -15,  
         pointerEvents: "none", 
       }}
     />
