@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import throttle from "lodash.throttle";
@@ -21,20 +21,28 @@ interface HomeProps {
 	selectedCursor: string;
 }
 
-
 const renderCursors = (users: Users, color: string, selectedCursor: string) => {
 	return Object.keys(users).map((uuid) => {
-		const user = users[uuid];
-		return (
-			// <Cursor key={uuid} point={[user.state.x, user.state.y]} color={color} />
-			<CustomCursor
-				key={uuid}
-				point={[user.state.x, user.state.y]}
-				imageUrl="/monkey.jpg"
+	  const user = users[uuid];
+	  return (
+		<React.Fragment key={uuid}>
+		  {selectedCursor === "/norm.png" ? (
+			<Cursor
+			  key={uuid}
+			  color={color}
+			  point={[user.state.x, user.state.y]}
 			/>
-		);
+		  ) : (
+			<CustomCursor
+			  key={uuid}
+			  point={[user.state.x, user.state.y]}
+			  imageUrl={selectedCursor}
+			/>
+		  )}
+		</React.Fragment>
+	  );
 	});
-};
+  };
 
 const renderUsersList = (users: Users) => {
 	return (
@@ -45,7 +53,11 @@ const renderUsersList = (users: Users) => {
 		</ul>
 	);
 };
-const CursorContainer: React.FC<HomeProps> = ({ username, color, selectedCursor}) => {
+const CursorContainer: React.FC<HomeProps> = ({
+	username,
+	color,
+	selectedCursor,
+}) => {
 	const [otherUsers, setOtherUsers] = useState<Users>({});
 	const [isTracking, setIsTracking] = useState(true);
 	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
