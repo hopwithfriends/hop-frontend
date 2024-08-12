@@ -102,7 +102,7 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 		setIsTracking(false);
 		setTimeout(() => {
 			setIsTracking(true);
-		}, 300);
+		}, 1000);
 	};
 
 	return (
