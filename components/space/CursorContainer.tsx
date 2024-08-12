@@ -73,10 +73,16 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 			}
 		};
 
-		document.addEventListener("mousemove", handleMouseMove);
+		const container = containerRef.current;
+
+		if (container) {
+			container.addEventListener("mousemove", handleMouseMove);
+		}
 
 		return () => {
-			document.removeEventListener("mousemove", handleMouseMove);
+			if (container) {
+				container.removeEventListener("mousemove", handleMouseMove);
+			}
 		};
 	}, [sendJsonMessage]);
 
