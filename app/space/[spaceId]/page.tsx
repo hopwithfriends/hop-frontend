@@ -14,12 +14,11 @@ const SpacePage = () => {
 		<div className="flex h-screen overflow-hidden">
 			<main className="flex-grow flex flex-col overflow-hidden relative">
 				<div className="relative flex-grow">
-					username ? (
-					<CursorContainer username={username} color={color} />
-					): (
-					<SetNickname onSubmit={setUsername} setColorProp={setColor} />
-					);
-					<CursorContainer username={""} color={""} />
+					{username ? (
+						<CursorContainer username={username} color={color} />
+					) : (
+						<SetNickname onSubmit={setUsername} setColorProp={setColor} />
+					)}
 					<iframe
 						className="absolute inset-0 w-full h-full z-10"
 						title="vnc"
