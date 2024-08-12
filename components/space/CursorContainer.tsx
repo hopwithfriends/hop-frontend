@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import throttle from "lodash.throttle";
 import { Cursor } from "./Cursor";
+import { CustomCursor } from "./CustomCursor";
 interface UserState {
 	x: number;
 	y: number;
@@ -22,7 +23,12 @@ const renderCursors = (users: Users, color: string) => {
 	return Object.keys(users).map((uuid) => {
 		const user = users[uuid];
 		return (
-			<Cursor key={uuid} point={[user.state.x, user.state.y]} color={color} />
+			// <Cursor key={uuid} point={[user.state.x, user.state.y]} color={color} />
+			<CustomCursor
+				key={uuid}
+				point={[user.state.x, user.state.y]}
+				imageUrl="/me.jpg"
+			/>
 		);
 	});
 };
@@ -89,25 +95,26 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 	useEffect(() => {
 		if (lastJsonMessage) {
 			const users = lastJsonMessage as Users;
+
 			const filteredUsers = Object.keys(users).reduce<Users>((acc, uuid) => {
 				if (users[uuid].username !== username) {
 					acc[uuid] = users[uuid];
 				}
 				return acc;
 			}, {});
+
 			setOtherUsers(filteredUsers);
 		}
 	}, [lastJsonMessage, username]);
 
 	const handleMouseDown = () => {
 		setIsTracking(false);
-	  };
-	
-	  const handleMouseUp = () => {
+	};
+
+	const handleMouseUp = () => {
 		setIsTracking(true);
-		// Send the current mouse position when tracking resumes
 		sendJsonMessage(mousePosition);
-	  };
+	};
 
 	return (
 		<div
