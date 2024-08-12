@@ -45,6 +45,8 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 
 	const WS_URL = "ws://localhost:8000";
 
+	const containerRef = useRef<HTMLDivElement>(null);
+
 	const { sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL, {
 		queryParams: { username },
 	});
@@ -60,16 +62,25 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 		});
 
 		const handleMouseMove = (e: MouseEvent) => {
-			sendJsonMessageThrottled.current({
-				x: e.clientX,
-				y: e.clientY,
-			});
+			if (containerRef.current) {
+				const rect = containerRef.current.getBoundingClientRect();
+				sendJsonMessageThrottled.current({
+					x: e.clientX - rect.left,
+					y: e.clientY - rect.top,
+				});
+			}
 		};
 
-		window.addEventListener("mousemove", handleMouseMove);
+		const container = containerRef.current;
+
+		if (container) {
+			container.addEventListener("mousemove", handleMouseMove);
+		}
 
 		return () => {
-			window.removeEventListener("mousemove", handleMouseMove);
+			if (container) {
+				container.removeEventListener("mousemove", handleMouseMove);
+			}
 		};
 	}, [sendJsonMessage]);
 
@@ -88,12 +99,12 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 
 	return (
 		<div
+			ref={containerRef}
 			className="
         absolute 
         inset-0
         bg-transparent
         z-20   
-        pointer-events-none
         text-white
       "
 		>
