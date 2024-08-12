@@ -1,31 +1,25 @@
 import React from "react";
-import LeftSidebar from "@components/layout/LeftSidebar";
 import RightSideBar from "@components/space/RightSideBar";
 import BottomBar from "@components/space/BottomBar";
+import CursorContainer from "@components/space/CursorContainer";
 
 const SpacePage = () => {
-	return (
-		<div className="flex h-screen overflow-hidden">
-			<main className="flex-grow flex flex-col overflow-hidden">
-				<div className="flex-grow relative">
-					<div className="absolute inset-0 p-6">
-						<div>
-							<iframe
-								className="absolute inset-0 w-full h-full"
-								title="vnc"
-								src="https://vnc-socket-2.fly.dev/ "
-							/>
-						</div>
-						<div className="space-y-4" />
-					</div>
-				</div>
-
-				<BottomBar />
-			</main>
-
-			<RightSideBar />
-		</div>
-	);
+  return (
+    <div className="flex h-screen overflow-hidden">
+      <main className="flex-grow flex flex-col overflow-hidden relative">
+        <div className="relative flex-grow">
+          <CursorContainer />
+          <iframe
+            className="absolute inset-0 w-full h-full z-10"
+            title="vnc"
+            src="https://vnc-socket-2.fly.dev/"
+          />
+        </div>
+        <BottomBar />
+      </main>
+      <RightSideBar />
+    </div>
+  );
 };
 
 export default SpacePage;
