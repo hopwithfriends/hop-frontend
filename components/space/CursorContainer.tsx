@@ -42,6 +42,7 @@ const renderUsersList = (users: Users) => {
 
 const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 	const [otherUsers, setOtherUsers] = useState<Users>({});
+	const [pointer, setPointer] = useState("");
 
 	const WS_URL = "ws://localhost:8000";
 
@@ -97,16 +98,19 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 		}
 	}, [lastJsonMessage, username]);
 
+	const handleClick = () => {
+		setPointer("pointer-events-none");
+		setTimeout(() => {
+			setPointer("");
+		}, 10);
+	};
+
 	return (
+		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 		<div
 			ref={containerRef}
-			className="
-        absolute 
-        inset-0
-        bg-transparent
-        z-20   
-        text-black
-      "
+			className={`absolute inset-0 bg-transparent z-20 ${pointer} text-black`}
+			onClick={handleClick}
 		>
 			<h1>Hello, {username}</h1>
 			<p>Current users:</p>
