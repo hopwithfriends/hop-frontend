@@ -6,9 +6,10 @@ import { usePerfectCursor } from "../hooks/useCursor";
 interface CursorProps {
     point: [number, number]; 
     color: string; 
+    username: string;
 }
 
-export function Cursor({ point, color } : CursorProps) {
+export function Cursor({ point, color, username } : CursorProps) {
   const rCursor = React.useRef<SVGSVGElement | null>(null);
 
   const animateCursor = React.useCallback((point: number[]) => {

@@ -21,7 +21,7 @@ interface HomeProps {
 	selectedCursor: string;
 }
 
-const renderCursors = (users: Users, color: string, selectedCursor: string) => {
+const renderCursors = (users: Users, color: string, selectedCursor: string, username:string) => {
 	return Object.keys(users).map((uuid) => {
 	  const user = users[uuid];
 	  return (
@@ -31,12 +31,14 @@ const renderCursors = (users: Users, color: string, selectedCursor: string) => {
 			  key={uuid}
 			  color={color}
 			  point={[user.state.x, user.state.y]}
+			  username={username}
 			/>
 		  ) : (
 			<CustomCursor
 			  key={uuid}
 			  point={[user.state.x, user.state.y]}
 			  imageUrl={selectedCursor}
+			  username={username}
 			/>
 		  )}
 		</React.Fragment>
@@ -147,7 +149,7 @@ const CursorContainer: React.FC<HomeProps> = ({
 			) : (
 				<>
 					{renderUsersList(otherUsers)}
-					{renderCursors(otherUsers, color, selectedCursor)}
+					{renderCursors(otherUsers, color, selectedCursor, username)}
 				</>
 			)}
 		</div>
