@@ -46,7 +46,7 @@ const SpacePage = () => {
 					)}
 					<button
 						type="button"
-						className="bg-black text-white ml-40 w-30 h-12"
+						className="bg-black text-white ml-40 w-30 h-12 z-30"
 						onClick={handleClick}
 					>
 						Click

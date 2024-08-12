@@ -53,7 +53,6 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 	});
 
 	const THROTTLE = 10;
-
 	const sendJsonMessageThrottled = useRef(throttle(sendJsonMessage, THROTTLE));
 
 	useEffect(() => {
@@ -63,7 +62,7 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 		});
 
 		const handleMouseMove = (e: MouseEvent) => {
-			if (containerRef.current) {
+			if (containerRef.current && isTracking) {
 				const rect = containerRef.current.getBoundingClientRect();
 				sendJsonMessageThrottled.current({
 					x: e.clientX - rect.left,
@@ -72,18 +71,24 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 			}
 		};
 
-		const container = containerRef.current;
+		const handleMouseDown = () => {
+			setIsTracking(false);
+		};
 
-		if (container) {
-			container.addEventListener("mousemove", handleMouseMove);
-		}
+		const handleMouseUp = () => {
+			setIsTracking(true);
+		};
+
+		document.addEventListener("mousemove", handleMouseMove);
+		document.addEventListener("mousedown", handleMouseDown);
+		document.addEventListener("mouseup", handleMouseUp);
 
 		return () => {
-			if (container) {
-				container.removeEventListener("mousemove", handleMouseMove);
-			}
+			document.removeEventListener("mousemove", handleMouseMove);
+			document.removeEventListener("mousedown", handleMouseDown);
+			document.removeEventListener("mouseup", handleMouseUp);
 		};
-	}, [sendJsonMessage]);
+	}, [sendJsonMessage, isTracking]);
 
 	useEffect(() => {
 		if (lastJsonMessage) {
@@ -98,20 +103,11 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 		}
 	}, [lastJsonMessage, username]);
 
-	const handleClick = () => {
-		setIsTracking(false);
-		setTimeout(() => {
-			setIsTracking(true);
-		}, 1000);
-	};
-
 	return (
-		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 		<div
 			ref={containerRef}
-			className='absolute inset-0 bg-transparent z-20 text-black'
-			onClick={handleClick}
-			style={{ pointerEvents: isTracking ? 'auto' : 'none' }}
+			className="absolute inset-0 bg-transparent z-20 text-black"
+			style={{ pointerEvents: "none" }}
 		>
 			<h1>Hello, {username}</h1>
 			<p>Current users:</p>
