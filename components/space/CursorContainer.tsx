@@ -18,8 +18,11 @@ interface Users {
 interface HomeProps {
 	username: string;
 	color: string;
+	selectedCursor: string;
 }
-const renderCursors = (users: Users, color: string) => {
+
+
+const renderCursors = (users: Users, color: string, selectedCursor: string) => {
 	return Object.keys(users).map((uuid) => {
 		const user = users[uuid];
 		return (
@@ -32,6 +35,7 @@ const renderCursors = (users: Users, color: string) => {
 		);
 	});
 };
+
 const renderUsersList = (users: Users) => {
 	return (
 		<ul>
@@ -41,7 +45,7 @@ const renderUsersList = (users: Users) => {
 		</ul>
 	);
 };
-const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
+const CursorContainer: React.FC<HomeProps> = ({ username, color, selectedCursor}) => {
 	const [otherUsers, setOtherUsers] = useState<Users>({});
 	const [isTracking, setIsTracking] = useState(true);
 	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -131,7 +135,7 @@ const CursorContainer: React.FC<HomeProps> = ({ username, color }) => {
 			) : (
 				<>
 					{renderUsersList(otherUsers)}
-					{renderCursors(otherUsers, color)}
+					{renderCursors(otherUsers, color, selectedCursor)}
 				</>
 			)}
 		</div>
