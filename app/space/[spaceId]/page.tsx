@@ -9,11 +9,6 @@ import SetNickname from "@components/space/SetNickname";
 const SpacePage = () => {
 	const [username, setUsername] = useState("");
 	const [color, setColor] = useState("");
-	const [zaxis, setZaxis] = useState(40);
-
-	const handleClick = () => {
-		console.log("clicked");
-	};
 
 	return (
 		<div className="flex h-screen overflow-hidden">
