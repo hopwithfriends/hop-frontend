@@ -69,17 +69,12 @@ const FriendList: React.FC = () => {
 		setSearchQuery(query);
 	};
 
-	const handleClose = () => {
-		// Add your logic here
-	};
-
 	const handleGlobalAddFriend = (query: string) => {
-		// Implement global add friend logic here
 		console.log("Searching for new friend:", query);
 	};
 
 	return (
-		<div className="flex h-full w-full ml-3 mr-3 mt-4 rounded-xl bg-gray-600">
+		<div className="flex h-full w-full ml-3 mr-3 mt-4 rounded-xl bg-gray-600 relative">
 			<div className="w-2/5 overflow-auto px-6 pb-6">
 				<div className="flex justify-between items-center mb-4 px-6 pt-3">
 					<h2 className="text-2xl font-bold">Friends</h2>
@@ -108,8 +103,8 @@ const FriendList: React.FC = () => {
 						Select a friend to view their profile
 					</div>
 				)}
-				<GlobalFriendSearch onSearch={handleGlobalAddFriend} />
 			</div>
+			<GlobalFriendSearch onSearch={handleGlobalAddFriend} friends={friends} />
 		</div>
 	);
 };

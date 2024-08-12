@@ -1,5 +1,4 @@
 import React from "react";
-import LeftSidebar from "@components/layout/LeftSidebar";
 import RightSideBar from "@components/space/RightSideBar";
 import BottomBar from "@components/space/BottomBar";
 
