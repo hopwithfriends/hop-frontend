@@ -26,7 +26,7 @@ const renderCursors = (users: Users, color: string, selectedCursor: string) => {
 	  const user = users[uuid];
 	  return (
 		<React.Fragment key={uuid}>
-		  {selectedCursor === "/norm.png" ? (
+		  {selectedCursor === "/norm.png" || selectedCursor === "" ? (
 			<Cursor
 			  key={uuid}
 			  color={color}
