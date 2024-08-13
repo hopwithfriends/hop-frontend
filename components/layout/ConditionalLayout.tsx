@@ -1,8 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import LeftSidebar from "@components/layout/LeftSidebar";
-import { useState } from "react";
 
 interface Friend {
 	id: string;
@@ -29,7 +27,7 @@ export default function ConditionalLayout({
 
 	return (
 		<div className="flex h-screen">
-			<LeftSidebar />
+			<LeftSidebar friends={[]} />
 			<main className="flex-1 overflow-auto">{children}</main>
 		</div>
 	);
