@@ -42,7 +42,13 @@ const InviteComponent: React.FC<InviteProps> = ({
 		!handled && (
 			<div className="w-[99%] mt-2 mb-3 bg-gray-700 rounded-xl h-12 flex items-center px-2">
 				<div className="relative w-10 h-10 rounded-full flex-shrink-0 overflow-hidden">
-					<Image src={pfp} alt="Member Icon" className="object-fill" />
+					<Image
+						src={pfp}
+						alt="Member Icon"
+						fill={true}
+						sizes="100%"
+						className="object-cover"
+					/>
 				</div>
 				<div className="flex-1 flex flex-col justify-center ml-3">
 					<div className="flex items-center space-x-2">

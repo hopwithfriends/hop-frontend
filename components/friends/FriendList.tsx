@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import SingleFriend from "./FriendComponent";
 import FriendProfile from "./FriendProfile";
 import SlidingSearchBar from "./SearchFreands";
@@ -18,40 +18,34 @@ interface Friend {
 const FriendList: React.FC = () => {
 	const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [friends, setFriends] = useState<Friend[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
 
-	const friends: Friend[] = [
-		{
-			id: "1",
-			nickname: "John Doe",
-			username: "johndoe",
-			isOnline: true,
-			currentRoom: "Gaming Lounge",
-		},
-		{
-			id: "2",
-			nickname: "Jane Smith",
-			username: "janesmith",
-			isOnline: false,
-		},
-		{
-			id: "3",
-			nickname: "Alice",
-			username: "alice",
-			isOnline: true,
-		},
-		{
-			id: "4",
-			nickname: "Bob",
-			username: "bob",
-			isOnline: true,
-		},
-		{
-			id: "5",
-			nickname: "Charlie",
-			username: "charlie",
-			isOnline: true,
-		},
-	];
+	useEffect(() => {
+		const fetchFriends = async () => {
+			try {
+				const response = await fetch(
+					"http://localhost:3000/api/user/friend/6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+				);
+				if (!response.ok) {
+					throw new Error("Failed to fetch friends");
+				}
+				const data = await response.json();
+				setFriends(data);
+			} catch (error) {
+				if (error instanceof Error) {
+					setError(error.message);
+				} else {
+					setError("An unknown error occurred");
+				}
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchFriends();
+	}, []);
 
 	const filteredFriends = useMemo(() => {
 		return friends.filter(
@@ -59,7 +53,7 @@ const FriendList: React.FC = () => {
 				friend.nickname.toLowerCase().includes(searchQuery.toLowerCase()) ||
 				friend.username.toLowerCase().includes(searchQuery.toLowerCase()),
 		);
-	}, [searchQuery]);
+	}, [searchQuery, friends]);
 
 	const handleFriendClick = (friend: Friend) => {
 		setSelectedFriend(friend);
