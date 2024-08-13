@@ -27,8 +27,9 @@ const OnlineFriend: React.FC<OnlineFriendProps> = (friend) => {
 				<Image
 					src={friend.profilePicture || defaultProfilePicture}
 					alt={`${friend.nickname}'s profile picture`}
-					layout="fill"
-					objectFit="cover"
+					fill={true}
+					sizes="100%"
+					className="object-cover"
 				/>
 			</div>
 			<div className="flex-1 flex flex-col justify-center ml-2">

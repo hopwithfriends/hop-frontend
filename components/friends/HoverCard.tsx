@@ -43,8 +43,9 @@ const HoverCard: React.FC<HoverCardProps> = ({ friend, parentRef }) => {
 					<Image
 						src={friend.profilePicture || defaultProfilePicture}
 						alt={`${friend.nickname}'s profile picture`}
-						layout="fill"
-						objectFit="cover"
+						fill={true}
+						sizes="100%"
+						className="object-cover"
 					/>
 				</div>
 				<h2 className="text-xl font-bold text-white mb-1">{friend.nickname}</h2>

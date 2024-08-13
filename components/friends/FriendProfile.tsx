@@ -27,10 +27,12 @@ const FriendProfile: React.FC<FriendProfileProps> = ({ friend, onClose }) => {
 			<div className="flex flex-col items-center">
 				<div className="w-24 h-24 rounded-full overflow-hidden relative mb-4">
 					<Image
-						src={friend.profilePicture || defaultProfilePicture}
+						// src={ `${friend.profilePicture}` || defaultProfilePicture}
+						src={defaultProfilePicture}
 						alt={`${friend.nickname}'s profile picture`}
-						layout="fill"
-						objectFit="cover"
+						fill={true}
+						sizes="100%"
+						className="object-cover"
 					/>
 				</div>
 				<h2 className="text-2xl font-bold text-white mb-2">

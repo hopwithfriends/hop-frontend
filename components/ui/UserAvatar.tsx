@@ -31,7 +31,12 @@ const Avatar: React.FC<AvatarProps> = ({
 				style={{ backgroundColor: color }}
 			>
 				{icon ? (
-					<Image src={icon} alt={username} layout="fill" objectFit="cover" />
+					<Image
+						src={icon}
+						alt={username}
+						fill={true}
+						className="object-cover"
+					/>
 				) : (
 					<FaRegUserCircle className="w-3/4 h-3/4 text-white" />
 				)}
