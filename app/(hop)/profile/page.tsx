@@ -8,6 +8,7 @@ import { useUser } from "@stackframe/stack";
 
 const ProfilePage = () => {
 	const user = useUser({ or: "redirect" });
+
 	return (
 		<div>
 			<h1>Profile</h1>

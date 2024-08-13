@@ -1,5 +1,5 @@
 import "@styles/globals.css";
-import ConditionalLayout from "@components/layout/ConditionalLayout";
+import LeftSidebar from "@components/layout/LeftSidebar";
 
 export default function HopLayout({
 	children,
@@ -8,8 +8,9 @@ export default function HopLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className="m-0">
-				<ConditionalLayout>{children}</ConditionalLayout>
+			<body className="flex h-screen">
+				<LeftSidebar />
+				<main className="flex-1 overflow-auto">{children}</main>
 			</body>
 		</html>
 	);

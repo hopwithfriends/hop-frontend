@@ -6,6 +6,7 @@ import RightSideBar from "@components/space/RightSideBar";
 import BottomBar from "@components/space/BottomBar";
 import CursorContainer from "@components/space/CursorContainer";
 import SetNickname from "@components/space/SetNickname";
+import EnterSpace from "@components/space/EnterSpace";
 
 const SpacePage: React.FC = () => {
   const [username, setUsername] = useState<string>(""); // actually nickname, isa will change this later 
@@ -22,7 +23,7 @@ const SpacePage: React.FC = () => {
           {username ? (
             <CursorContainer username={username} color={color} selectedCursor={selectedCursor} />
           ) : (
-            <SetNickname onSubmit={setUsername} setColorProp={setColor} realUsername={realUsername}/>
+            <EnterSpace onSubmit={setUsername} setColorProp={setColor} realUsername={realUsername}/>
           )}
           <iframe
             className="absolute inset-0 w-full h-full z-10"

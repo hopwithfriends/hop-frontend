@@ -4,21 +4,23 @@
 import React, { useState, useEffect } from "react";
 import randomColor from "randomcolor";
 import useWebSocket from "react-use-websocket";
+
 interface NicknameProps {
 	onSubmit: (username: string) => void;
 	setColorProp: (color: string) => void;
 	realUsername: string;
 }
 
-// For anonomos viewers
-const SetNickname: React.FC<NicknameProps> = ({
+const EnterSpace: React.FC<NicknameProps> = ({
 	onSubmit,
 	setColorProp,
 	realUsername,
 }) => {
-	const [username, setUsername] = useState("");
 	const [color, setColor] = useState("");
 	const [wsUrl, setWsUrl] = useState<string | null>(null);
+
+    // FETCH NICKNAME FROM DB
+    const username= "isa" // FOR TESTING
 
 	// const WS_URL = `ws://localhost:8000?username=${encodeURIComponent(username)}`;
 
@@ -29,11 +31,11 @@ const SetNickname: React.FC<NicknameProps> = ({
 	});
 
 	useEffect(() => {
-		if (username && !color) {
+		if (!color) {
 			const newColor = randomColor();
 			setColor(newColor);
 		}
-	}, [username, color]);
+	}, [color]);
 
 	useEffect(() => {
 		if (realUsername) {
@@ -56,22 +58,13 @@ const SetNickname: React.FC<NicknameProps> = ({
 
 	return (
 		<>
-			<div className="bg-gray-600 text-white rounded-xl shadow-lg p-6 w-96 mx-auto mt-[25%] ml-[41%] absolute z-50 ">
-				<p className="text-lg font-semibold mb-4">Set your nickname</p>
+			<div className="bg-gray-600 text-white rounded-xl shadow-lg p-6 w-96 mx-auto h-56 mt-[25%] ml-[41%] absolute z-50 ">
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-					<input
-						type="text"
-						value={username}
-						placeholder="Enter your nickname..."
-						onChange={(e) => setUsername(e.target.value)}
-						maxLength={6}
-						className="border border-gray-600 rounded-md p-2 bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-					/>
 					<button
-						type="submit"
-						className="bg-gray-900 hover:bg-gray-950 text-white rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-gray-500"
+						type="button"
+						className="bg-gray-900 hover:bg-gray-950 text-white rounded-xl text-4xl font-bold py-16 mt-[1.5%] focus:outline-none focus:ring-2 focus:ring-gray-500"
 					>
-						Submit
+						Connect
 					</button>
 				</form>
 			</div>
@@ -79,4 +72,4 @@ const SetNickname: React.FC<NicknameProps> = ({
 	);
 };
 
-export default SetNickname;
+export default EnterSpace;
