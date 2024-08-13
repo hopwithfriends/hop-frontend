@@ -27,7 +27,7 @@ const SpacePage: React.FC = () => {
           <iframe
             className="absolute inset-0 w-full h-full z-10"
             title="vnc"
-            src="https://vnc-socket-2.fly.dev/"
+            src="https://isaaaaaaaaaaaaaaaaa.fly.dev/"
           />
         </div>
         <BottomBar setSelectedCursor={setSelectedCursor} />
