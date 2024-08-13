@@ -17,7 +17,7 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 }) => {
 
   // GET USERDATA on page load!
-  const realUsername = "User" // for testing 
+  const realUsername = "DavilaDawg" // for testing 
 
   link = "link placeholder";
   members = 4;

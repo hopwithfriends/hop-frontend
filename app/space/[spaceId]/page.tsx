@@ -22,7 +22,7 @@ const SpacePage: React.FC = () => {
           {username ? (
             <CursorContainer username={username} color={color} selectedCursor={selectedCursor} />
           ) : (
-            <SetNickname onSubmit={setUsername} setColorProp={setColor} />
+            <SetNickname onSubmit={setUsername} setColorProp={setColor} realUsername={realUsername}/>
           )}
           <iframe
             className="absolute inset-0 w-full h-full z-10"

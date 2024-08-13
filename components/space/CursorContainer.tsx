@@ -32,21 +32,26 @@ const renderCursors = (
 ) => {
 	return Object.keys(users).map((uuid) => {
 		const user = users[uuid];
+		const cursor = user.state?.cursor || "";
+		const color = user.state?.color || "";
+		const x = user.state?.x ?? 0;
+		const y = user.state?.y ?? 0;
+
 		return (
 			<React.Fragment key={uuid}>
-				{user.state.cursor === "/norm.png" || user.state.cursor === "" ? (
+				{user.state?.cursor === "/norm.png" || user.state?.cursor === "" ? (
 					<Cursor
 						key={uuid}
-						color={user.state.color}
-						point={[user.state.x, user.state.y]}
-						username={user.state.username}
+						color={color}
+						point={[x, y]}
+						username={user.state?.username}
 					/>
 				) : (
 					<CustomCursor
 						key={uuid}
-						point={[user.state.x, user.state.y]}
-						imageUrl={user.state.cursor}
-						username={user.state.username}
+						point={[x,y]}
+						imageUrl={user.state?.cursor}
+						username={user.state?.username}
 					/>
 				)}
 			</React.Fragment>
