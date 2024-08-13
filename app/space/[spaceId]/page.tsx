@@ -8,9 +8,12 @@ import CursorContainer from "@components/space/CursorContainer";
 import SetNickname from "@components/space/SetNickname";
 
 const SpacePage: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string>(""); // actually nickname, isa will change this later 
   const [color, setColor] = useState<string>("");
   const [selectedCursor, setSelectedCursor] = useState<string>("");
+
+  // Get User data /api/user{id}
+  const realUsername = "DavilaDawg" // for testing 
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -29,7 +32,7 @@ const SpacePage: React.FC = () => {
         </div>
         <BottomBar setSelectedCursor={setSelectedCursor} />
       </main>
-      <RightSideBar />
+      <RightSideBar realUsername={realUsername}/>
     </div>
   );
 };

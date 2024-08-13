@@ -43,7 +43,8 @@ export default function RegisterPage() {
 		event.preventDefault();
 		if (validateForm()) {
 			console.log("Form submitted");
-			router.push(`/dashboard?username=${encodeURIComponent(username)}`);
+			// POST DATA 
+			router.push('/dashboard');
 		}
 	};
 

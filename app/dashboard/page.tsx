@@ -17,10 +17,9 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
   screen,
   pfp,
 }) => {
-  const searchParams = useSearchParams();
-  const realUsername = searchParams.get('username') || "user";
 
-  console.log(realUsername);
+  // GET USERDATA on page load!
+  const realUsername = "User" // for testing 
 
   link = "link placeholder";
   members = 4;
@@ -28,7 +27,7 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
   pfp = "/PFP.jpg";
 
   return (
-    <div className="flex bg-gray-700 text-white">
+    <div className="flex bg-gray-700 text-white h-screen">
       <SpaceContainer screen={screen} pfp={pfp} link={link} members={members} realUsername={realUsername} />
     </div>
   );
