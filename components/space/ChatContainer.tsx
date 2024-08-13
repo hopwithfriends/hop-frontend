@@ -41,13 +41,14 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 		});
 	  }, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (lastJsonMessage) {
 			try {
 				const data = lastJsonMessage as ChatMessage;
 				if (
 					data.type === "chat" ||
-					(data.type === "join" )
+					(data.type === "join" && messages.length<1)
 				) {
 					// ONLY WANT JOIN ON PAGE MOUNT
 					setMessages((prevMessages) => [...prevMessages, data]);
