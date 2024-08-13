@@ -2,8 +2,6 @@
 
 import type React from 'react';
 import SpaceContainer from "@components/dashboard/SpaceContainer";
-import { useSearchParams } from 'next/navigation';
-
 interface SpaceContainerProps {
   link?: string;
   members: number;

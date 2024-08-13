@@ -1,11 +1,19 @@
-import React from "react";
+import type React from "react";
 import { FiSend, FiSmile } from "react-icons/fi";
 
-const ChatContainer = () => {
+interface RightSideBarProps {
+	realUsername: string;
+}
+
+const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 	return (
 		<div className="flex flex-col h-full p-4">
 			<p className="text-3xl font-semibold p-2">Chat</p>
-			<div className="flex-grow bg-white rounded-xl p-4 overflow-y-auto" />
+
+			<div className="flex-grow bg-white rounded-xl p-4 overflow-y-auto">
+				<p>{realUsername} joined</p>
+			</div>
+
 			<div className="mt-4">
 				<div className="p-4 border-t border-gray-300">
 					<div className="relative flex items-center">

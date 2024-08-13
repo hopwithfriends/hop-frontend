@@ -12,7 +12,7 @@ const SpacePage: React.FC = () => {
   const [color, setColor] = useState<string>("");
   const [selectedCursor, setSelectedCursor] = useState<string>("");
 
-  // Get User data /api/user{id}
+  // Get User data /api/user
   const realUsername = "DavilaDawg" // for testing 
 
   return (
