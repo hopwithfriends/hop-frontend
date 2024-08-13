@@ -19,7 +19,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
 			</div>
 			<div className="w-1/3 flex justify-end items-center space-x-2">
 				<IoMdVolumeHigh size={24} />
-				<Slider className="w-32" defaultValue={[33]} max={100} step={1} />
+				<Slider className="w-32 bg-gray-400 rounded" defaultValue={[33]} max={100} step={1} />
 			</div>
 		</div>
 	);
