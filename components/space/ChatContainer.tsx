@@ -6,7 +6,6 @@ import useWebSocket from "react-use-websocket";
 interface RightSideBarProps {
 	realUsername: string;
 }
-
 interface ChatMessage {
 	type: "chat" | "join";
 	username: string;
