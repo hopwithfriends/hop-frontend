@@ -20,8 +20,6 @@ const SetNickname: React.FC<NicknameProps> = ({
 	const [color, setColor] = useState("");
 	const [wsUrl, setWsUrl] = useState<string | null>(null);
 
-	// const WS_URL = `ws://localhost:8000?username=${encodeURIComponent(username)}`;
-
 	const { sendJsonMessage } = useWebSocket(wsUrl, {
 		shouldReconnect: () => false,
 		reconnectAttempts: 0,
