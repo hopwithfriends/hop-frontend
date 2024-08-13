@@ -1,4 +1,6 @@
 import "@styles/globals.css";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackServerApp } from "../stack";
 import ConditionalLayout from "@components/layout/ConditionalLayout";
 
 export default function RootLayout({
@@ -9,7 +11,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className="m-0">
-				<ConditionalLayout>{children}</ConditionalLayout>
+				<StackProvider app={stackServerApp}>
+					<StackTheme>{children}</StackTheme>
+				</StackProvider>
 			</body>
 		</html>
 	);
