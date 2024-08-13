@@ -77,7 +77,7 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 			<div className="flex-grow bg-white rounded-xl p-4 overflow-y-auto">
 				{messages.map((msg, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<p key={index}>
+					<p className= "whitespace-pre-wrap break-words bg-slate-500 mt-2 rounded-xl p-1" key={index}>
 						{msg.type === "join"
 							? `${msg.username} joined` // ONLY ON SUBMIT OF SETNICKNAME COMPONENT
 							: `${msg.username}: ${msg.message}`}
