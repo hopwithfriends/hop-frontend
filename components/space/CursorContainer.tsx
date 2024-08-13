@@ -55,6 +55,7 @@ const renderUsersList = (users: Users) => {
 		</ul>
 	);
 };
+
 const CursorContainer: React.FC<HomeProps> = ({
 	username,
 	color,
@@ -64,13 +65,12 @@ const CursorContainer: React.FC<HomeProps> = ({
 	const [isTracking, setIsTracking] = useState(true);
 	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-	const WS_URL = "ws://localhost:8000";
+	//const WS_URL = "ws://localhost:8000";
+	const WS_URL = `ws://localhost:8000?username=${encodeURIComponent(username)}&selectedCursor=${encodeURIComponent(selectedCursor)}&color=${encodeURIComponent(color)}`;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const { sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL, {
-		queryParams: { username },
-	});
+	const { sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL);
 
 	const THROTTLE = 10;
 
@@ -81,6 +81,9 @@ const CursorContainer: React.FC<HomeProps> = ({
 		sendJsonMessage({
 			x: 0,
 			y: 0,
+			cursor: selectedCursor,
+			username: username,
+			color: color,
 		});
 
 		const handleMouseMove = (e: MouseEvent) => {
