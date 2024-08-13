@@ -6,13 +6,13 @@ import randomColor from "randomcolor";
 import useWebSocket from "react-use-websocket";
 import Image from "next/image";
 interface NicknameProps {
-	setUsername: (username: string) => void;
+	onSubmit: (username: string) => void;
 	setColorProp: (color: string) => void;
 	realUsername: string;
 }
 
 const EnterSpace: React.FC<NicknameProps> = ({
-	setUsername,
+	onSubmit,
 	setColorProp,
 	realUsername,
 }) => {
@@ -46,7 +46,7 @@ const EnterSpace: React.FC<NicknameProps> = ({
 	}, [realUsername]);
 
 	const handleClick = () => {
-		setUsername(username);
+		onSubmit(username);
 		sendJsonMessage({
 			type: "setRealUsername",
 			realUsername: realUsername,

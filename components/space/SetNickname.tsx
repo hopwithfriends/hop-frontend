@@ -54,7 +54,7 @@ const SetNickname: React.FC<NicknameProps> = ({
 	};
 
 	return (
-		<div className="relative text-white rounded-xl shadow-lg p-6 w-96 mx-auto mt-[25%] z-50 flex flex-col items-center justify-center">
+		<div className="relative text-white rounded-xl shadow-lg p-6 w-96 mx-auto mt-[27%] z-50 flex flex-col items-center justify-center">
 			<Image
 				src="/images/Logo.webp"
 				alt="Logo"
