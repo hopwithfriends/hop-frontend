@@ -5,6 +5,9 @@ import throttle from "lodash.throttle";
 import { Cursor } from "./Cursor";
 import { CustomCursor } from "./CustomCursor";
 interface UserState {
+	username: string;
+	color: string;
+	cursor: string;
 	x: number;
 	y: number;
 }
@@ -21,30 +24,35 @@ interface HomeProps {
 	selectedCursor: string;
 }
 
-const renderCursors = (users: Users, color: string, selectedCursor: string, username:string) => {
+const renderCursors = (
+	users: Users,
+	color?: string,
+	selectedCursor?: string,
+	username?: string,
+) => {
 	return Object.keys(users).map((uuid) => {
-	  const user = users[uuid];
-	  return (
-		<React.Fragment key={uuid}>
-		  {selectedCursor === "/norm.png" || selectedCursor === "" ? (
-			<Cursor
-			  key={uuid}
-			  color={color}
-			  point={[user.state.x, user.state.y]}
-			  username={username}
-			/>
-		  ) : (
-			<CustomCursor
-			  key={uuid}
-			  point={[user.state.x, user.state.y]}
-			  imageUrl={selectedCursor}
-			  username={username}
-			/>
-		  )}
-		</React.Fragment>
-	  );
+		const user = users[uuid];
+		return (
+			<React.Fragment key={uuid}>
+				{user.state.cursor === "/norm.png" || user.state.cursor === "" ? (
+					<Cursor
+						key={uuid}
+						color={user.state.color}
+						point={[user.state.x, user.state.y]}
+						username={user.state.username}
+					/>
+				) : (
+					<CustomCursor
+						key={uuid}
+						point={[user.state.x, user.state.y]}
+						imageUrl={user.state.cursor}
+						username={user.state.username}
+					/>
+				)}
+			</React.Fragment>
+		);
 	});
-  };
+};
 
 const renderUsersList = (users: Users) => {
 	return (
@@ -89,13 +97,16 @@ const CursorContainer: React.FC<HomeProps> = ({
 		const handleMouseMove = (e: MouseEvent) => {
 			if (containerRef.current) {
 				const rect = containerRef.current.getBoundingClientRect();
-				const newPosition = {
+				const data = {
 					x: e.clientX - rect.left,
 					y: e.clientY - rect.top,
+					cursor: selectedCursor,
+					username: username,
+					color: color,
 				};
-				setMousePosition(newPosition);
+				setMousePosition(data);
 				if (isTracking) {
-					sendJsonMessageThrottled.current(newPosition);
+					sendJsonMessageThrottled.current(data);
 				}
 			}
 		};
@@ -116,7 +127,6 @@ const CursorContainer: React.FC<HomeProps> = ({
 	useEffect(() => {
 		if (lastJsonMessage) {
 			const users = lastJsonMessage as Users;
-
 			const filteredUsers = Object.keys(users).reduce<Users>((acc, uuid) => {
 				if (users[uuid].username !== username) {
 					acc[uuid] = users[uuid];
