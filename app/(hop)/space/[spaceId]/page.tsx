@@ -16,7 +16,7 @@ const SpacePage: React.FC = () => {
 
 	// Get User data /api/user
 	const realUsername = "DavilaDawg"; // for testing
-  //const realUsername= ""
+  //const realUsername= ""; 
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
