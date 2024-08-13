@@ -31,16 +31,6 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 		}
 	}, [readyState]);
 
-	const handleNewMessage = useCallback((newMessage: ChatMessage) => {
-		setMessages((prevMessages) => {
-		  // Only add join messages if it's the first message
-		  if (newMessage.type === "join" && prevMessages.length > 0) {
-			return prevMessages;
-		  }
-		  return [...prevMessages, newMessage];
-		});
-	  }, []);
-
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (lastJsonMessage) {
@@ -48,7 +38,7 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 				const data = lastJsonMessage as ChatMessage;
 				if (
 					data.type === "chat" ||
-					(data.type === "join" && messages.length<1)
+					(data.type === "join" && messages.length < 1)
 				) {
 					// ONLY WANT JOIN ON PAGE MOUNT
 					setMessages((prevMessages) => [...prevMessages, data]);
@@ -76,8 +66,11 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 
 			<div className="flex-grow bg-white rounded-xl p-4 overflow-y-auto">
 				{messages.map((msg, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<p className= "whitespace-pre-wrap break-words bg-slate-500 mt-2 rounded-xl p-1" key={index}>
+					<p
+						className="whitespace-pre-wrap break-words bg-slate-500 border-red-700 border-2 mt-2 rounded-xl p-1"
+						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+						key={index}
+					>
 						{msg.type === "join"
 							? `${msg.username} joined` // ONLY ON SUBMIT OF SETNICKNAME COMPONENT
 							: `${msg.username}: ${msg.message}`}
@@ -100,7 +93,7 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 							onChange={(e) => setInputMessage(e.target.value)}
 							onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
 							placeholder="Type a message..."
-							className="w-full p-2 pl-10 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+							className="w-full p-2 pl-10 pr-10 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 						/>
 						<button
 							type="button"
