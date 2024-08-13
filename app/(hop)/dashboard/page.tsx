@@ -1,4 +1,6 @@
 "use client";
+import type React from 'react';
+
 import { useUser } from "@stackframe/stack";
 import SpaceContainer from "@components/dashboard/SpaceContainer";
 import { useEffect } from "react";
@@ -36,14 +38,19 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 		}
 		fetchUser();
 	}, [user]);
+
 	link = "link placeholder";
 	members = 4;
 	screen = "/placeholder.jpg";
 	pfp = "/PFP.jpg";
 
+	
+  // GET USERDATA on page load!
+  const realUsername = "DavilaDawg" // for testing 
+
 	return (
 		<div className="flex bg-gray-700 text-white h-screen">
-			<SpaceContainer screen={screen} pfp={pfp} link={link} members={members} />
+			<SpaceContainer screen={screen} pfp={pfp} link={link} members={members} realUsername={realUsername}/>
 		</div>
 	);
 };
