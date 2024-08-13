@@ -18,9 +18,9 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
   pfp,
 }) => {
   const searchParams = useSearchParams();
-  const username = searchParams.get('username');
+  const realUsername = searchParams.get('username') || "user";
 
-  console.log(username);
+  console.log(realUsername);
 
   link = "link placeholder";
   members = 4;
@@ -29,7 +29,7 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 
   return (
     <div className="flex bg-gray-700 text-white">
-      <SpaceContainer screen={screen} pfp={pfp} link={link} members={members} />
+      <SpaceContainer screen={screen} pfp={pfp} link={link} members={members} realUsername={realUsername} />
     </div>
   );
 };
