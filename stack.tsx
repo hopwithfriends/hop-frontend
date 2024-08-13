@@ -9,5 +9,6 @@ export const stackServerApp = new StackServerApp({
 		afterSignIn: "/dashboard",
 		signUp: "/sign-up",
 		afterSignUp: "/dashboard",
+		accountSettings: "/account-settings",
 	},
 });
