@@ -1,5 +1,8 @@
-import LeftSidebar from "../../components/layout/LeftSidebar";
+"use client"
+
+import type React from 'react';
 import SpaceContainer from "@components/dashboard/SpaceContainer";
+import { useSearchParams } from 'next/navigation';
 
 interface SpaceContainerProps {
   link?: string;
@@ -14,6 +17,11 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
   screen,
   pfp,
 }) => {
+  const searchParams = useSearchParams();
+  const username = searchParams.get('username');
+
+  console.log(username);
+
   link = "link placeholder";
   members = 4;
   screen = "/placeholder.jpg"
