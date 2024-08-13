@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import randomColor from "randomcolor";
 import useWebSocket from "react-use-websocket";
+import Image from "next/image";
 interface NicknameProps {
 	setUsername: (username: string) => void;
 	setColorProp: (color: string) => void;
@@ -53,17 +54,25 @@ const EnterSpace: React.FC<NicknameProps> = ({
 	};
 
 	return (
-		<>
-			<div className="bg-gray-600 text-white rounded-xl shadow-lg p-6 w-96 mx-auto h-56 mt-[23%] ml-[41%] absolute z-50 ">
-				<button
-					type="button"
-					onClick={handleClick}
-					className="bg-gray-900 hover:bg-gray-950 text-white p-16 ml-8 rounded-xl text-4xl font-bold mt-[1.5%] focus:outline-none focus:ring-2 focus:ring-gray-500"
-				>
-					Connect
-				</button>
-			</div>
-		</>
+		<div className="relative text-white rounded-xl shadow-lg p-6 w-96 mx-auto h-56 mt-[23%] ml-[41%] z-50 flex items-center justify-center">
+			<Image
+				src="/images/Logo.webp"
+				alt="Logo"
+				width={700}
+				height={700} 
+				priority
+				className="absolute z-0"
+			/>
+
+			<button
+				type="button"
+				onClick={handleClick}
+				className="bg-pink-400 hover:bg-pink-500 text-white p-4 rounded-xl text-2xl font-bold absolute z-10"
+				style={{ top: '106%', left: '50%', transform: 'translate(-50%, -50%)' }}
+			>
+				Hop In
+			</button>
+		</div>
 	);
 };
 
