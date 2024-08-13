@@ -4,17 +4,23 @@ import { usePathname } from "next/navigation";
 import LeftSidebar from "@components/layout/LeftSidebar";
 
 export default function ConditionalLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const showSidebar = !["/login", "/register", "/"].includes(pathname);
+	// const pathname = usePathname();
+	// const showSidebar = ![
+	// 	"/",
+	// 	"/login",
+	// 	"/register",
+	// 	"/handler/sign-up",
+	// 	"/handler/sign-in",
+	// ].includes(pathname);
 
-  return (
-    <div className="flex h-screen">
-      {showSidebar && <LeftSidebar />}
-      <main className="flex-1 overflow-auto">{children}</main>
-    </div>
-  );
+	return (
+		<div className="flex h-screen">
+			<LeftSidebar />
+			<main className="flex-1 overflow-auto">{children}</main>
+		</div>
+	);
 }
