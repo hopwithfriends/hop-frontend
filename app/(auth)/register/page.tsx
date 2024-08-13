@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
 	const [username, setUsername] = React.useState("");
@@ -36,10 +37,13 @@ export default function RegisterPage() {
 		return Object.keys(newErrors).length === 0;
 	};
 
+	const router = useRouter(); 
+
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (validateForm()) {
 			console.log("Form submitted");
+			router.push(`/dashboard?username=${encodeURIComponent(username)}`);
 		}
 	};
 
