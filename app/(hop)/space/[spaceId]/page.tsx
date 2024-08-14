@@ -16,8 +16,8 @@ const SpacePage: React.FC = () => {
 	const [member, setMember] = useState<boolean>(true);
 
 	// Get User data /api/user
-	const realUsername = "DavilaDawg"; // for testing
-	//const realUsername= "";
+	//const realUsername = "DavilaDawg"; // for testing
+	const realUsername= "";
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
@@ -28,15 +28,18 @@ const SpacePage: React.FC = () => {
 
 	return (
 		<div>
-			<Image
-				src="/hop.png"
-				alt="Logo"
-				width={150}
-				height={150}
-				priority
-				className="absolute z-50 left-[9.6%] mt-[21.5%] -rotate-90"
-			/>
-
+			{!username ? (
+				<Image
+					src="/hop.png"
+					alt="Logo"
+					width={150}
+					height={150}
+					priority
+					className="absolute z-50 left-[9.6%] mt-[21.5%] -rotate-90"
+				/>
+			) : (
+				""
+			)}
 			<div className="flex h-screen overflow-hidden">
 				<main className="flex-grow flex flex-col overflow-hidden relative">
 					<div className="relative flex-grow">
