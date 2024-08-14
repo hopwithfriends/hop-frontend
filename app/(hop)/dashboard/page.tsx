@@ -3,19 +3,7 @@ import { useUser } from "@stackframe/stack";
 import SpaceContainer from "@components/dashboard/SpaceContainer";
 import { useEffect } from "react";
 
-interface SpaceContainerProps {
-	link?: string;
-	members: number;
-	screen: string;
-	pfp: string;
-}
-
-const Dashboard: React.FC<SpaceContainerProps> = ({
-	link,
-	members,
-	screen,
-	pfp,
-}) => {
+const Dashboard: React.FC = () => {
 	const user = useUser({ or: "redirect" });
 	useEffect(() => {
 		async function fetchUser() {
@@ -36,10 +24,11 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 		}
 		fetchUser();
 	}, [user]);
-	link = "link placeholder";
-	members = 4;
-	screen = "/placeholder.jpg";
-	pfp = "/PFP.jpg";
+
+	const link = "link placeholder";
+	const members = 4;
+	const screen = "/placeholder.jpg";
+	const pfp = "/PFP.jpg";
 
 	return (
 		<div className="flex bg-gray-700 text-white h-screen">

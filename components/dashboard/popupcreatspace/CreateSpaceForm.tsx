@@ -48,8 +48,6 @@ const CreateSpaceForm: React.FC = () => {
 				setLoading(false);
 			}
 		};
-
-		fetchUsers();
 	}, [user]);
 
 	useEffect(() => {
