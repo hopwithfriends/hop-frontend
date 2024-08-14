@@ -3,34 +3,48 @@ import type React from "react";
 
 import { useUser } from "@stackframe/stack";
 import SpaceContainer from "@components/dashboard/SpaceContainer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ServiceMethods } from "@lib/servicesMethods";
 
-const Dashboard: React.FC = () => {
+interface SpaceContainerProps {
+	link?: string;
+	members: number;
+	screen: string;
+	pfp: string;
+}
+
+interface UserDataType {
+	userId: string;
+	username: string;
+	nickname: string;
+	profilePicture: string;
+}
+
+const Dashboard: React.FC<SpaceContainerProps> = ({
+	link,
+	members,
+	screen,
+	pfp,
+}) => {
 	const user = useUser({ or: "redirect" });
+	const [userData, setUserData] = useState<UserDataType>();
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		async function fetchUser() {
+		async function fetchData() {
 			const { accessToken, refreshToken } = await user.getAuthJson();
-			const res = await fetch("https://hop-backend.fly.dev/api/user", {
-				headers: {
-					"x-stack-access-token": accessToken ?? "",
-					"x-stack-refresh-token": refreshToken ?? "",
-				},
-			});
-
-			if (res.ok) {
-				const data = await res.json();
-				console.log(data);
-			} else {
-				console.error("Failed to fetch user data");
-			}
+			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+			const userDataReq = await serviceMethods.fetchUser();
+			setUserData(userDataReq);
+			return userData;
 		}
-		fetchUser();
-	}, [user]);
+		fetchData();
+	}, []);
 
-	const link = "link placeholder";
-	const members = 4;
-	const screen = "/placeholder.jpg";
-	const pfp = "/PFP.jpg";
+	link = "link placeholder";
+	members = 4;
+	screen = "/placeholder.jpg";
+	pfp = "/PFP.jpg";
 
 	return (
 		<div className="flex bg-gray-700 text-white h-screen">
@@ -39,7 +53,7 @@ const Dashboard: React.FC = () => {
 				pfp={pfp}
 				link={link}
 				members={members}
-				realUsername={""}
+				realUsername={userData?.username}
 			/>
 		</div>
 	);
