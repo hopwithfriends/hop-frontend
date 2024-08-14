@@ -21,6 +21,7 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({
 					src={screen}
 					alt="Space"
 					fill={true}
+					sizes="100%"
 					priority
 					className="rounded-xl object-cover"
 				/>
@@ -37,6 +38,7 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({
 					<Image
 						src={pfp}
 						alt="Member Icon"
+						sizes="100%"
 						fill={true}
 						className="rounded-[10px] object-fill"
 					/>

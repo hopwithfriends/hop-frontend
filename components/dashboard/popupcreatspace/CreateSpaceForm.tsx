@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
+import { useUser } from "@stackframe/stack";
 
 interface User {
 	id: string;
@@ -8,7 +9,8 @@ interface User {
 	profilePicture?: string;
 }
 
-const AddMembers: React.FC = () => {
+const CreateSpaceForm: React.FC = () => {
+	const user = useUser({ or: "redirect" });
 	const [users, setUsers] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -21,10 +23,21 @@ const AddMembers: React.FC = () => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await fetch("http://localhost:3000/api/user");
+				const { accessToken, refreshToken } = await user.getAuthJson();
+
+				const response = await fetch("http://localhost:8080/api/user/friend", {
+					headers: {
+						"x-stack-access-token": accessToken ?? "",
+						"x-stack-refresh-token": refreshToken ?? "",
+					},
+				});
+
 				if (!response.ok) {
-					throw new Error("Failed to fetch users");
+					throw new Error(
+						`Failed to fetch users: ${response.status} ${response.statusText}`,
+					);
 				}
+
 				const data = await response.json();
 				setUsers(data);
 			} catch (error) {
@@ -37,7 +50,7 @@ const AddMembers: React.FC = () => {
 		};
 
 		fetchUsers();
-	}, []);
+	}, [user]);
 
 	useEffect(() => {
 		if (searchQuery) {
@@ -180,4 +193,4 @@ const AddMembers: React.FC = () => {
 	);
 };
 
-export default AddMembers;
+export default CreateSpaceForm;

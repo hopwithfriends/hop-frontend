@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import SpacePopup from "./SpacePopup";
-import AddMembers from "./popupcreatspace/AddMembers";
-import { CreateNewSpace } from "./popupcreatspace/CreateNewSpace";
+import CreateSpaceForm from "./popupcreatspace/CreateSpaceForm";
 
 const CreateSpaceButton = () => {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -27,7 +26,7 @@ const CreateSpaceButton = () => {
 			</div>
 			<SpacePopup isOpen={isPopupOpen} onClose={handleClosePopup}>
 				<div className="p-6">
-					<CreateNewSpace />
+					<CreateSpaceForm />
 				</div>
 			</SpacePopup>
 		</>
