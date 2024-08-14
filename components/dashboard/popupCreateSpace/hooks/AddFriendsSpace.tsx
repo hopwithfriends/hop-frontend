@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useUser } from "@stackframe/stack";
+import { ApiService } from "@lib/services";
 
 interface AddUserToSpaceParams {
 	spaceId: string;
@@ -14,6 +16,7 @@ interface AddUserToSpaceResult {
 }
 
 const useAddUserToSpace = (): AddUserToSpaceResult => {
+	const user = useUser({ or: "redirect" });
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
@@ -24,17 +27,13 @@ const useAddUserToSpace = (): AddUserToSpaceResult => {
 		setSuccess(false);
 
 		try {
-			const response = await fetch("http://localhost:8080/api/space/addUser", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(params),
-			});
-
-			if (!response.ok) {
-				throw new Error("Failed to add user");
+			const { accessToken, refreshToken } = await user.getAuthJson();
+			if (!accessToken || !refreshToken) {
+				throw new Error("Access/refresh token are required for the ApiService");
 			}
+
+			const apiService = new ApiService(accessToken, refreshToken);
+			await apiService.post("/space/addUser", params);
 
 			setSuccess(true);
 			console.log("User added successfully");

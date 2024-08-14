@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SpacePopup from "./SpacePopup";
-import CreateSpaceForm from "./popupcreatspace/CreateSpaceForm";
+import CreateSpaceForm from "./popupCreateSpace/CreateSpaceForm";
 
 const CreateSpaceButton = () => {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);

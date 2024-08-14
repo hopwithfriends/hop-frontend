@@ -25,10 +25,11 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 			</Link>
 			<nav className="flex-1 flex flex-col items-center">
 				<Link href="/friends">
-					<Button className="w-[270px] mt-1 flex items-center justify-center rounded-xl">
+					{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+					<button className="bg-gray-800 w-[240px] h-[40px] mt-1 flex items-center justify-center rounded transition-transform transform hover:scale-105">
 						<FaUserFriends className="text-2xl text-black mr-3" />
 						<span>Friends</span>
-					</Button>
+					</button>
 				</Link>
 				<p className="text-2xl font-bold text-white mt-5 mb-1">
 					Online Friends
