@@ -24,8 +24,8 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			const res = await fetch("https://hop-backend.fly.dev/api/user", {
 				headers: {
-					"x-stack-access-token": accessToken,
-					"x-stack-refresh-token": refreshToken,
+					"x-stack-access-token": accessToken ?? "",
+					"x-stack-refresh-token": refreshToken ?? "",
 				},
 			});
 
