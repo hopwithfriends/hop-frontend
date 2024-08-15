@@ -18,7 +18,7 @@ const ProfilePicUploader: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      <h2 className="text-2xl font-bold">Profile Picture</h2>
+      <h2 className="text-2xl font-bold">Seletct Profile Picture</h2>
       <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-200">
         {selectedImage ? (
           <Image
@@ -43,7 +43,7 @@ const ProfilePicUploader: React.FC = () => {
       />
       <label
         htmlFor="profilePicUpload"
-        className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 transition-colors"
+        className="px-4 py-2 bg-blue-500 text-white shadow-lg cursor-pointer hover:bg-blue-600 transition-colors"
       >
         Select Image
       </label>
