@@ -1,25 +1,50 @@
+"use client";
+
 import ScrollBar from "@components/ui/SrollBar";
 import type React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { FiSend, FiSmile } from "react-icons/fi";
 import useWebSocket from "react-use-websocket";
-interface RightSideBarProps {
-	realUsername: string;
-}
+import { ServiceMethods } from "@lib/servicesMethods";
+import { useUser } from "@stackframe/stack";
+
 interface ChatMessage {
 	type: "chat" | "join";
 	username: string;
 	message?: string;
 }
 
-const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
+const ChatContainer: React.FC<ChatMessage> = () => {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [inputMessage, setInputMessage] = useState("");
+	const [username, setUsername] = useState("");
+	const user = useUser({ or: "redirect" });
 
-	//const WS_URL = `ws://localhost:8000?username=${encodeURIComponent(realUsername)}`;
+	const fetch = async () => {
+		try {
+			const { accessToken, refreshToken } = await user.getAuthJson();
+			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+			const result = await serviceMethods.fetchUser();
+			return result;
+		} catch (error) {
+			console.error("Error during submission:", error);
+		}
+	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		const fetchAndSetUserData = async () => {
+			const result = await fetch();
+			if (result) {
+				setUsername(result.username);
+			}
+		};
+		fetchAndSetUserData();
+	}, [user]);
+
 	const WS_URL = useMemo(
-		() => `ws://localhost:8000?username=${encodeURIComponent(realUsername)}`,
-		[realUsername],
+		() => `ws://localhost:8000?username=${encodeURIComponent(username)}`,
+		[username],
 	);
 
 	const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL);
@@ -27,7 +52,6 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 	useEffect(() => {
 		if (readyState === WebSocket.CLOSED) {
 			console.error("WebSocket connection closed unexpectedly");
-			// Handle reconnection or inform user
 		}
 	}, [readyState]);
 
@@ -52,7 +76,7 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 		if (inputMessage.trim()) {
 			sendJsonMessage({
 				type: "chat",
-				username: realUsername,
+				username: username,
 				message: inputMessage,
 			});
 			setInputMessage("");
@@ -79,8 +103,8 @@ const ChatContainer: React.FC<RightSideBarProps> = ({ realUsername }) => {
 									key={index}
 								>
 									{isJoinMessage
-										? `${msg.username} joined`
-										: `${msg.username}: ${msg.message}`}
+										? `${username} joined`
+										: `${username}: ${msg.message}`}
 								</p>
 							);
 						})}
