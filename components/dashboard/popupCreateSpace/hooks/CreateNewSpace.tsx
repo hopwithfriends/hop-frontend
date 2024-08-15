@@ -4,11 +4,11 @@ import { ServiceMethods } from "@lib/servicesMethods";
 
 interface CreateSpaceParams {
 	name: string;
+	theme: string;
+	id: string;
+	password: string;
 	flyUrl: string;
 	userId: string;
-	theme: string;
-	spaceId: string; // Add this line
-	password: string; // Add this line
 }
 
 interface CreateSpaceResult {
@@ -38,7 +38,12 @@ const useCreateSpace = (): CreateSpaceResult => {
 			}
 
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
-			await serviceMethods.fetchCreateSpace(params.name, params.theme);
+			await serviceMethods.fetchCreateSpace(
+				params.name,
+				params.theme,
+				params.id,
+				params.password,
+			);
 
 			setSuccess(true);
 			console.log("Space created successfully");
