@@ -45,8 +45,9 @@ const InviteComponent: React.FC<InviteProps> = ({
 					<Image
 						src={pfp}
 						alt="Member Icon"
-						fill
-						style={{ objectFit: "cover" }}
+						fill={true}
+						sizes="100%"
+						className="object-cover"
 					/>
 				</div>
 				<div className="flex-1 flex flex-col justify-center ml-3">

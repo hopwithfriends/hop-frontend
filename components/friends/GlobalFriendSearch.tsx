@@ -1,76 +1,86 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Search, UserPlus, X } from "lucide-react";
+import { useState } from "react";
+import { UserPlus, X } from "lucide-react";
 import PopContainer from "./PopUpContainer";
-import FriendProfile from "./FriendProfile";
-import SingleFriend from "./FriendComponent";
+import { ServiceMethods } from "@lib/servicesMethods";
+import { useUser } from "@stackframe/stack";
 
-interface Friend {
-	id: string;
-	nickname: string;
-	username: string;
-	profilePicture?: string;
-	isOnline?: boolean;
-	currentRoom?: string;
+interface AddFriendComponentProps {
+	onAddFriend: (friendId: string) => void;
 }
 
-interface GlobalFriendSearchProps {
-	onSearch: (query: string) => void;
-	friends: Friend[];
-}
-
-const GlobalFriendSearch: React.FC<GlobalFriendSearchProps> = ({
-	onSearch,
-	friends,
+const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
+	onAddFriend,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [searchQuery, setSearchQuery] = useState("");
-	const [searchResults, setSearchResults] = useState<Friend[]>([]);
-	const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
+	const [friendId, setFriendId] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [success, setSuccess] = useState(false);
 
-	useEffect(() => {
-		if (searchQuery) {
-			const filtered = friends.filter(
-				(friend) =>
-					friend.nickname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-					friend.username.toLowerCase().includes(searchQuery.toLowerCase()),
-			);
-			setSearchResults(filtered);
-		} else {
-			setSearchResults([]);
-		}
-	}, [searchQuery, friends]);
+	const user = useUser({ or: "redirect" });
 
-	const toggleSearch = () => {
+	const togglePopup = () => {
 		setIsOpen(!isOpen);
 		if (!isOpen) {
-			setSearchQuery("");
-			setSearchResults([]);
-			setSelectedFriend(null);
+			setFriendId("");
+			setError(null);
+			setSuccess(false);
 		}
-	};
-
-	const handleSearch = (e: React.FormEvent) => {
-		e.preventDefault();
-		onSearch(searchQuery);
 	};
 
 	const handleClose = () => {
 		setIsOpen(false);
-		setSearchQuery("");
-		setSearchResults([]);
-		setSelectedFriend(null);
+		setFriendId("");
+		setError(null);
+		setSuccess(false);
 	};
 
-	const handleFriendClick = (friend: Friend) => {
-		setSelectedFriend(friend);
+	const addFriend = async (e: React.FormEvent) => {
+		e.preventDefault();
+		if (!friendId.trim()) {
+			setError("Please enter a friend ID");
+			return;
+		}
+
+		setLoading(true);
+		setError(null);
+		setSuccess(false);
+
+		try {
+			const { accessToken, refreshToken } = await user.getAuthJson();
+			const serviceMethods = new ServiceMethods(
+				accessToken || "",
+				refreshToken || "",
+			);
+			const response = await serviceMethods.fetchAddFriend(friendId);
+
+			const result = await response.json();
+
+			if (response.ok) {
+				setSuccess(true);
+				setFriendId("");
+				onAddFriend(friendId);
+			} else {
+				throw new Error(result.message || "Failed to add friend");
+			}
+		} catch (err) {
+			console.error("Error adding friend:", err);
+			if (err instanceof Error) {
+				setError(`Failed to add friend: ${err.message}`);
+			} else {
+				setError("An unexpected error occurred while adding friend.");
+			}
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
 		<>
 			<button
-				onClick={toggleSearch}
+				onClick={togglePopup}
 				className="absolute bottom-6 right-6 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center focus:outline-none hover:bg-blue-600 transition-colors duration-200 shadow-lg"
 				type="button"
 			>
@@ -79,40 +89,44 @@ const GlobalFriendSearch: React.FC<GlobalFriendSearchProps> = ({
 
 			<PopContainer isOpen={isOpen} onClose={handleClose}>
 				<div className="p-6 w-96">
-					<h2 className="text-2xl font-bold mb-4 text-white">Find Friends</h2>
-					<form onSubmit={handleSearch} className="mb-4">
+					<h2 className="text-2xl font-bold mb-4 text-white">Add Friend</h2>
+					<form onSubmit={addFriend} className="mb-4">
 						<div className="flex">
 							<input
-								id="global-add-friend-input"
+								id="add-friend-input"
 								type="text"
-								placeholder="Search for friends..."
-								value={searchQuery}
-								onChange={(e) => setSearchQuery(e.target.value)}
+								placeholder="Enter friend ID..."
+								value={friendId}
+								onChange={(e) => setFriendId(e.target.value)}
 								className="flex-grow h-10 px-3 py-1 bg-gray-700 text-white placeholder-gray-400 focus:outline-none rounded-l-md text-sm"
 							/>
 							<button
 								type="submit"
 								className="h-10 bg-blue-500 text-white px-4 rounded-r-md hover:bg-blue-600 transition-colors duration-200"
+								disabled={loading}
 							>
-								<Search size={16} />
+								{loading ? "Adding..." : "Add"}
 							</button>
 						</div>
 					</form>
 
-					{selectedFriend ? (
-						<FriendProfile
-							friend={selectedFriend}
-							onClose={() => setSelectedFriend(null)}
-						/>
-					) : (
-						<div className="max-h-80 overflow-y-auto">
-							{searchResults.map((friend) => (
-								<SingleFriend
-									key={friend.id}
-									{...friend}
-									onClick={() => handleFriendClick(friend)}
-								/>
-							))}
+					{error && (
+						<div
+							className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
+							role="alert"
+						>
+							<div className="font-medium">Error</div>
+							<div>{error}</div>
+						</div>
+					)}
+
+					{success && (
+						<div
+							className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+							role="alert"
+						>
+							<div className="font-medium">Success</div>
+							<div>Friend added successfully!</div>
 						</div>
 					)}
 
@@ -129,4 +143,4 @@ const GlobalFriendSearch: React.FC<GlobalFriendSearchProps> = ({
 	);
 };
 
-export default GlobalFriendSearch;
+export default AddFriendComponent;

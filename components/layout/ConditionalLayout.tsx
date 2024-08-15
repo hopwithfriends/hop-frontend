@@ -1,7 +1,15 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import LeftSidebar from "@components/layout/LeftSidebar";
+
+interface Friend {
+	id: string;
+	nickname: string;
+	username: string;
+	profilePicture?: string;
+	isOnline?: boolean;
+	currentRoom?: string;
+}
 
 export default function ConditionalLayout({
 	children,
@@ -19,7 +27,7 @@ export default function ConditionalLayout({
 
 	return (
 		<div className="flex h-screen">
-			<LeftSidebar />
+			<LeftSidebar friends={[]} />
 			<main className="flex-1 overflow-auto">{children}</main>
 		</div>
 	);

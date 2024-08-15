@@ -33,7 +33,10 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 	useEffect(() => {
 		async function fetchData() {
 			const { accessToken, refreshToken } = await user.getAuthJson();
-			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+			const serviceMethods = new ServiceMethods(
+				accessToken || "",
+				refreshToken || "",
+			);
 			const userDataReq = await serviceMethods.fetchUser();
 			setUserData(userDataReq);
 			console.log("dash userdata:", userData) 
@@ -54,7 +57,7 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 				pfp={userData?.profilePicture}
 				link={link}
 				members={members}
-				realUsername={userData?.username}
+				realUsername={userData?.username || ""}
 			/>
 		</div>
 	);

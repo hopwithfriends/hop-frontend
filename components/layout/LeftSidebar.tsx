@@ -4,7 +4,20 @@ import { Button } from "@components/ui/Button";
 import { FaUserFriends } from "react-icons/fa";
 import OnlineFriendsContainer from "./OnlineFriendsContainer";
 
-const LeftSidebar = () => {
+interface Friend {
+	id: string;
+	nickname: string;
+	username: string;
+	profilePicture?: string;
+	isOnline?: boolean;
+	currentRoom?: string;
+}
+
+interface LeftSidebarProps {
+	friends: Friend[];
+}
+
+const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 	return (
 		<div className="bg-gray-600 text-white p-6 w-72 h-screen flex flex-col shadow-xl rounded-r-lg">
 			<Link href="/dashboard">
@@ -21,11 +34,7 @@ const LeftSidebar = () => {
 				<p className="text-2xl font-bold text-white mt-5 mb-1">
 					Online Friends
 				</p>
-				<OnlineFriendsContainer
-					username="yourUsername"
-					spaceName="yourSpaceName"
-					pfp="yourPfp"
-				/>
+				<OnlineFriendsContainer friends={friends} />
 			</nav>
 		</div>
 	);
