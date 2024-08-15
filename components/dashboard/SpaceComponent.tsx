@@ -27,7 +27,7 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({
 				/>
 			</div>
 			<div className="flex items-center text-sm sm:text-base">
-				<div className="pr-60">
+				<div className="pr-96">
 					<div className="flex items-center">
 						<p className="font-bold">Space Name</p>
 						{link && <IoLink className="w-5 h-5 ml-2 text-gray-500" />}
