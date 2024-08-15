@@ -20,7 +20,6 @@ export class ApiService {
   }
 
   async get(endpoint: string) {
-    console.log('udhauydhwa');
     const res = await fetch(`${this.BASE_URL}${endpoint}`, {
       headers: this.getHeaders()
     });
