@@ -1,22 +1,25 @@
-"use client"
+"use client";
 
 import OnlineFriend from "@components/friends/OnlineFriend";
-import ScrollBar from "@components/ui/SrollBar";
 import { useState } from "react";
-interface OnlineProps {
+
+interface Friend {
+	id: string;
+	nickname: string;
 	username: string;
-	spaceName: string;
-	pfp: string;
+	profilePicture?: string;
+	isOnline?: boolean;
+	currentRoom?: string;
 }
 
-const OnlineFriendsContainer: React.FC<OnlineProps> = ({
-	spaceName,
-	username,
-	pfp,
+interface OnlineFriendsContainerProps {
+	friends: Friend[];
+}
+
+const OnlineFriendsContainer: React.FC<OnlineFriendsContainerProps> = ({
+	friends,
 }) => {
-	username = "Username";
-	spaceName = "Space name";
-	pfp = "/PFP.jpg";
+	const onlineFriends = friends.filter((friend) => friend.isOnline);
 
 	const [onlineUser, setOnlineUser] = useState([
 		{ id: "1", spaceName: "Space 1", username: "User 1", pfp: "/ani.jpg" },
@@ -29,16 +32,19 @@ const OnlineFriendsContainer: React.FC<OnlineProps> = ({
 
 	return (
 		<div className="bg-gray-800 w-full h-full p-4 rounded-xl shadow-lg border border-gray-700 overflow-auto">
-			<ScrollBar>
-			{onlineUser.map((el) => (
-				<OnlineFriend
-					key={el.id}
-					spaceName={el.spaceName}
-					username={el.username}
-					pfp={el.pfp}
-				/>
-			))}
-			</ScrollBar>
+			<ul className="space-y-3">
+				{onlineFriends.map((friend) => (
+					<li key={friend.id}>
+						<OnlineFriend
+							nickname={friend.nickname}
+							username={friend.username}
+							profilePicture={friend.profilePicture}
+							currentRoom={friend.currentRoom}
+							id={""}
+						/>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 };

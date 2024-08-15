@@ -1,10 +1,11 @@
 "use client";
-
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import SingleFriend from "./FriendComponent";
-import FriendProfile from "./FriendProfile";
+import FriendProfileRemoveBTN from "./FriendProfileRemove";
 import SlidingSearchBar from "./SearchFreands";
 import GlobalFriendSearch from "./GlobalFriendSearch";
+import { ServiceMethods } from "@lib/servicesMethods";
+import { useUser } from "@stackframe/stack";
 
 interface Friend {
 	id: string;
@@ -16,50 +17,52 @@ interface Friend {
 }
 
 const FriendList: React.FC = () => {
+	const user = useUser({ or: "redirect" });
 	const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [friends, setFriends] = useState<Friend[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+	const [hasFetched, setHasFetched] = useState(false);
 
-	const friends: Friend[] = [
-		{
-			id: "1",
-			nickname: "John Doe",
-			username: "johndoe",
-			isOnline: true,
-			currentRoom: "Gaming Lounge",
-		},
-		{
-			id: "2",
-			nickname: "Jane Smith",
-			username: "janesmith",
-			isOnline: false,
-		},
-		{
-			id: "3",
-			nickname: "Alice",
-			username: "alice",
-			isOnline: true,
-		},
-		{
-			id: "4",
-			nickname: "Bob",
-			username: "bob",
-			isOnline: true,
-		},
-		{
-			id: "5",
-			nickname: "Charlie",
-			username: "charlie",
-			isOnline: true,
-		},
-	];
+	const fetchFriends = useCallback(async () => {
+		if (!user || hasFetched) return;
+		setLoading(true);
+		setError(null);
+		try {
+			const { accessToken, refreshToken } = await user.getAuthJson();
+			const serviceMethods = new ServiceMethods(
+				accessToken || "",
+				refreshToken || "",
+			);
+			const response = await serviceMethods.fetchAllFriends();
+			setFriends(response);
+			setHasFetched(true);
+		} catch (err) {
+			console.error("Error fetching friends:", err);
+			setError(
+				err instanceof Error
+					? `Failed to fetch friends: ${err.message}`
+					: "An unexpected error occurred while fetching friends.",
+			);
+		} finally {
+			setLoading(false);
+		}
+	}, [user, hasFetched]);
+
+	useEffect(() => {
+		fetchFriends();
+	}, [fetchFriends]);
 
 	const filteredFriends = useMemo(() => {
-		return friends.filter(
-			(friend) =>
-				friend.nickname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				friend.username.toLowerCase().includes(searchQuery.toLowerCase()),
-		);
-	}, [searchQuery]);
+		return friends.filter((friend) => {
+			const lowercaseQuery = searchQuery.toLowerCase();
+			return (
+				(friend.nickname?.toLowerCase() || "").includes(lowercaseQuery) ||
+				(friend.username?.toLowerCase() || "").includes(lowercaseQuery)
+			);
+		});
+	}, [searchQuery, friends]);
 
 	const handleFriendClick = (friend: Friend) => {
 		setSelectedFriend(friend);
@@ -72,6 +75,25 @@ const FriendList: React.FC = () => {
 	const handleGlobalAddFriend = (query: string) => {
 		console.log("Searching for new friend:", query);
 	};
+
+	const handleCloseProfile = () => {
+		setSelectedFriend(null);
+	};
+
+	const handleFriendRemoved = (friendId: string) => {
+		setFriends((prevFriends) =>
+			prevFriends.filter((friend) => friend.id !== friendId),
+		);
+		setSelectedFriend(null);
+	};
+
+	if (loading && friends.length === 0) {
+		return <div className="text-center">Loading friends...</div>;
+	}
+
+	if (error && friends.length === 0) {
+		return <div className="text-center text-red-500">{error}</div>;
+	}
 
 	return (
 		<div className="flex h-full w-full ml-3 mr-3 mt-4 rounded-xl bg-gray-600 relative">
@@ -94,9 +116,10 @@ const FriendList: React.FC = () => {
 			</div>
 			<div className="w-3/5 p-6">
 				{selectedFriend ? (
-					<FriendProfile
+					<FriendProfileRemoveBTN
 						friend={selectedFriend}
-						onClose={() => setSelectedFriend(null)}
+						onClose={handleCloseProfile}
+						onFriendRemoved={handleFriendRemoved}
 					/>
 				) : (
 					<div className="flex items-center justify-center h-full text-gray-400">
@@ -104,7 +127,7 @@ const FriendList: React.FC = () => {
 					</div>
 				)}
 			</div>
-			<GlobalFriendSearch onSearch={handleGlobalAddFriend} friends={friends} />
+			<GlobalFriendSearch onAddFriend={handleGlobalAddFriend} />
 		</div>
 	);
 };

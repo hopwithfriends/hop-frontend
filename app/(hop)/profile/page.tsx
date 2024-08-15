@@ -1,6 +1,4 @@
 "use client";
-import BuyCursor from "@components/profile/BuyCursor";
-import ProfilePicUploader from "@components/profile/ProfilePicUploader";
 import { useUser } from "@stackframe/stack";
 
 // ! ========== WARNING ===========
@@ -15,8 +13,6 @@ const ProfilePage = () => {
 		<div>
 			<h1>Profile</h1>
 			<p>{user.displayName}</p>
-			<ProfilePicUploader />
-			<BuyCursor/>
 		</div>
 	);
 };
