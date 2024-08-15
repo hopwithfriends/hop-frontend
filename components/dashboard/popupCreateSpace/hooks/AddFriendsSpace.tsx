@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser } from "@stackframe/stack";
-import { ApiService } from "@lib/services";
+import { ServiceMethods } from "@lib/servicesMethods";
 
 interface AddUserToSpaceParams {
 	spaceId: string;
@@ -29,17 +29,22 @@ const useAddUserToSpace = (): AddUserToSpaceResult => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			if (!accessToken || !refreshToken) {
-				throw new Error("Access/refresh token are required for the ApiService");
+				throw new Error(
+					"Access/refresh token are required for the ServiceMethods",
+				);
 			}
 
-			const apiService = new ApiService(accessToken, refreshToken);
-			await apiService.post("/space/addUser", params);
+			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+			await serviceMethods.fetchAddFriendToSpace(params.spaceId, params.userId);
 
 			setSuccess(true);
-			console.log("User added successfully");
+			console.log("User added to space successfully");
 		} catch (error) {
+			console.error("Error adding user to space:", error);
 			setError(
-				error instanceof Error ? error.message : "An unknown error occurred",
+				error instanceof Error
+					? error.message
+					: "An unexpected error occurred while adding user to space",
 			);
 		} finally {
 			setLoading(false);

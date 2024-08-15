@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import { Search, X } from "lucide-react";
+import { Search, X, Copy } from "lucide-react";
 import { debounce } from "lodash";
-import useFetchUsers from "./hooks/FetchUsersFriends";
 import useCreateSpace from "./hooks/CreateNewSpace";
 import useAddUserToSpace from "./hooks/AddFriendsSpace";
+import { useUser } from "@stackframe/stack";
+import { ServiceMethods } from "@lib/servicesMethods";
+import { generateUUID, generatePassword } from "./UUID&PasswordGenerator";
 
 interface User {
 	id: string;
@@ -13,7 +15,11 @@ interface User {
 }
 
 const CreateSpaceForm: React.FC = () => {
-	const { users, loading: fetchingUsers, error: fetchError } = useFetchUsers();
+	const user = useUser({ or: "redirect" });
+	const [friends, setFriends] = useState<User[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+
 	const {
 		createSpace,
 		loading: creating,
@@ -21,22 +27,55 @@ const CreateSpaceForm: React.FC = () => {
 		success,
 	} = useCreateSpace();
 	const { addUser, loading: adding, error: addError } = useAddUserToSpace();
+
 	const [searchQuery, setSearchQuery] = useState("");
 	const [searchResults, setSearchResults] = useState<User[]>([]);
 	const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
 	const [spaceName, setSpaceName] = useState("");
 	const [isPrivate, setIsPrivate] = useState(false);
 	const [spaceId, setSpaceId] = useState<string | null>(null);
+	const [spacePassword, setSpacePassword] = useState<string | null>(null);
+	const [isSpaceCreated, setIsSpaceCreated] = useState(false);
 
+	useEffect(() => {
+		const fetchFriends = async () => {
+			setLoading(true);
+			setError(null);
+			try {
+				const { accessToken, refreshToken } = await user.getAuthJson();
+				const serviceMethods = new ServiceMethods(
+					accessToken || "",
+					refreshToken || "",
+				);
+				const response = await serviceMethods.fetchAllFriends();
+				setFriends(response);
+			} catch (err) {
+				console.error("Error fetching friends:", err);
+				setError(
+					err instanceof Error
+						? `Failed to fetch friends: ${err.message}`
+						: "An unexpected error occurred while fetching friends.",
+				);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchFriends();
+	}, [user]);
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const debouncedSearch = useCallback(
 		debounce((query: string) => {
-			if (query) {
-				const filtered = users
+			if (query && friends) {
+				const filtered = friends
 					.filter(
-						(user) =>
-							user.nickname.toLowerCase().includes(query.toLowerCase()) ||
-							user.username.toLowerCase().includes(query.toLowerCase()),
+						(friend) =>
+							(friend.nickname?.toLowerCase() || "").includes(
+								query.toLowerCase(),
+							) ||
+							(friend.username?.toLowerCase() || "").includes(
+								query.toLowerCase(),
+							),
 					)
 					.slice(0, 4);
 				setSearchResults(filtered);
@@ -44,9 +83,8 @@ const CreateSpaceForm: React.FC = () => {
 				setSearchResults([]);
 			}
 		}, 300),
-		[users],
+		[friends],
 	);
-
 	useEffect(() => {
 		debouncedSearch(searchQuery);
 	}, [searchQuery, debouncedSearch]);
@@ -88,28 +126,33 @@ const CreateSpaceForm: React.FC = () => {
 			return;
 		}
 
+		const newSpaceId = generateUUID();
+		const newSpacePassword = generatePassword();
+
 		try {
 			await createSpace({
 				name: spaceName,
 				flyUrl: "",
-				userId: "",
-				theme: "",
+				userId: "", // You might want to pass the current user's ID here
+				theme: "default",
+				spaceId: newSpaceId,
+				password: newSpacePassword,
 			});
 
 			if (success) {
+				setSpaceId(newSpaceId);
+				setSpacePassword(newSpacePassword);
+				setIsSpaceCreated(true);
+
 				for (const user of selectedUsers) {
 					await addUser({
-						spaceId: "",
+						spaceId: newSpaceId,
 						userId: user.id,
 						role: "member",
 					});
 				}
 
 				alert("Space created successfully and members added!");
-				// Reset form
-				setSpaceName("");
-				setSelectedUsers([]);
-				setIsPrivate(false);
 			}
 		} catch (error) {
 			console.error("Failed to create space or add members:", error);
@@ -117,8 +160,19 @@ const CreateSpaceForm: React.FC = () => {
 		}
 	};
 
-	if (fetchingUsers) return <div>Loading users...</div>;
-	if (fetchError) return <div>Error: {fetchError}</div>;
+	const copyToClipboard = (text: string) => {
+		navigator.clipboard.writeText(text).then(
+			() => {
+				alert("Copied to clipboard!");
+			},
+			(err) => {
+				console.error("Could not copy text: ", err);
+			},
+		);
+	};
+
+	if (loading) return <div>Loading friends...</div>;
+	if (error) return <div>Error: {error}</div>;
 
 	return (
 		<div className="w-full max-w-md mx-auto p-4 bg-gray-800 rounded-lg">
@@ -146,7 +200,7 @@ const CreateSpaceForm: React.FC = () => {
 						<Search size={16} />
 					</button>
 				</div>
-				<div className="absolute top-full left-0 right-0 z-10 bg-slate-400/30 backdrop-blur-sm rounded-b-xl shadow-lg">
+				<div className="absolute left-0 right-0 mt-1 z-10 bg-slate-400/30 backdrop-blur-sm rounded-xl shadow-lg">
 					{searchResults.map((user) => (
 						<div
 							key={user.id}
@@ -154,7 +208,7 @@ const CreateSpaceForm: React.FC = () => {
 							onKeyDown={() => {}}
 							className="cursor-pointer hover:bg-gray-700 p-2 rounded-xl"
 						>
-							<span className="text-white">{user.nickname}</span>
+							<span className="text-white">{user.username}</span>
 						</div>
 					))}
 				</div>
@@ -168,7 +222,7 @@ const CreateSpaceForm: React.FC = () => {
 							key={user.id}
 							className="flex items-center justify-between bg-gray-700 rounded-xl p-2"
 						>
-							<span className="text-white">{user.nickname}</span>
+							<span className="text-white">{user.username}</span>
 							<button
 								type="button"
 								onClick={() => handleRemoveUser(user)}
@@ -213,6 +267,40 @@ const CreateSpaceForm: React.FC = () => {
 			>
 				{creating || adding ? "Creating..." : "Create Space"}
 			</button>
+
+			{isSpaceCreated && spaceId && spacePassword && (
+				<div className="mt-4 p-4 bg-gray-700 rounded-xl">
+					<h3 className="text-white font-bold mb-2">
+						Space Created Successfully
+					</h3>
+					<div className="flex items-center justify-between mb-2">
+						<span className="text-white">Space ID:</span>
+						<div className="flex items-center">
+							<span className="text-blue-300 mr-2">{spaceId}</span>
+							<button
+								type="button"
+								onClick={() => copyToClipboard(spaceId)}
+								className="text-gray-400 hover:text-white"
+							>
+								<Copy size={16} />
+							</button>
+						</div>
+					</div>
+					<div className="flex items-center justify-between">
+						<span className="text-white">Password:</span>
+						<div className="flex items-center">
+							<span className="text-blue-300 mr-2">{spacePassword}</span>
+							<button
+								type="button"
+								onClick={() => copyToClipboard(spacePassword)}
+								className="text-gray-400 hover:text-white"
+							>
+								<Copy size={16} />
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 
 			{(createError || addError) && (
 				<div className="mt-2 text-red-500">

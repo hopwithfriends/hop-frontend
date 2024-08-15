@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useUser } from "@stackframe/stack";
-import { ApiService } from "@lib/services";
+import { ServiceMethods } from "@lib/servicesMethods";
 
 interface CreateSpaceParams {
 	name: string;
 	flyUrl: string;
 	userId: string;
 	theme: string;
+	spaceId: string; // Add this line
+	password: string; // Add this line
 }
 
 interface CreateSpaceResult {
@@ -30,17 +32,22 @@ const useCreateSpace = (): CreateSpaceResult => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			if (!accessToken || !refreshToken) {
-				throw new Error("Access/refresh token are required for the ApiService");
+				throw new Error(
+					"Access/refresh token are required for the ServiceMethods",
+				);
 			}
 
-			const apiService = new ApiService(accessToken, refreshToken);
-			await apiService.post("/space", params);
+			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+			await serviceMethods.fetchCreateSpace(params.name, params.theme);
 
 			setSuccess(true);
 			console.log("Space created successfully");
 		} catch (error) {
+			console.error("Error creating space:", error);
 			setError(
-				error instanceof Error ? error.message : "An unknown error occurred",
+				error instanceof Error
+					? error.message
+					: "An unexpected error occurred while creating the space",
 			);
 		} finally {
 			setLoading(false);
