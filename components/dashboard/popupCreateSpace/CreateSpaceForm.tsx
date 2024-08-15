@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Search, X, Copy } from "lucide-react";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import useCreateSpace from "./hooks/CreateNewSpace";
 import useAddUserToSpace from "./hooks/AddFriendsSpace";
 import { useUser } from "@stackframe/stack";
