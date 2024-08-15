@@ -17,7 +17,7 @@ const SpacePage: React.FC = () => {
 
 	// Get User data /api/user
 	//const realUsername = "DavilaDawg"; // for testing
-	 const realUsername= "";
+	const realUsername = "";
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
@@ -28,7 +28,7 @@ const SpacePage: React.FC = () => {
 
 	return (
 		<div>
-			{!username ? (
+			{/* {!username ? (
 				<Image
 					src="/hop.png"
 					alt="Logo"
@@ -39,11 +39,11 @@ const SpacePage: React.FC = () => {
 				/>
 			) : (
 				""
-			)}
+			)} */}
 			<div className="flex h-screen overflow-hidden">
 				<main className="flex-grow flex flex-col overflow-hidden relative">
 					<div className="relative flex-grow">
-						{username ? (
+						{/* {username ? (
 							<CursorContainer
 								username={username}
 								color={color}
@@ -61,11 +61,11 @@ const SpacePage: React.FC = () => {
 								setColorProp={setColor}
 								realUsername={realUsername}
 							/>
-						)}
+						)} */}
 						<iframe
 							className="absolute inset-0 w-full h-full z-10"
 							title="vnc"
-							src="https://isaaaaaaaaaaaaaaaaa.fly.dev/"
+							src="https://tencent-1b168ad3-0cf0-4791-8cf4-30fcc99e439e.fly.dev"
 						/>
 					</div>
 					<BottomBar setSelectedCursor={setSelectedCursor} />

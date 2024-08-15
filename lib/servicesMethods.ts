@@ -40,9 +40,13 @@ export class ServiceMethods {
     return this.apiService().delete(`/user/friend/${friendId}`, {});
   }
 
-  async fetchCreateSpace(name: string, theme: string) {
-    console.log(name, theme);
-    return this.apiService().post('/space', { name, theme });
+  async fetchCreateSpace(
+    name: string,
+    theme: string,
+    id: string,
+    password: string
+  ) {
+    return this.apiService().post('/space', { name, theme, id, password });
   }
   async fetchRemoveSpace(spaceId: string) {
     return this.apiService().delete(`/space/${spaceId}`, {});
@@ -55,5 +59,8 @@ export class ServiceMethods {
   }
   async fetchInvitedSpace() {
     return this.apiService().get('/space/invitedspaces');
+  }
+  async fetchSpaceById(spaceId: string) {
+    return this.apiService().get(`/space/${spaceId}`);
   }
 }

@@ -120,7 +120,7 @@ const CreateSpaceForm: React.FC = () => {
 		);
 	};
 
-	const handleCreateSpace = async () => {
+	const handleCreateSpace = () => {
 		if (!spaceName.trim()) {
 			alert("Please enter a space name");
 			return;
@@ -129,35 +129,30 @@ const CreateSpaceForm: React.FC = () => {
 		const newSpaceId = generateUUID();
 		const newSpacePassword = generatePassword();
 
-		try {
-			await createSpace({
-				name: spaceName,
-				flyUrl: "",
-				userId: "", // You might want to pass the current user's ID here
-				theme: "default",
-				spaceId: newSpaceId,
-				password: newSpacePassword,
-			});
-
-			if (success) {
-				setSpaceId(newSpaceId);
-				setSpacePassword(newSpacePassword);
-				setIsSpaceCreated(true);
-
+		setIsSpaceCreated(true);
+		setSpaceId(newSpaceId);
+		setSpacePassword(newSpacePassword);
+		createSpace({
+			id: newSpaceId,
+			password: newSpacePassword,
+			userId: user.id,
+			name: spaceName,
+			theme: "default",
+			flyUrl: "",
+		})
+			.then(() => {
 				for (const user of selectedUsers) {
-					await addUser({
+					addUser({
 						spaceId: newSpaceId,
 						userId: user.id,
 						role: "member",
 					});
 				}
-
-				alert("Space created successfully and members added!");
-			}
-		} catch (error) {
-			console.error("Failed to create space or add members:", error);
-			alert("An error occurred while creating the space or adding members.");
-		}
+			})
+			.catch((error) => {
+				console.error("Failed to create space or add members:", error);
+				alert("An error occurred while creating the space or adding members.");
+			});
 	};
 
 	const copyToClipboard = (text: string) => {
@@ -171,8 +166,7 @@ const CreateSpaceForm: React.FC = () => {
 		);
 	};
 
-	if (loading) return <div>Loading friends...</div>;
-	if (error) return <div>Error: {error}</div>;
+	const spaceUrl = spaceId ? `http://localhost:3000/space/${spaceId}` : null;
 
 	return (
 		<div className="w-full max-w-md mx-auto p-4 bg-gray-800 rounded-lg">
@@ -262,16 +256,15 @@ const CreateSpaceForm: React.FC = () => {
 			<button
 				type="button"
 				onClick={handleCreateSpace}
-				disabled={creating || adding}
-				className="w-full bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:bg-gray-500"
+				className="w-full bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition-colors duration-200"
 			>
-				{creating || adding ? "Creating..." : "Create Space"}
+				Create Space
 			</button>
 
 			{isSpaceCreated && spaceId && spacePassword && (
 				<div className="mt-4 p-4 bg-gray-700 rounded-xl">
 					<h3 className="text-white font-bold mb-2">
-						Space Created Successfully
+						Space Details (Creation in progress)
 					</h3>
 					<div className="flex items-center justify-between mb-2">
 						<span className="text-white">Space ID:</span>
@@ -279,7 +272,7 @@ const CreateSpaceForm: React.FC = () => {
 							<span className="text-blue-300 mr-2">{spaceId}</span>
 							<button
 								type="button"
-								onClick={() => copyToClipboard(spaceId)}
+								onClick={() => copyToClipboard(spaceUrl ?? "")}
 								className="text-gray-400 hover:text-white"
 							>
 								<Copy size={16} />
