@@ -23,12 +23,9 @@ const Onboard: React.FC = () => {
         setError("");
 
         try {
-            console.log("img", imageUrl);
-
             const { accessToken, refreshToken } = await user.getAuthJson();
             const serviceMethods = new ServiceMethods(accessToken, refreshToken);
             await serviceMethods.fetchUpdateUser(username, nickname, imageUrl);
-            console.log("username set:", username, "nickname set:", nickname, "pfp:", imageUrl);
         } catch (error) {
             console.error("Error during submission:", error);
             setError("An error occurred while updating your information.");
