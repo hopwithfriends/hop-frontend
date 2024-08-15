@@ -14,7 +14,7 @@ interface ChatMessage {
 	message?: string;
 }
 
-const ChatContainer: React.FC<ChatMessage> = () => {
+const ChatContainer: React.FC = () => {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [inputMessage, setInputMessage] = useState("");
 	const [username, setUsername] = useState("");

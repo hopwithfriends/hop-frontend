@@ -9,6 +9,10 @@ interface BottomBarProps {
 }
 
 const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
+
+
+
+	
 	return (
 		<div className="bg-gray-200 p-3 flex items-center justify-between">
 			{/* <SelectCursor setSelectedCursor={setSelectedCursor} /> */}

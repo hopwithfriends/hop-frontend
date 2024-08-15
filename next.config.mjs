@@ -18,6 +18,9 @@ const nextConfig = {
         hostname: "tse3.explicit.bing.net",
       },{
         protocol: "https",
+        hostname: "i.imgur.com",
+      },{
+        protocol: "https",
         hostname: "imgur.com",
       },
     ],
