@@ -13,6 +13,7 @@ export class ApiService {
 
 	private getHeaders() {
 		const headers = new Headers();
+		headers.append("Content-Type", "application/json")
 		headers.append("x-stack-access-token", this.accessToken);
 		headers.append("x-stack-refresh-token", this.refreshToken);
 		return headers;
