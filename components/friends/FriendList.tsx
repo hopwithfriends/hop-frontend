@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, useMemo, useCallback } from "react";
 import SingleFriend from "./FriendComponent";
 import FriendProfileRemoveBTN from "./FriendProfileRemove";
@@ -24,9 +23,10 @@ const FriendList: React.FC = () => {
 	const [friends, setFriends] = useState<Friend[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [hasFetched, setHasFetched] = useState(false);
 
 	const fetchFriends = useCallback(async () => {
-		if (!user) return;
+		if (!user || hasFetched) return;
 		setLoading(true);
 		setError(null);
 		try {
@@ -37,6 +37,7 @@ const FriendList: React.FC = () => {
 			);
 			const response = await serviceMethods.fetchAllFriends();
 			setFriends(response);
+			setHasFetched(true);
 		} catch (err) {
 			console.error("Error fetching friends:", err);
 			setError(
@@ -47,7 +48,7 @@ const FriendList: React.FC = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [user]);
+	}, [user, hasFetched]);
 
 	useEffect(() => {
 		fetchFriends();
