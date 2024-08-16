@@ -39,21 +39,22 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 			);
 			const userDataReq = await serviceMethods.fetchUser();
 			setUserData(userDataReq);
+			console.log("dash userdata:", userData) 
 			return userData;
 		}
 		fetchData();
 	}, []);
 
-	link = "link placeholder";
+	link = "link placeholder"; // ??
 	members = 4;
-	screen = "/placeholder.jpg";
-	pfp = "/PFP.jpg";
+	screen = "/placeholder.jpg"; // ??
+	//pfp = "/PFP.jpg";
 
 	return (
 		<div className="flex bg-gray-700 text-white h-screen">
 			<SpaceContainer
 				screen={screen}
-				pfp={pfp}
+				pfp={userData?.profilePicture}
 				link={link}
 				members={members}
 				realUsername={userData?.username || ""}

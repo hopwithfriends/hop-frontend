@@ -21,12 +21,12 @@ export class ServiceMethods {
   async fetchUpdateUser(
     username: string,
     nickname: string,
-    ProfilePicture: string
+    profilePicture: string
   ) {
     return this.apiService().put('/user', {
       username,
       nickname,
-      ProfilePicture
+      profilePicture
     });
   }
 
