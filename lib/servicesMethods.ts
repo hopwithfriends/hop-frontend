@@ -61,6 +61,6 @@ export class ServiceMethods {
     return this.apiService().get('/space/invitedspaces');
   }
   async fetchSpaceById(spaceId: string) {
-    return this.apiService().get(`/space/${spaceId}`);
+    return this.apiService().get(`/spaceId/${spaceId}`);
   }
 }
