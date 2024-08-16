@@ -20,8 +20,9 @@ const ProfilePicUploader: React.FC = () => {
 	};
 
 	if (selectedImage) {
-		async function setPFP() {
+		const setPFP = async () => {
 			const { accessToken, refreshToken } = await user.getAuthJson();
+			if (!accessToken || !refreshToken) return
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			await serviceMethods.setPFP(selectedImage);
 			console.log("pfp set: ", selectedImage);

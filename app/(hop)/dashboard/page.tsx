@@ -6,13 +6,6 @@ import SpaceContainer from "@components/dashboard/SpaceContainer";
 import { useEffect, useState } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
 
-interface SpaceContainerProps {
-	link?: string;
-	members: number;
-	screen: string;
-	pfp: string;
-}
-
 interface UserDataType {
 	userId: string;
 	username: string;
@@ -20,12 +13,7 @@ interface UserDataType {
 	profilePicture: string;
 }
 
-const Dashboard: React.FC<SpaceContainerProps> = ({
-	link,
-	members,
-	screen,
-	pfp,
-}) => {
+const Dashboard: React.FC = () => {
 	const user = useUser({ or: "redirect" });
 	const [userData, setUserData] = useState<UserDataType>();
 
@@ -45,16 +33,15 @@ const Dashboard: React.FC<SpaceContainerProps> = ({
 		fetchData();
 	}, []);
 
-	link = "link placeholder"; // ??
-	members = 4;
-	screen = "/placeholder.jpg"; // ??
-	//pfp = "/PFP.jpg";
+	const link: string = "link placeholder"; // ??
+	const members: number = 4;
+	const screen: string = "/placeholder.jpg"; // ??
 
 	return (
 		<div className="flex bg-gray-700 text-white h-screen">
 			<SpaceContainer
 				screen={screen}
-				pfp={userData?.profilePicture}
+				pfp={userData?.profilePicture || "https://res.cloudinary.com/dksp40fgp/image/upload/v1723767101/oklypy7hrfwisbjnxwaw.png"}
 				link={link}
 				members={members}
 				realUsername={userData?.username || ""}
