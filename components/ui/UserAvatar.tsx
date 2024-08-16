@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
-import useWebSocket from "react-use-websocket";
 interface AvatarProps {
 	icon?: string;
 	username: string;
