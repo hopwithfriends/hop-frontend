@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
-import { Button } from "@components/ui/Button";
 import Image from "next/image";
-import { IoLink } from "react-icons/io5";
 import CreateSpaceButton from "./CreateSpaceButton";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
+import { FaLink } from "react-icons/fa";
 
 interface Space {
 	flyUrl: string;
 	id: string;
 	name: string;
 	theme: string;
+	password: string;
 }
 
 const UserSpaces = () => {
@@ -64,17 +64,20 @@ const UserSpaces = () => {
 		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
+
 	const handleRemoveSpace = (removedSpaceId: string) => {
 		setSpaces(spaces.filter((space) => space.id !== removedSpaceId));
 	};
 
-	const copyToClipboard = (spaceId: string) => {
-		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
-		navigator.clipboard.writeText(spaceUrl).then(() => {
-			setCopiedSpaceId(spaceId);
+	const copyToClipboard = (space: Space) => {
+		const spaceUrl = `http://localhost:3000/space/${space.id}`;
+		const textToCopy = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
+		navigator.clipboard.writeText(textToCopy).then(() => {
+			setCopiedSpaceId(space.id);
 			setTimeout(() => setCopiedSpaceId(null), 3000);
 		});
 	};
+
 	return (
 		<div className="">
 			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
@@ -109,13 +112,13 @@ const UserSpaces = () => {
 								{copiedSpaceId === space.id ? (
 									<span className="ml-2 text-green-500">Copied</span>
 								) : (
-									<IoLink
+									<FaLink
 										className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
 										onClick={(e) => {
 											e.stopPropagation();
-											copyToClipboard(space.id);
+											copyToClipboard(space);
 										}}
-										title="Copy space URL to clipboard"
+										title="Copy space URL and password to clipboard"
 									/>
 								)}
 							</div>
