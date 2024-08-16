@@ -20,6 +20,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
 	const fetch = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
+			if (!accessToken || !refreshToken) return
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			const result = await serviceMethods.fetchUser();
 			return result;
