@@ -10,20 +10,6 @@ interface AvatarProps {
 	size?: "small" | "medium" | "large";
 	color?: string;
 }
-interface UserState {
-	username: string;
-	color: string;
-	cursor: string;
-	x: number;
-	y: number;
-}
-interface User {
-	username: string;
-	state: UserState;
-}
-interface Users {
-	[uuid: string]: User;
-}
 
 const Avatar: React.FC<AvatarProps> = ({
 	icon,
