@@ -6,12 +6,26 @@ import SelectCursor from "./SelectCursor";
 import { useUser } from "@stackframe/stack";
 import { useEffect, useState } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
-
+interface UserState {
+	username: string;
+	color: string;
+	cursor: string;
+	x: number;
+	y: number;
+}
+interface User {
+	username: string;
+	state: UserState;
+}
+interface Users {
+	[uuid: string]: User;
+}
 interface BottomBarProps {
 	setSelectedCursor: (cursor: string) => void;
+	otherUsers: Users;
 }
 
-const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
+const BottomBar: React.FC<BottomBarProps> = (setSelectedCursor, otherUsers) => {
 	const [username, setUsername] = useState("");
 	const [nickname, setnickname] = useState("");
 	const [pfp, setPfp] = useState("");
@@ -20,7 +34,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
 	const fetch = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
-			if (!accessToken || !refreshToken) return
+			if (!accessToken || !refreshToken) return;
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			const result = await serviceMethods.fetchUser();
 			return result;
@@ -36,7 +50,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
 			if (result) {
 				setUsername(result.username);
 				setnickname(result.nickname);
-				setPfp(result.profilePicture)
+				setPfp(result.profilePicture);
 			} else {
 				setUsername("User1");
 			}
@@ -48,17 +62,20 @@ const BottomBar: React.FC<BottomBarProps> = ({ setSelectedCursor }) => {
 		<div className="bg-gray-200 p-3 flex items-center justify-between">
 			{/* <SelectCursor setSelectedCursor={setSelectedCursor} /> */}
 			<div className="flex-1 flex justify-center ml-[32%] mb-[0.5%]">
+				<Avatar username={username} nickname={nickname} icon={pfp} />
 
-				<Avatar username={username} nickname={nickname} icon={pfp}/>
-				<Avatar username="User2" />
-				<Avatar username="User3" />
-				<Avatar username="User4" />
-				<Avatar username="User5" />
-				<Avatar username="User6" />
-				<Avatar username="User7" />
-				<Avatar username="User8" />
+				{Object.keys(otherUsers).map((uuid) => {
+					const { username, state } = otherUsers[uuid];
+					return (
+						<Avatar
+							key={uuid}
+							username={username}
+							nickname={state.username} // Assuming the nickname is in the state object
+						/>
+					);
+				})}
 			</div>
-			
+
 			<div className="w-1/3 flex justify-end items-center space-x-2">
 				<IoMdVolumeHigh size={24} />
 				<Slider

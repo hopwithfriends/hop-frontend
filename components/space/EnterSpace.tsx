@@ -8,13 +8,13 @@ import Image from "next/image";
 interface NicknameProps {
 	onSubmit: (enterSpace: boolean) => void;
 	setColorProp: (color: string) => void;
-	realUsername: string;
+	username: string;
 }
 
 const EnterSpace: React.FC<NicknameProps> = ({
 	onSubmit,
 	setColorProp,
-	realUsername,
+	username,
 }) => {
 	const [color, setColor] = useState("");
 	const [wsUrl, setWsUrl] = useState<string | null>(null);
@@ -34,19 +34,18 @@ const EnterSpace: React.FC<NicknameProps> = ({
 		}
 	}, [color]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (realUsername) {
-			setWsUrl(
-				`ws://localhost:8000?username=${encodeURIComponent(realUsername)}`,
-			);
-		}
-	}, [realUsername]);
+		setWsUrl(
+			`ws://localhost:8000?username=${encodeURIComponent(username)}`,
+		);
+	}, []);
 
 	const handleClick = () => {
 		onSubmit(true);
 		sendJsonMessage({
-			type: "setRealUsername",
-			realUsername: realUsername,
+			type: "setUsername",
+			username: username,
 		});
 	};
 

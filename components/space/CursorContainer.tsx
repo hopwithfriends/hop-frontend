@@ -22,6 +22,8 @@ interface HomeProps {
 	username: string;
 	color: string;
 	selectedCursor: string;
+	otherUsers: Users
+	setOtherUsers: React.Dispatch<React.SetStateAction<Users>>;
 }
 
 const renderCursors = (
@@ -73,8 +75,9 @@ const CursorContainer: React.FC<HomeProps> = ({
 	username,
 	color,
 	selectedCursor,
+	otherUsers,
+	setOtherUsers
 }) => {
-	const [otherUsers, setOtherUsers] = useState<Users>({});
 	const [isTracking, setIsTracking] = useState(true);
 	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -128,6 +131,7 @@ const CursorContainer: React.FC<HomeProps> = ({
 		};
 	}, [sendJsonMessage]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (lastJsonMessage) {
 			const users = lastJsonMessage as Users;
