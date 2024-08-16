@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
-import LoadingSpinner from "../ui/Spiner";
+import LoadingSpinner from "@components/ui/Spiner";
 
 interface VncDisplayProps {
 	spaceId: string;
@@ -16,10 +16,12 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		// biome-ignore lint/style/useConst: <explanation>
-		let interval: NodeJS.Timeout;
+		let isMounted = true;
+		let timeoutId: NodeJS.Timeout;
 
 		const fetchSpaceData = async () => {
+			if (!isMounted || flyUrl) return; // Stop if component is unmounted or we already have a flyUrl
+
 			try {
 				const { accessToken, refreshToken } = await user.getAuthJson();
 				if (!accessToken || !refreshToken) {
@@ -33,37 +35,36 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 
 				console.log("Space data:", response);
 
-				if (response.flyUrl) {
-					setFlyUrl(response.flyUrl);
-					setLoading(false);
-					clearInterval(interval);
+				if (isMounted) {
+					if (response.flyUrl) {
+						setFlyUrl(response.flyUrl);
+						setLoading(false);
+					} else {
+						// If no flyUrl, schedule next fetch
+						timeoutId = setTimeout(fetchSpaceData, 5000);
+					}
 				}
 			} catch (err) {
 				console.error("Error fetching space data:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while fetching space data.",
-				);
-				setLoading(false);
-				clearInterval(interval);
+				if (isMounted) {
+					setError(
+						err instanceof Error
+							? err.message
+							: "An unexpected error occurred while fetching space data.",
+					);
+					// Even on error, we continue trying
+					timeoutId = setTimeout(fetchSpaceData, 5000);
+				}
 			}
 		};
 
 		fetchSpaceData();
 
-		interval = setInterval(fetchSpaceData, 5000); // every 5 seconds
-
-		return () => clearInterval(interval); // unmount
-	}, [user, spaceId]);
-
-	if (loading) {
-		return <div>Loading space data...</div>;
-	}
-
-	if (error) {
-		return <div>Error: {error}</div>;
-	}
+		return () => {
+			isMounted = false;
+			if (timeoutId) clearTimeout(timeoutId);
+		};
+	}, [user, spaceId, flyUrl]);
 
 	return (
 		<div className="relative flex-grow">

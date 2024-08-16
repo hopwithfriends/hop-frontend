@@ -17,8 +17,6 @@ const SpaceContainer: React.FC<SpaceContainerProps> = ({
 	pfp,
 	realUsername,
 }) => {
-
-	
 	return (
 		<main className="flex-1 p-6 relative">
 			<h1 className="text-5xl font-bold mb-6 mt-5">
@@ -34,25 +32,7 @@ const SpaceContainer: React.FC<SpaceContainerProps> = ({
 				<CreateSpaceButton />
 
 				<Link href="/space/id">
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/>
-				</Link>
-				<Link href="/space/id">
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/>
-				</Link>
-				<Link href="/space/id">
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/>
+					<SpaceComponent members={members} screen={screen} pfp={pfp} />
 				</Link>
 			</div>
 			<h1 className="text-5xl font-bold mb-5 mt-5">Recent Spaces</h1>
@@ -61,65 +41,9 @@ const SpaceContainer: React.FC<SpaceContainerProps> = ({
 					<InviteContainer />
 				</div>
 				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-			</div> 
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-				 
-				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-				<Link href="/space/id" className="col-span-1">
-					 
-					<SpaceComponent
-						members={members}
-						screen={screen}
-						pfp={pfp}
-					/> 
-				</Link> 
-			</div> 
+					<SpaceComponent members={members} screen={screen} pfp={pfp} />
+				</Link>
+			</div>
 		</main>
 	);
 };
