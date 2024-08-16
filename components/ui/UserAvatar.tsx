@@ -1,27 +1,12 @@
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import useWebSocket from "react-use-websocket";
+import classNames from "classnames";
 interface AvatarProps {
 	icon?: string;
 	username: string;
 	nickname?: string;
 	size?: "small" | "medium" | "large";
 	color?: string;
-}
-interface UserState {
-	username: string;
-	color: string;
-	cursor: string;
-	x: number;
-	y: number;
-}
-interface User {
-	username: string;
-	state: UserState;
-}
-interface Users {
-	[uuid: string]: User;
 }
 
 const Avatar: React.FC<AvatarProps> = ({

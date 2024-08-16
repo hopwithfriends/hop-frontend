@@ -73,20 +73,20 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 
 
 	return (
-		<div className="relative flex-grow">
-			{flyUrl ? (
-				<iframe
-					className="absolute inset-0 w-full h-full z-10"
-					title="vnc"
-					src={flyUrl}
-				/>
-			) : (
-				<div className="flex justify-center items-center h-full">
-					<LoadingSpinner />
-					<p className="ml-4">Waiting for VNC to be ready...</p>
-				</div>
-			)}
-		</div>
+		<div className="relative w-full h-full">
+            {flyUrl ? (
+                <iframe
+                    className="absolute inset-0 w-full h-full border-0"
+                    title="vnc"
+                    src={flyUrl}
+                />
+            ) : (
+                <div className="flex justify-center items-center w-full h-full">
+                    <LoadingSpinner />
+                    <p className="ml-4 text-center">Waiting for VNC to be ready...</p>
+                </div>
+            )}
+        </div>
 	);
 };
 
