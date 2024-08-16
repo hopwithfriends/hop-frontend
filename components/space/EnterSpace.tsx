@@ -51,24 +51,25 @@ const EnterSpace: React.FC<NicknameProps> = ({
 	};
 
 	return (
-		<div className="relative text-white rounded-xl shadow-lg p-6 w-96 mx-auto h-56 mt-[23%] ml-[41%] z-50 flex items-center justify-center">
-			<Image
-				src="/images/Logo.webp"
-				alt="Logo"
-				width={700}
-				height={700}
-				priority
-				className="absolute z-0"
-			/>
-
-			<button
-				type="button"
-				onClick={handleClick}
-				className="bg-pink-400 hover:bg-pink-500 text-white p-4 rounded-xl text-2xl font-bold absolute z-10"
-				style={{ top: "106%", left: "50%", transform: "translate(-50%, -50%)" }}
-			>
-				Hop In
-			</button>
+		<div className="absolute inset-0 flex items-center justify-center z-50">
+			<div className="relative text-white rounded-xl shadow-lg p-6 w-96 h-56 flex items-center justify-center">
+				<Image
+					src="/images/Logo.webp"
+					alt="Logo"
+					width={700}
+					height={700}
+					priority
+					className="absolute inset-0 object-cover"
+					style={{ top: "-30%" }}
+				/>
+				<button
+					type="button"
+					onClick={handleClick}
+					className="z-10 bg-pink-400 hover:bg-pink-500 text-white p-4 rounded-xl text-2xl font-bold mt-72"
+				>
+					Hop In
+				</button>
+			</div>
 		</div>
 	);
 };

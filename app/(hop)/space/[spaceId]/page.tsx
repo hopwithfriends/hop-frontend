@@ -56,7 +56,7 @@ const SpacePage: React.FC = () => {
 	}, [user]);
 
 	return (
-		<div className="flex h-screen flex-col overflow-hidden">
+		<div className="relative flex h-screen flex-col overflow-hidden">
 			<Image
 				src="/hop.png"
 				alt="Logo"
@@ -65,8 +65,8 @@ const SpacePage: React.FC = () => {
 				priority
 				className="absolute z-50 left-[9.6%] mt-[21.5%] -rotate-90"
 			/>
-			<div className="flex flex-grow overflow-hidden">
-				<main className="flex-grow flex flex-col">
+			<div className="flex flex-grow overflow-hidden relative">
+				<main className="flex-grow flex flex-col relative ">
 					<div className="relative flex-grow flex items-center justify-center">
 						{enterSpace ? (
 							<CursorContainer

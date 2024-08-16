@@ -54,16 +54,17 @@ const SetNickname: React.FC<NicknameProps> = ({
 	};
 
 	return (
-		<div className="relative text-white rounded-xl shadow-lg p-6 w-96 mx-auto mt-[27%] z-50 flex flex-col items-center justify-center">
+		<div className="absolute inset-0 flex items-center justify-center z-50">
+		<div className="relative text-white rounded-xl shadow-lg p-6 w-96 mx-auto">
 			<Image
 				src="/images/Logo.webp"
 				alt="Logo"
 				width={700}
 				height={700}
 				priority
-				className="absolute z-10"
+				className="absolute inset-0"
 			/>
-			<div className="absolute z-20 rounded-xl p-6 shadow-lg w-full mt-[67%]">
+			<div className="relative z-10 bg-gray-900 p-6 rounded-xl">
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
 					<input
 						type="text"
@@ -82,6 +83,7 @@ const SetNickname: React.FC<NicknameProps> = ({
 				</form>
 			</div>
 		</div>
+	</div>
 	);
 };
 
