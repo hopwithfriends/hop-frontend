@@ -33,7 +33,6 @@ export const SpaceComponent: React.FC<SpaceComponentProps> = ({
 						{link && <IoLink className="w-5 h-5 ml-2 text-gray-500" />}
 					</div>
 				</div>
-				<p className="font-semibold mr-1">{members}</p>
 				<div className="relative w-6 h-6">
 					<Image
 						src={pfp}
