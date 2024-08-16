@@ -33,7 +33,7 @@ const SpacePage: React.FC = () => {
 	const [color, setColor] = useState<string>("");
 	const [selectedCursor, setSelectedCursor] = useState<string>("");
 	const [enterSpace, setEnterSpace] = useState<boolean>(false);
-	const [otherUsers, setOtherUsers] = useState<Users>([]);
+	const [otherUsers, setOtherUsers] = useState<Users>({});
 	const user = useUser({ or: "redirect" });
 
 	const fetch = async () => {
