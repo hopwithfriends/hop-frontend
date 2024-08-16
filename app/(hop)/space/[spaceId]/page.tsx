@@ -19,7 +19,7 @@ const SpacePage: React.FC = () => {
 	const [color, setColor] = useState<string>("");
 	const [selectedCursor, setSelectedCursor] = useState<string>("");
 	const [member, setMember] = useState<boolean>(false);
-	const [enterSpace, setEnterSpace] = useState<boolean>(false)
+	const [enterSpace, setEnterSpace] = useState<boolean>(false);
 	const user = useUser({ or: "redirect" });
 
 	const fetch = async () => {
@@ -46,7 +46,7 @@ const SpacePage: React.FC = () => {
 			const result = await fetch();
 			if (result) {
 				setUsername(result.username);
-				setMember(!false)
+				setMember(!false);
 			} else {
 				const randNum: number = getRandomInt(1, 100);
 				setUsername(`anonymous${randNum}`);
@@ -56,44 +56,46 @@ const SpacePage: React.FC = () => {
 	}, [user]);
 
 	return (
-		<div className="relative flex h-screen flex-col overflow-hidden">
+		<>
 			<Image
 				src="/hop.png"
 				alt="Logo"
 				width={150}
 				height={150}
 				priority
-				className="absolute z-50 left-[9.6%] mt-[21.5%] -rotate-90"
+				className="fixed z-50 left-60 mt-[21.5%] -rotate-90"
 			/>
-			<div className="flex flex-grow overflow-hidden relative">
-				<main className="flex-grow flex flex-col relative ">
-					<div className="relative flex-grow flex items-center justify-center">
-						{enterSpace ? (
-							<CursorContainer
-								username={username}
-								color={color}
-								selectedCursor={selectedCursor}
-							/>
-						) : member ? (
-							<EnterSpace
-								onSubmit={setEnterSpace}
-								setColorProp={setColor}
-								realUsername={username}
-							/>
-						) : (
-							<SetNickname
-								onSubmit={setEnterSpace}
-								setColorProp={setColor}
-								realUsername={username}
-							/>
-						)}
-						<VncDisplay spaceId={spaceId} />
-					</div>
-					<BottomBar setSelectedCursor={setSelectedCursor} />
-				</main>
-				<RightSideBar />
+			<div className="relative flex h-screen flex-col overflow-hidden">
+				<div className="flex flex-grow overflow-hidden relative">
+					<main className="flex-grow flex flex-col relative ">
+						<div className="relative flex-grow flex items-center justify-center">
+							{enterSpace ? (
+								<CursorContainer
+									username={username}
+									color={color}
+									selectedCursor={selectedCursor}
+								/>
+							) : member ? (
+								<EnterSpace
+									onSubmit={setEnterSpace}
+									setColorProp={setColor}
+									realUsername={username}
+								/>
+							) : (
+								<SetNickname
+									onSubmit={setEnterSpace}
+									setColorProp={setColor}
+									realUsername={username}
+								/>
+							)}
+							<VncDisplay spaceId={spaceId} />
+						</div>
+						<BottomBar setSelectedCursor={setSelectedCursor} />
+					</main>
+					<RightSideBar />
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
