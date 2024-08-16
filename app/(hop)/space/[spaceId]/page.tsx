@@ -12,12 +12,13 @@ const SpacePage: React.FC = () => {
 	const params = useParams();
 	const spaceId = params.spaceId as string;
 	const [username, setUsername] = useState("");
+	const [selectedCursor, setSelectedCursor] = useState<string>("");
 	const user = useUser({ or: "redirect" });
 
 	const fetch = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
-			if (!accessToken || !refreshToken) return;
+			if (!accessToken || !refreshToken) return null;
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			const result = await serviceMethods.fetchUser();
 			return result;
@@ -26,22 +27,34 @@ const SpacePage: React.FC = () => {
 		}
 	};
 
+	function getRandomInt(min: number, max: number) {
+		const minimum = Math.ceil(min);
+		const maximum = Math.floor(max);
+		return Math.floor(Math.random() * (maximum - minimum + 1)) + min;
+	}
+
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchAndSetUserData = async () => {
 			const result = await fetch();
 			if (result) {
 				setUsername(result.username);
+			} else {
+				const randNum: number = getRandomInt(1,100)
+				setUsername(`anonymous${randNum}`)
 			}
 		};
 		fetchAndSetUserData();
 	}, [user]);
 
+
+
 	return (
 		<div className="flex h-screen overflow-hidden">
 			<main className="flex-grow flex flex-col overflow-hidden relative">
 				<VncDisplay spaceId={spaceId} />
-				<BottomBar/>
+				<BottomBar setSelectedCursor={setSelectedCursor} />
 			</main>
 			<RightSideBar />
 		</div>
