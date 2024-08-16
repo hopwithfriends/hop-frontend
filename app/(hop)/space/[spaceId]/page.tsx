@@ -3,17 +3,24 @@
 import { useParams } from "next/navigation";
 import VncDisplay from "@components/space/FetchFlyURL";
 import { useUser } from "@stackframe/stack";
+import BottomBar from "@components/space/BottomBar";
+import RightSideBar from "@components/space/RightSideBar";
+
 const SpacePage: React.FC = () => {
 	const params = useParams();
 	const spaceId = params.spaceId as string;
 	const user = useUser();
 
+	// Get User data /api/user
+	//const realUsername = "DavilaDawg"; // for testing
+	const realUsername = "";
 
 	return (
 		<div className="flex h-screen overflow-hidden">
 			<main className="flex-grow flex flex-col overflow-hidden relative">
 				<VncDisplay spaceId={spaceId} />
 			</main>
+			<RightSideBar/>
 		</div>
 	);
 };
