@@ -8,6 +8,7 @@ const SpacePage: React.FC = () => {
 	const spaceId = params.spaceId as string;
 	const user = useUser();
 
+
 	return (
 		<div className="flex h-screen overflow-hidden">
 			<main className="flex-grow flex flex-col overflow-hidden relative">

@@ -23,6 +23,9 @@ const nextConfig = {
         protocol: "https",
         hostname: "imgur.com",
       },
+      {protocol: "https",
+        hostname: "res.cloudinary.com"
+      }
     ],
   },
 };

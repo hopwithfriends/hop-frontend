@@ -5,6 +5,7 @@ import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import LoadingSpinner from "@components/ui/Spiner";
 
+
 interface VncDisplayProps {
 	spaceId: string;
 }
@@ -22,6 +23,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 		const fetchSpaceData = async () => {
 			if (!isMounted || flyUrl) return; // Stop if component is unmounted or we already have a flyUrl
 
+
 			try {
 				const { accessToken, refreshToken } = await user.getAuthJson();
 				if (!accessToken || !refreshToken) {
@@ -34,6 +36,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 				const response = await serviceMethods.fetchSpaceById(spaceId);
 
 				console.log("Space data:", response);
+
 
 				if (isMounted) {
 					if (response.flyUrl) {
@@ -55,16 +58,19 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 					// Even on error, we continue trying
 					timeoutId = setTimeout(fetchSpaceData, 5000);
 				}
+
 			}
 		};
 
 		fetchSpaceData();
+
 
 		return () => {
 			isMounted = false;
 			if (timeoutId) clearTimeout(timeoutId);
 		};
 	}, [user, spaceId, flyUrl]);
+
 
 	return (
 		<div className="relative flex-grow">
