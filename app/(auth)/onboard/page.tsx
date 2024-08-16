@@ -1,100 +1,119 @@
 "use client";
 
-import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
 import type React from "react";
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 
 const Onboard: React.FC = () => {
-	const [username, setUsername] = useState("");
-	const [nickname, setNickname] = useState("");
-	const [imageUrl, setImageUrl] = useState("");
-	const [error, setError] = useState("");
-	const user = useUser({ or: "redirect" });
-	const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [error, setError] = useState("");
+  const user = useUser({ or: "redirect" });
+  const router = useRouter();
 
-	const handleSubmit = async (event: React.FormEvent) => {
-		event.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-		if (username.trim() === "" || nickname.trim() === "" || imageUrl === null) {
-			setError("All fields are required.");
-			return;
-		}
+    if (username.trim() === "" || nickname.trim() === "" || !selectedImage) {
+      setError("All fields are required.");
+      return;
+    }
 
-		setError("");
+    setError("");
 
-		try {
-			const { accessToken, refreshToken } = await user.getAuthJson();
-			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
-			await serviceMethods.fetchUpdateUser(username, nickname, imageUrl);
+    try {
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('nickname', nickname);
+      if (selectedImage) {
+        formData.append('profilePicture', selectedImage);
+      }
 
-			router.push("/dashboard");
-		} catch (error) {
-			console.error("Error during submission:", error);
-			setError("An error occurred while updating your information.");
-		}
-	};
+			const { accessToken, refreshToken } = await user.getAuthJson()
+			if (!accessToken || !refreshToken)  return null
+      const response = await fetch('http://localhost:8080/api/user', {
+				headers: {
+					'x-stack-access-token': accessToken,
+					'x-stack-refresh-token': refreshToken,
+				},
+				method: 'PUT',
+				body: formData
+			});
 
-	return (
-		<div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-[10%]">
-			<div className="flex flex-col items-center space-y-4">
-				<h2 className="text-2xl font-bold">Set Profile Picture</h2>
-				<input
-					type="text"
-					value={imageUrl}
-					onChange={(e) => setImageUrl(e.target.value)}
-					placeholder="Enter image URL"
-					className="mt-4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-				/>
-			</div>
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-			<h2 className="text-2xl mb-4 mt-10 font-bold">
-				Set Username and Nickname
-			</h2>
-			<form onSubmit={handleSubmit} className="space-y-4">
-				<div className="flex flex-col">
-					<label
-						htmlFor="username"
-						className="text-sm font-medium text-gray-700"
-					>
-						Username:
-					</label>
-					<input
-						type="text"
-						id="username"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						placeholder="Enter your username"
-						className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-					/>
-				</div>
-				<div className="flex flex-col">
-					<label
-						htmlFor="nickname"
-						className="text-sm font-medium text-gray-700"
-					>
-						Nickname:
-					</label>
-					<input
-						type="text"
-						id="nickname"
-						value={nickname}
-						onChange={(e) => setNickname(e.target.value)}
-						placeholder="Enter your nickname"
-						className="mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-					/>
-				</div>
-				{error && <p className="text-red-500 text-sm">{error}</p>}
-				<button
-					type="submit"
-					className="w-full py-2 px-4 bg-blue-500 text-white rounded-md shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-				>
-					Submit
-				</button>
-			</form>
-		</div>
-	);
+      const updatedUser = await response.json();
+      console.log('User updated:', updatedUser);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Error during submission:", error);
+      setError("An error occurred while updating your information.");
+    }
+  };
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-96">
+      <form id="updateUserForm" onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-bold mb-6 text-center">Update User Profile</h2>
+        
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="nickname" className="block text-sm font-medium text-gray-700">Nickname:</label>
+          <input
+            type="text"
+            id="nickname"
+            name="nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="profilePicture" className="block text-sm font-medium text-gray-700">Profile Picture:</label>
+          <input
+            type="file"
+            id="profilePicture"
+            name="profilePicture"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+        >
+          Update User
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default Onboard;
