@@ -2,9 +2,11 @@
 
 import { useParams } from "next/navigation";
 import VncDisplay from "@components/space/FetchFlyURL";
+import { useUser } from "@stackframe/stack";
 const SpacePage: React.FC = () => {
 	const params = useParams();
 	const spaceId = params.spaceId as string;
+	const user = useUser();
 
 	return (
 		<div className="flex h-screen overflow-hidden">

@@ -15,7 +15,7 @@ const CreateSpaceButton = () => {
 		setIsPopupOpen(false);
 	};
 	return (
-		<>
+		<div className="w-full">
 			<div onKeyPress={handleOpenPopup} onClick={handleOpenPopup}>
 				<button
 					type="button"
@@ -29,7 +29,7 @@ const CreateSpaceButton = () => {
 					<CreateSpaceForm />
 				</div>
 			</SpacePopup>
-		</>
+		</div>
 	);
 };
 
