@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
+import LoadingSpinner from "./Spiner";
 
 interface VncDisplayProps {
 	spaceId: string;
@@ -73,7 +74,10 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 					src={flyUrl}
 				/>
 			) : (
-				<div>Waiting for VNC to be ready...</div>
+				<div className="flex justify-center items-center h-full">
+					<LoadingSpinner />
+					<p className="ml-4">Waiting for VNC to be ready...</p>
+				</div>
 			)}
 		</div>
 	);
