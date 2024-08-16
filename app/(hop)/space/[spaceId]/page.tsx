@@ -5,22 +5,45 @@ import VncDisplay from "@components/space/FetchFlyURL";
 import { useUser } from "@stackframe/stack";
 import BottomBar from "@components/space/BottomBar";
 import RightSideBar from "@components/space/RightSideBar";
+import { ServiceMethods } from "@lib/servicesMethods";
+import { useState, useEffect } from "react";
 
 const SpacePage: React.FC = () => {
 	const params = useParams();
 	const spaceId = params.spaceId as string;
-	const user = useUser();
+	const [username, setUsername] = useState("");
+	const user = useUser({ or: "redirect" });
 
-	// Get User data /api/user
-	//const realUsername = "DavilaDawg"; // for testing
-	const realUsername = "";
+	const fetch = async () => {
+		try {
+			const { accessToken, refreshToken } = await user.getAuthJson();
+			if (!accessToken || !refreshToken) return;
+			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+			const result = await serviceMethods.fetchUser();
+			return result;
+		} catch (error) {
+			console.error("Error during submission:", error);
+		}
+	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		const fetchAndSetUserData = async () => {
+			const result = await fetch();
+			if (result) {
+				setUsername(result.username);
+			}
+		};
+		fetchAndSetUserData();
+	}, [user]);
 
 	return (
 		<div className="flex h-screen overflow-hidden">
 			<main className="flex-grow flex flex-col overflow-hidden relative">
 				<VncDisplay spaceId={spaceId} />
+				<BottomBar/>
 			</main>
-			<RightSideBar/>
+			<RightSideBar />
 		</div>
 	);
 };
