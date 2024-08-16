@@ -1,5 +1,6 @@
 "use client";
 import UserSpacesButton from "@components/dashboard/MySpaces";
+import DeleteSpaceButton from "@components/space/RemoveSpace";
 import { useUser } from "@stackframe/stack";
 
 // ! ========== WARNING ===========
@@ -14,7 +15,6 @@ const ProfilePage = () => {
 		<div>
 			<h1>Profile</h1>
 			<p>{user.displayName}</p>
-			<UserSpacesButton />
 		</div>
 	);
 };

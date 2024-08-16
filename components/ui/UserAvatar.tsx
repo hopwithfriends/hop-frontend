@@ -15,7 +15,6 @@ const Avatar: React.FC<AvatarProps> = ({
 	nickname,
 	size = "medium",
 	color = "blue",
-	
 }) => {
 	const sizeClasses = {
 		small: "w-8 h-8 text-xs",
@@ -23,6 +22,10 @@ const Avatar: React.FC<AvatarProps> = ({
 		large: "w-16 h-16 text-base",
 	};
 	const sizeClass = sizeClasses[size] || sizeClasses.medium;
+
+	function classNames(sizeClass: string, arg1: string): string | undefined {
+		throw new Error("Function not implemented.");
+	}
 
 	return (
 		<div className="relative inline-block ml-5 mt-5 group">
