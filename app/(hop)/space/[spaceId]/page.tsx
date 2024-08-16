@@ -18,7 +18,8 @@ const SpacePage: React.FC = () => {
 	const [username, setUsername] = useState("");
 	const [color, setColor] = useState<string>("");
 	const [selectedCursor, setSelectedCursor] = useState<string>("");
-	const [member, setMember] = useState<boolean>(true);
+	const [member, setMember] = useState<boolean>(false);
+	const [enterSpace, setEnterSpace] = useState<boolean>(false)
 	const user = useUser({ or: "redirect" });
 
 	const fetch = async () => {
@@ -45,6 +46,7 @@ const SpacePage: React.FC = () => {
 			const result = await fetch();
 			if (result) {
 				setUsername(result.username);
+				setMember(!false)
 			} else {
 				const randNum: number = getRandomInt(1, 100);
 				setUsername(`anonymous${randNum}`);
@@ -52,12 +54,6 @@ const SpacePage: React.FC = () => {
 		};
 		fetchAndSetUserData();
 	}, [user]);
-
-	useEffect(() => {
-		if (!username) {
-			setMember(!true);
-		}
-	}, [username]);
 
 	return (
 		<div className="flex h-screen flex-col overflow-hidden">
@@ -72,7 +68,7 @@ const SpacePage: React.FC = () => {
 			<div className="flex flex-grow overflow-hidden">
 				<main className="flex-grow flex flex-col">
 					<div className="relative flex-grow flex items-center justify-center">
-						{username ? (
+						{enterSpace ? (
 							<CursorContainer
 								username={username}
 								color={color}
@@ -80,13 +76,13 @@ const SpacePage: React.FC = () => {
 							/>
 						) : member ? (
 							<EnterSpace
-								onSubmit={setUsername}
+								onSubmit={setEnterSpace}
 								setColorProp={setColor}
 								realUsername={username}
 							/>
 						) : (
 							<SetNickname
-								onSubmit={setUsername}
+								onSubmit={setEnterSpace}
 								setColorProp={setColor}
 								realUsername={username}
 							/>

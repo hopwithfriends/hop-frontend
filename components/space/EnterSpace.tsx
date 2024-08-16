@@ -6,7 +6,7 @@ import randomColor from "randomcolor";
 import useWebSocket from "react-use-websocket";
 import Image from "next/image";
 interface NicknameProps {
-	onSubmit: (username: string) => void;
+	onSubmit: (enterSpace: boolean) => void;
 	setColorProp: (color: string) => void;
 	realUsername: string;
 }
@@ -18,9 +18,6 @@ const EnterSpace: React.FC<NicknameProps> = ({
 }) => {
 	const [color, setColor] = useState("");
 	const [wsUrl, setWsUrl] = useState<string | null>(null);
-
-	// FETCH NICKNAME FROM DB
-	const username = ""; // FOR TESTING
 
 	const { sendJsonMessage } = useWebSocket(wsUrl, {
 		shouldReconnect: () => false,
@@ -46,7 +43,7 @@ const EnterSpace: React.FC<NicknameProps> = ({
 	}, [realUsername]);
 
 	const handleClick = () => {
-		onSubmit(username);
+		onSubmit(true);
 		sendJsonMessage({
 			type: "setRealUsername",
 			realUsername: realUsername,

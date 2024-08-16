@@ -6,12 +6,12 @@ import randomColor from "randomcolor";
 import useWebSocket from "react-use-websocket";
 import Image from "next/image";
 interface NicknameProps {
-	onSubmit: (username: string) => void;
+	onSubmit: (enterSpace: boolean) => void;
 	setColorProp: (color: string) => void;
 	realUsername: string;
 }
 
-// For anonomos viewers
+// For guest viewers
 const SetNickname: React.FC<NicknameProps> = ({
 	onSubmit,
 	setColorProp,
@@ -28,24 +28,24 @@ const SetNickname: React.FC<NicknameProps> = ({
 	});
 
 	useEffect(() => {
-		if (username && !color) {
-			const newColor = randomColor();
-			setColor(newColor);
-		}
-	}, [username, color]);
+		const newColor = randomColor();
+		setColor(newColor);
+	}, []);
 
 	useEffect(() => {
 		if (realUsername) {
-		  setWsUrl(`ws://localhost:8000?username=${encodeURIComponent(realUsername)}`);
+			setWsUrl(
+				`ws://localhost:8000?username=${encodeURIComponent(realUsername)}`,
+			);
 		}
-	  }, [realUsername]);
+	}, [realUsername]);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (username) {
-			onSubmit(username);
+			onSubmit(true);
 			setColorProp(color);
-			
+
 			sendJsonMessage({
 				type: "setRealUsername",
 				realUsername: realUsername,
@@ -61,9 +61,9 @@ const SetNickname: React.FC<NicknameProps> = ({
 				width={700}
 				height={700}
 				priority
-				className="absolute z-0"
+				className="absolute z-10"
 			/>
-			<div className="absolute z-10 rounded-xl p-6 shadow-lg w-full mt-[67%]">
+			<div className="absolute z-20 rounded-xl p-6 shadow-lg w-full mt-[67%]">
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
 					<input
 						type="text"
