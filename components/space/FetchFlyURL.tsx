@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
-import LoadingSpinner from "./Spiner";
+import LoadingSpinner from "../ui/Spiner";
 
 interface VncDisplayProps {
 	spaceId: string;
