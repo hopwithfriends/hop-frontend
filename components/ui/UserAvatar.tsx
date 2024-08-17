@@ -14,7 +14,6 @@ const Avatar: React.FC<AvatarProps> = ({
 	nickname,
 	color = "blue", // eventually send this prop
 }) => {
-
 	return (
 		<div className="relative inline-block ml-5 mt-5 group">
 			<div className="relative rounded-full overflow-hidden flex items-center justify-center border-3 w-12 h-12 text-sm">

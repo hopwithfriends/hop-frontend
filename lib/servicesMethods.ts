@@ -51,9 +51,14 @@ export class ServiceMethods {
   async fetchRemoveSpace(spaceId: string) {
     return this.apiService().delete(`/space/${spaceId}`, {});
   }
-  async fetchAddFriendToSpace(spaceId: string, friendId: string) {
-    return this.apiService().post('/space/addUser', { friendId });
+  async fetchAddFriendToSpace(spaceId: string, friendId: string, role: string) {
+    return this.apiService().post('/space/addUser', {
+      spaceId,
+      role,
+      friendId
+    });
   }
+
   async fetchUserSpaces() {
     return this.apiService().get('/space/myspaces');
   }
