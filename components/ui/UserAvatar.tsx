@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FaRegUserCircle } from "react-icons/fa";
+
 interface AvatarProps {
 	icon?: string;
 	username: string;
