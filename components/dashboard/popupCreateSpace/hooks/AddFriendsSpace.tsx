@@ -35,7 +35,11 @@ const useAddUserToSpace = (): AddUserToSpaceResult => {
 			}
 
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
-			await serviceMethods.fetchAddFriendToSpace(params.spaceId, params.userId);
+			await serviceMethods.fetchAddFriendToSpace(
+				params.spaceId,
+				params.userId,
+				params.role,
+			);
 
 			setSuccess(true);
 			console.log("User added to space successfully");
