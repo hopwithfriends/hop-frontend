@@ -5,7 +5,7 @@ import { usePerfectCursor } from "../hooks/useCursor";
 
 interface CursorProps {
 	point: [number, number];
-	imageUrl: string; // Update the prop to use an image URL
+	imageUrl: string; 
 	username: string;
 }
 
