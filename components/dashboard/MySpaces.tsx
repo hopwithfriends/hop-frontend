@@ -6,7 +6,7 @@ import CreateSpaceButton from "./CreateSpaceButton";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink, FaSearch } from "react-icons/fa";
 import FriendSearch from "./popupCreateSpace/FriendSearch";
-import useAddUserToSpace from "./popupCreateSpace/hooks/AddFriendsSpace";
+import useAddUserToSpace from "./popupCreateSpace/hooks/useAddUserToSpace";
 
 interface Space {
 	flyUrl: string;
@@ -144,14 +144,20 @@ const UserSpaces = () => {
 					<div key={space.id} className="flex flex-col">
 						<div className="relative w-full h-56">
 							<div className="relative w-full h-full rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer">
-								<Image
-									src="/placeholder.jpg"
-									alt={space.name}
-									fill={true}
-									sizes="100%"
-									priority
-									className="object-cover"
-								/>
+								<div
+									onKeyUp={() => {}}
+									onClick={() => openVNC(space.id)}
+									className="w-full h-full relative"
+								>
+									<Image
+										src="/placeholder.jpg"
+										alt={space.name}
+										fill={true}
+										sizes="100%"
+										priority
+										className="object-cover"
+									/>
+								</div>
 								<div className="absolute bottom-2 right-2 border-0">
 									<RemoveSpaceButton
 										spaceId={space.id}
