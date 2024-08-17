@@ -1,5 +1,6 @@
 "use client";
 import UserSpacesButton from "@components/dashboard/MySpaces";
+import AddUserToSpaceButton from "@components/dashboard/popupCreateSpace/AddFriendsToSpace";
 import DeleteSpaceButton from "@components/space/RemoveSpace";
 import { useUser } from "@stackframe/stack";
 
@@ -15,6 +16,7 @@ const ProfilePage = () => {
 		<div>
 			<h1>Profile</h1>
 			<p>{user.displayName}</p>
+			<AddUserToSpaceButton />
 		</div>
 	);
 };
