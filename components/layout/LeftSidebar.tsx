@@ -1,20 +1,11 @@
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
-import { Button } from "@components/ui/Button";
 import { FaUserFriends } from "react-icons/fa";
 import OnlineFriendsContainer from "./OnlineFriendsContainer";
-
-interface Friend {
-	id: string;
-	nickname: string;
-	username: string;
-	profilePicture?: string;
-	isOnline?: boolean;
-	currentRoom?: string;
-}
+import type { FriendsType } from "@app/context/SocketProvider";
 
 interface LeftSidebarProps {
-	friends: Friend[];
+	friends: FriendsType[];
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
