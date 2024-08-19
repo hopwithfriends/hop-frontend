@@ -6,7 +6,7 @@ import CreateSpaceButton from "./CreateSpaceButton";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink, FaSearch } from "react-icons/fa";
 import FriendSearch from "./popupCreateSpace/FriendSearch";
-import useAddUserToSpace from "@components/hooks/useAddUserToSpace";
+import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
 
 interface Space {
 	flyUrl: string;
