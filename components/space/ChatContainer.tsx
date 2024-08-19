@@ -9,6 +9,8 @@ import { useUser } from "@stackframe/stack";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import moment from "moment";
+import dotenv from "dotenv"; 
+dotenv.config();
 interface ChatMessage {
 	type: "chat" | "join";
 	username: string;
@@ -61,7 +63,7 @@ const ChatContainer: React.FC = () => {
 		if (!username) return;
 
 		const connectWebSocket = () => {
-			const WS_URL = `${process.env.DEPLOYED_WS}?username=${encodeURIComponent(username)}`;
+			const WS_URL = `wss://hop-websocket1-76a542d0c47b.herokuapp.com?username=${encodeURIComponent(username)}`;
 			const ws = new WebSocket(WS_URL);
 
 			ws.onopen = () => {
@@ -88,9 +90,7 @@ const ChatContainer: React.FC = () => {
 			};
 
 			ws.onclose = () => {
-				console.log(
-					"WebSocket disconnected, attempting to reconnect in 3 seconds...",
-				);
+				console.log("WebSocket disconnected, attempting to reconnect in 3 seconds...");
 				setTimeout(connectWebSocket, 3000);
 				setTimeout(connectWebSocket, 20000);
 			};
