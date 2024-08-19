@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import debounce from "lodash/debounce";
-import { useFetchFriends } from "./hooks/useFetchFriends";
+import { useFetchFriends } from "@components/hooks/useFetchFriends";
 
 interface Friend {
 	id: string;

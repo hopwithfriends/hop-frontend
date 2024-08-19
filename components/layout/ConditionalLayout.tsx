@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import LeftSidebar from "@components/layout/LeftSidebar";
 
 export default function ConditionalLayout({

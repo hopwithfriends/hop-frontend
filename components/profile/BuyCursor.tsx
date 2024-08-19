@@ -53,8 +53,8 @@ const PlaceholderImageStore: React.FC = () => {
 					/>
 					<FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 					{searchTerm && (
-						// biome-ignore lint/a11y/useButtonType: <explanation>
 						<button
+							type="button"
 							onClick={() => setSearchTerm("")}
 							className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
 						>
@@ -67,8 +67,8 @@ const PlaceholderImageStore: React.FC = () => {
 			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
 				{filteredImages.map((image) => (
 					<div key={image.id} className="flex flex-col items-center space-y-2">
-						{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 						<div
+							onKeyUp={() => {}}
 							className="w-40 h-40 rounded-lg overflow-hidden bg-gray-200 cursor-pointer transition-transform hover:scale-105"
 							onClick={() => setSelectedImage(image)}
 						>
@@ -90,8 +90,8 @@ const PlaceholderImageStore: React.FC = () => {
 					<div className="bg-white rounded-lg p-6 max-w-lg w-full">
 						<div className="flex justify-between items-center mb-4">
 							<h3 className="text-xl font-bold">{selectedImage.alt}</h3>
-							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 							<button
+								type="button"
 								onClick={() => setSelectedImage(null)}
 								className="text-gray-500 hover:text-gray-700"
 							>
@@ -109,8 +109,8 @@ const PlaceholderImageStore: React.FC = () => {
 						</div>
 						<div className="flex justify-between items-center">
 							<p className="text-xl font-bold">Price: $1.00</p>
-							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}
 							<button
+								type="button"
 								onClick={() => handlePurchase(selectedImage)}
 								className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
 							>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@components/ui/Button";
 import DeleteFriendComponent from "./RemoveFriend";
