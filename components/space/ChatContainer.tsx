@@ -61,7 +61,7 @@ const ChatContainer: React.FC = () => {
 		if (!username) return;
 
 		const connectWebSocket = () => {
-			const WS_URL = `wss://hop-websocket1-76a542d0c47b.herokuapp.com?username=${encodeURIComponent(username)}`;
+			const WS_URL = `${process.env.DEPLOYED_WS}?username=${encodeURIComponent(username)}`;
 			const ws = new WebSocket(WS_URL);
 
 			ws.onopen = () => {

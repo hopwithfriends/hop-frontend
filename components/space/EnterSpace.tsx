@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import randomColor from "randomcolor";
 import useWebSocket from "react-use-websocket";
 import Image from "next/image";
+import dotenv from "dotenv"; 
+dotenv.config();
 interface NicknameProps {
     onSubmit: (enterSpace: boolean) => void;
     setColorProp: (color: string) => void;
@@ -41,7 +43,7 @@ const EnterSpace: React.FC<NicknameProps> = ({
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
         setWsUrl(
-            `wss://hop-websocket1-76a542d0c47b.herokuapp.com?username=${encodeURIComponent(username)}&pfp=${encodeURIComponent(pfp)}&nickname=${encodeURIComponent(nickname)}`,
+            `${process.env.DEPLOYED_WS}?username=${encodeURIComponent(username)}&pfp=${encodeURIComponent(pfp)}&nickname=${encodeURIComponent(nickname)}`,
         );
     }, []);
 
