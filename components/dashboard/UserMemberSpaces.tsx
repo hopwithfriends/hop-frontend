@@ -5,8 +5,8 @@ import Image from "next/image";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink } from "react-icons/fa";
 import InviteContainer from "./InviteContainer";
-import { useRemoveUserFromSpace } from "@components/hooks/useRemoveUserFromSpace";
-import { useFetchUserId } from "@components/hooks/useFetchUserId";
+import { useRemoveUserFromSpace } from "@components/hooks/userHooks/useRemoveUserFromSpace";
+import { useFetchUserId } from "@components/hooks/userHooks/useFetchUserId";
 
 interface Space {
 	flyUrl: string;

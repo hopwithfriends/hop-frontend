@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Copy } from "lucide-react";
-import useCreateSpace from "@components/hooks/useCreateSpace";
+import useCreateSpace from "@components/hooks/userHooks/useCreateSpace";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { generateUUID, generatePassword } from "./UUID&PasswordGenerator";
