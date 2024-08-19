@@ -39,9 +39,10 @@ const useCreateSpace = (): CreateSpaceResult => {
 
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			await serviceMethods.fetchCreateSpace(
-				params.name,
-				params.theme,
 				params.id,
+				params.name,
+				params.flyUrl,
+				params.theme,
 				params.password,
 			);
 
