@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FiSettings, FiCopy, FiSearch, FiX } from "react-icons/fi";
+import { FiSettings, FiCopy, FiX } from "react-icons/fi";
 import { RiUserAddFill } from "react-icons/ri";
-import { useFetchSpaces } from "@components/dashboard/popupCreateSpace/hooks/useFetchSpaces";
+import { useFetchSpaces } from "@components/hooks/useFetchSpaces";
 import { useUser } from "@stackframe/stack";
 import FriendSearch from "@components/dashboard/popupCreateSpace/FriendSearch";
-import useAddUserToSpace from "@components/dashboard/popupCreateSpace/hooks/useAddUserToSpace";
+import useAddUserToSpace from "@components/hooks/useAddUserToSpace";
 
 interface Friend {
 	id: string;
