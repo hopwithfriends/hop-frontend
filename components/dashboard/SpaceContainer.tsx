@@ -1,8 +1,5 @@
 import Link from "next/link";
 import { CgProfile } from "react-icons/cg";
-import CreateSpaceButton from "@components/dashboard/CreateSpaceButton";
-import { SpaceComponent } from "@components/dashboard/SpaceComponent";
-import InviteContainer from "./InviteContainer";
 import UserSpaces from "./MySpaces";
 import UserMemberSpaces from "./UserMemberSpaces";
 
