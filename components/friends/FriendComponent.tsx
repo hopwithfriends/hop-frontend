@@ -33,8 +33,7 @@ const SingleFriend: React.FC<SingleFriendProps> = ({
 		>
 			<div className="w-14 h-14 rounded-full flex-shrink-0 overflow-hidden relative">
 				<Image
-					// src={ `${profilePicture}` || defaultProfilePicture}
-					src={defaultProfilePicture}
+					src={`${profilePicture}` || defaultProfilePicture}
 					alt={`${nickname}'s profile picture`}
 					fill={true}
 					sizes="100%"

@@ -65,12 +65,12 @@ const SpacePopup: React.FC<SpacePopupProps> = ({
 				ref={popupRef}
 				className={`bg-gray-800 rounded-xl shadow-xl transition-all duration-300 transform ${
 					isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
-				}`}
+				} overflow-hidden`}
 				style={{
-					width: "23%",
-					height: "45%",
-					maxWidth: "90vw",
-					maxHeight: "90vh",
+					width: "90%",
+					maxWidth: "400px",
+					height: "90%",
+					maxHeight: "450px",
 				}}
 				onAnimationEnd={handleAnimationEnd}
 			>

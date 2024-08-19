@@ -18,6 +18,7 @@ export class ServiceMethods {
   async fetchUser() {
     return this.apiService().get('/user');
   }
+
   async fetchUpdateUser(
     username: string,
     nickname: string,
@@ -30,45 +31,105 @@ export class ServiceMethods {
     });
   }
 
-  async fetchAllFriends() {
-    return this.apiService().get('/user/friend');
+  async fetchAddFriend(username: string) {
+    return this.apiService().post(`/user/friend/request/${username}`, {});
   }
-  async fetchAddFriend(friendId: string) {
-    return this.apiService().post(`/user/friend/${friendId}`, {});
+
+  async fetchAllFriendRequests() {
+    return this.apiService().get('/user/friend/request');
   }
+
+  async fetchAcceptFriendRequest(requestId: string) {
+    return this.apiService().post(`/user/friend/request/${requestId}`, {});
+  }
+
+  async fetchDeclineFriendRequest(requestId: string) {
+    return this.apiService().delete(`/user/friend/request/${requestId}`, {});
+  }
+
   async fetchRemoveFriend(friendId: string) {
     return this.apiService().delete(`/user/friend/${friendId}`, {});
   }
+  async fetchAllFriends() {
+    return this.apiService().get('/user/friend');
+  }
 
+  async fetchSpaceById(spaceId: string) {
+    return this.apiService().get(`/spaceId/${spaceId}`);
+  }
   async fetchCreateSpace(
-    name: string,
-    theme: string,
     id: string,
+    name: string,
+    flyUrl: string,
+    theme: string,
     password: string
   ) {
-    return this.apiService().post('/space', { name, theme, id, password });
+    return this.apiService().post('/space', {
+      name,
+      theme,
+      id,
+      password,
+      flyUrl
+    });
   }
   async fetchRemoveSpace(spaceId: string) {
     return this.apiService().delete(`/space/${spaceId}`, {});
   }
-  async fetchAddFriendToSpace(spaceId: string, friendId: string, role: string) {
-    return this.apiService().post('/space/addUser', {
+
+  async fetchUpdateSpace(
+    spaceId: string,
+    spaceName: string,
+    spaceTheme: string
+  ) {
+    return this.apiService().put('/space/edit', {
       spaceId,
-      role,
-      friendId
+      spaceName,
+      spaceTheme
     });
   }
 
-  async fetchUserSpaces() {
-    return this.apiService().get('/space/myspaces');
+  async fetchSendSpaceRequests(
+    friendId: string,
+    spaceId: string,
+    role: string
+  ) {
+    return this.apiService().post('/space/request', {
+      spaceId,
+      friendId,
+      role
+    });
   }
-  async fetchInvitedSpace() {
-    return this.apiService().get('/space/invitedspaces');
+  async fetchAllSpaceRequests() {
+    return this.apiService().get('/space/request');
   }
-  async fetchSpaceById(spaceId: string) {
-    return this.apiService().get(`/spaceId/${spaceId}`);
+  async fetchAcceptSpaceRequest(requestId: string) {
+    return this.apiService().post(`/space/request/${requestId}`, {});
+  }
+  async fetchDeclineSpaceRequest(requestId: string) {
+    return this.apiService().delete(`/space/request/${requestId}`, {});
   }
   async fetchRemoveUserFromSpace(spaceId: string, userId: string) {
     return this.apiService().delete(`/space/${spaceId}/${userId}`, {});
+  }
+  async fetchUserSpaces() {
+    return this.apiService().get('/space/mySpaces');
+  }
+
+  async fetchInvitedSpace() {
+    return this.apiService().get('/space/invitedSpaces');
+  }
+  async fetchSpaceMembers(spaceId: string) {
+    return this.apiService().get(`space/spaceMembers/${spaceId}`);
+  }
+
+  async fetchSpaceOwner(spaceId: string) {
+    return this.apiService().get(`/space/ownSpaceRole/${spaceId}`);
+  }
+  async fetchUpdateSpaceRole(spaceId: string, userId: string, role: string) {
+    return this.apiService().put('/space/changeRole', {
+      userId,
+      spaceId,
+      role
+    });
   }
 }
