@@ -52,7 +52,7 @@ const SpaceSettings = () => {
 		await refetchSpaces();
 		const space = spaces.find((s) => s.id === spaceId);
 		if (space) {
-			const spaceUrl = `http://localhost:3000/space/${space.id}`;
+			const spaceUrl = `https://hop.vercel.app/space/${space.id}`;
 			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 			copyToClipboard(shareText);
 		} else {
