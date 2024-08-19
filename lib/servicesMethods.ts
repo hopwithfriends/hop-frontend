@@ -68,4 +68,7 @@ export class ServiceMethods {
   async fetchSpaceById(spaceId: string) {
     return this.apiService().get(`/spaceId/${spaceId}`);
   }
+  async fetchRemoveUserFromSpace(spaceId: string, userId: string) {
+    return this.apiService().delete(`/space/${spaceId}/${userId}`, {});
+  }
 }

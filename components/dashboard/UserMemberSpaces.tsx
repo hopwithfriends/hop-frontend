@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
 import Image from "next/image";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink } from "react-icons/fa";
 import InviteContainer from "./InviteContainer";
+import { useRemoveUserFromSpace } from "./popupCreateSpace/hooks/useRemoveUserFromSpace";
+import { useFetchUserId } from "./popupCreateSpace/hooks/useFetchUserId";
 
 interface Space {
 	flyUrl: string;
@@ -20,6 +22,17 @@ const UserMemberSpaces = () => {
 	const [spaces, setSpaces] = useState<Space[]>([]);
 	const user = useUser({ or: "redirect" });
 	const [copiedSpaceId, setCopiedSpaceId] = useState<string | null>(null);
+	const {
+		removeUserFromSpace,
+		loading: removeLoading,
+		error: removeError,
+	} = useRemoveUserFromSpace();
+	const {
+		fetchUserId,
+		userId,
+		loading: userIdLoading,
+		error: userIdError,
+	} = useFetchUserId();
 
 	const fetchSpaces = async () => {
 		setLoading(true);
@@ -58,22 +71,42 @@ const UserMemberSpaces = () => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		fetchSpaces();
-	}, []);
+		fetchUserId();
+	}, [fetchUserId]);
 
 	const openVNC = (spaceId: string) => {
 		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
-	const handleRemoveSpace = (removedSpaceId: string) => {
-		setSpaces(spaces.filter((space) => space.id !== removedSpaceId));
-	};
+	const handleRemoveSpace = useCallback(
+		async (removedSpaceId: string) => {
+			if (!userId) {
+				console.error("User ID is not available");
+				return;
+			}
+
+			const success = await removeUserFromSpace(removedSpaceId, userId);
+			if (success) {
+				setSpaces(spaces.filter((space) => space.id !== removedSpaceId));
+			}
+		},
+		[userId, removeUserFromSpace, spaces],
+	);
 
 	const copyToClipboard = (space: Space) => {
 		const spaceUrl = `http://localhost:3000/space/${space.id}`;
 		setCopiedSpaceId(space.id);
 		setTimeout(() => setCopiedSpaceId(null), 3000);
 	};
+
+	if (loading || userIdLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error || userIdError) {
+		return <div>Error: {error || userIdError}</div>;
+	}
 
 	return (
 		<div className="">
