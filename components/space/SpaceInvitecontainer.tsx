@@ -149,16 +149,6 @@ const SpaceRequestsContainer: React.FC = () => {
 					</div>
 				))}
 			</div>
-			{acceptError && (
-				<div className="p-4 text-red-500">
-					Error accepting invitation: {acceptError}
-				</div>
-			)}
-			{declineError && (
-				<div className="p-4 text-red-500">
-					Error declining invitation: {declineError}
-				</div>
-			)}
 		</div>
 	);
 };

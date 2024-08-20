@@ -30,13 +30,7 @@ export const useUpdateSpaceRole = () => {
 				return result;
 			} catch (err) {
 				console.error("Error updating space role:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while updating space role.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},
