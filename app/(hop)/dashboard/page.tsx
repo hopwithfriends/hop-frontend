@@ -13,7 +13,6 @@ const Dashboard: React.FC = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		console.log(user.id);
 		async function fetchData() {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			const serviceMethods = new ServiceMethods(
@@ -22,7 +21,6 @@ const Dashboard: React.FC = () => {
 			);
 			const userDataReq = await serviceMethods.fetchUser();
 			setUserData(userDataReq);
-			console.log("dash userdata:", userData);
 			return userData;
 		}
 		fetchData();

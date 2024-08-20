@@ -43,8 +43,6 @@ const UserMemberSpaces = () => {
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			const response = await serviceMethods.fetchInvitedSpace();
 
-			console.log("Fetched Invited spaces:", response);
-
 			if (Array.isArray(response) && response.length > 0) {
 				setSpaces(response);
 			} else {

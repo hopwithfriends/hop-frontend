@@ -139,6 +139,7 @@ const SpaceSettings = () => {
 					selectedFriends={selectedFriends}
 					onRemoveFriend={handleRemoveFriend}
 				/>
+
 				<div className="absolute bottom-3 right-3 flex items-center">
 
 					<button
