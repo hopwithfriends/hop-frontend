@@ -5,13 +5,11 @@ import { useUser } from "@stackframe/stack";
 import SpaceContainer from "@components/dashboard/SpaceContainer";
 import { useEffect, useState } from "react";
 import { ServiceMethods, type UserType } from "@lib/servicesMethods";
+import LoadingSpinner from "@components/ui/Spiner";
 
 const Dashboard: React.FC = () => {
 	const user = useUser({ or: "redirect" });
 	const [userData, setUserData] = useState<UserType>();
-
-	const fallBackProfilePicture =
-		"https://res.cloudinary.com/dksp40fgp/image/upload/v1723767101/oklypy7hrfwisbjnxwaw.png";
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
@@ -29,13 +27,21 @@ const Dashboard: React.FC = () => {
 		}
 		fetchData();
 	}, []);
+	
+	const color = "border-white"
 
 	return (
 		<div className="flex bg-hop-secondary-bg text-white h-screen">
-			<SpaceContainer
-				profilePicture={userData?.profilePicture || fallBackProfilePicture}
-				username={userData?.username || ""}
-			/>
+			{userData ? (
+				<SpaceContainer
+					profilePicture={userData.profilePicture}
+					username={userData.username}
+				/>
+			) : (
+				<div className= "ml-[43%]">
+					<LoadingSpinner border={color}/>
+				</div>
+			)}
 		</div>
 	);
 };
