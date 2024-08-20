@@ -1,3 +1,5 @@
+'use client';
+
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
 // import { FaUserFriends } from "react-icons/fa";
@@ -8,8 +10,6 @@ import SpaceInvitesContainer from "@components/dashboard/SpaceInvitesContainer";
 import { useEffect, useState } from "react";
 import { useFetchFriendRequests } from "@components/hooks/friendHooks/useFetchFriendRequests";
 import { useUser } from "@stackframe/stack";
-import { ServiceMethods } from "@lib/servicesMethods";
-import { IoMdReturnLeft } from "react-icons/io";
 
 interface LeftSidebarProps {
 	friends: FriendsType[];
@@ -82,6 +82,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 		error: friendRequestError,
 	} = useFetchFriendRequests();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchFriendRequestsData = async () => {
 			const friendRequests = await fetchFriendRequests();

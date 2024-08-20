@@ -57,23 +57,15 @@ const SpaceSettings = () => {
 			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 			copyToClipboard(shareText);
-		} else {
-			console.log("Space not found");
-			console.log("Spaces:", spaces);
 		}
 	};
 
 	const copyToClipboard = (text: string) => {
-		navigator.clipboard.writeText(text).then(
-			() => {
-				setIsCopied(true);
-				console.log("Copied to clipboard:", text);
-				setTimeout(() => setIsCopied(false), 2000);
-			},
-			(error) => {
-				console.error("Could not copy text: ", error);
-			},
-		);
+		navigator.clipboard.writeText(text).then(() => {
+			setIsCopied(true);
+			console.log("Copied to clipboard:", text);
+			setTimeout(() => setIsCopied(false), 2000);
+		});
 	};
 
 	const handleSelectFriend = (friend: Friend) => {

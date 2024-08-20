@@ -135,9 +135,9 @@ export class ServiceMethods {
   }
   async fetchUpdateSpaceRole(spaceId: string, userId: string, role: string) {
     return this.apiService().put('/space/changeRole', {
-      userId,
-      spaceId,
-      role
+      userId: userId,
+      spaceId: spaceId,
+      role: role
     });
   }
 }

@@ -110,16 +110,6 @@ const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
 						</div>
 					</form>
 
-					{error && (
-						<div
-							className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
-							role="alert"
-						>
-							<div className="font-medium">Error</div>
-							<div>{error}</div>
-						</div>
-					)}
-
 					{success && (
 						<div
 							className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
