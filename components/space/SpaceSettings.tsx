@@ -54,7 +54,7 @@ const SpaceSettings = () => {
 		await refetchSpaces();
 		const space = spaces.find((s) => s.id === spaceId);
 		if (space) {
-			const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
+			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 			copyToClipboard(shareText);
 		} else {

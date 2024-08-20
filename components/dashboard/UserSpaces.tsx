@@ -80,7 +80,7 @@ const UserSpaces = () => {
 	}, []);
 
 	const openVNC = (spaceId: string) => {
-		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
+		const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -89,7 +89,7 @@ const UserSpaces = () => {
 	};
 
 	const copyToClipboard = (space: Space) => {
-		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
+		const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 		const textToCopy = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 		navigator.clipboard.writeText(textToCopy).then(() => {
 			setCopiedSpaceId(space.id);
