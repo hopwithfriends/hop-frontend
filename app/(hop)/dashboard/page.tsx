@@ -10,6 +10,9 @@ const Dashboard: React.FC = () => {
 	const user = useUser({ or: "redirect" });
 	const [userData, setUserData] = useState<UserType>();
 
+	const fallBackProfilePicture =
+		"https://res.cloudinary.com/dksp40fgp/image/upload/v1723767101/oklypy7hrfwisbjnxwaw.png";
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		console.log(user.id);
@@ -27,21 +30,11 @@ const Dashboard: React.FC = () => {
 		fetchData();
 	}, []);
 
-	const link: string = "link placeholder"; // ??
-	const members: number = 4;
-	const screen: string = "/placeholder.jpg"; // ??
-
 	return (
 		<div className="flex bg-hop-secondary-bg text-white h-screen">
 			<SpaceContainer
-				screen={screen}
-				pfp={
-					userData?.profilePicture ||
-					"https://res.cloudinary.com/dksp40fgp/image/upload/v1723767101/oklypy7hrfwisbjnxwaw.png"
-				}
-				link={link}
-				members={members}
-				realUsername={userData?.username || ""}
+				profilePicture={userData?.profilePicture || fallBackProfilePicture}
+				username={userData?.username || ""}
 			/>
 		</div>
 	);
