@@ -13,29 +13,21 @@ export default function FriendInvitesContainer({
 	invites,
 	setFriendInvites,
 }: FriendInvitesContainerProps) {
-	const {
-		acceptFriendRequest,
-		loading: acceptFriendRequestLoading,
-		error: acceptFriendRequestError,
-	} = useAcceptFriendRequest();
-	const {
-		declineFriendRequest,
-		loading: declineFriendRequestLoading,
-		error: declineFriendRequestError,
-	} = useDeclineFriendRequest();
+	const { acceptFriendRequest } = useAcceptFriendRequest();
+	const { declineFriendRequest } = useDeclineFriendRequest();
 
 	const handleAcceptInvite = async (invite: FriendRequestType) => {
-		// ! Implement endpoint interaction here
 		await acceptFriendRequest(invite.id);
 		setFriendInvites(invites.filter((i) => i.id !== invite.id));
 	};
 
 	const handleRejectInvite = async (invite: FriendRequestType) => {
-		// ! Implement endpoint interaction here
 		await declineFriendRequest(invite.id);
 		setFriendInvites(invites.filter((i) => i.id !== invite.id));
 	};
-
+	if (!invites || invites.length === 0) {
+		return <div className="text-sm text-hop-purple-400">No friend invites</div>;
+	}
 	return (
 		<div className="flex flex-col gap-2">
 			{invites.map((invite) => (

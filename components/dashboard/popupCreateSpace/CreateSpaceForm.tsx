@@ -23,21 +23,18 @@ const CreateSpaceForm: React.FC = () => {
 	const [spacePassword, setSpacePassword] = useState<string | null>(null);
 	const [isSpaceCreated, setIsSpaceCreated] = useState(false);
 
-	const {
-		createSpace,
-		loading: creating,
-		error: createError,
-		success,
-	} = useCreateSpace();
+	const { createSpace } = useCreateSpace();
 
 	const handleSelectFriend = (friend: Friend) => {
-		if (!selectedFriends.some((f) => f.id === friend.id)) {
+		if (!selectedFriends.some((otherFriend) => otherFriend.id === friend.id)) {
 			setSelectedFriends([...selectedFriends, friend]);
 		}
 	};
 
 	const handleRemoveFriend = (friend: Friend) => {
-		setSelectedFriends(selectedFriends.filter((f) => f.id !== friend.id));
+		setSelectedFriends(
+			selectedFriends.filter((otherFriend) => otherFriend.id !== friend.id),
+		);
 	};
 
 	const handleCreateSpace = async () => {
@@ -79,11 +76,9 @@ const CreateSpaceForm: React.FC = () => {
 					"member",
 				);
 			}
-
 			console.log("Space created and friends added successfully");
 		} catch (error) {
 			console.error("Failed to create space or add friends:", error);
-			alert("An error occurred while creating the space or adding friends.");
 		}
 	};
 

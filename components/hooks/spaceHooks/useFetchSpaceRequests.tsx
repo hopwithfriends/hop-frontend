@@ -25,13 +25,7 @@ export const useFetchSpaceRequests = () => {
 			return spaceRequests;
 		} catch (err) {
 			console.error("Error fetching space requests:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching space requests.",
-			);
-			return null;
-		} finally {
+
 			setLoading(false);
 		}
 	}, [user]);

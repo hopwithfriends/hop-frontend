@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
@@ -124,7 +124,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 						<h1 className="text-2xl font-bold text-white mb-1">invites</h1>
 					) : null}
 					<div>
-						{friendInvites.length > 0 && (
+						{friendInvites && friendInvites.length > 0 && (
 							<h2 className="text-sm font-bold text-hop-purple-400 mb-2">
 								FRIEND REQUESTS
 							</h2>
@@ -137,7 +137,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 					<div>
 						{spaceRequests.length > 0 && (
 							<h2
-								className={`text-sm font-bold text-hop-purple-400 mb-2 ${friendInvites.length === 0 ? "mt-2" : "mt-8"}`}
+								className={`text-sm font-bold text-hop-purple-400 mb-2 ${friendInvites && friendInvites.length === 0 ? "mt-2" : "mt-8"}`}
 							>
 								SPACE INVITES
 							</h2>

@@ -25,13 +25,7 @@ export const useRemoveUserFromSpace = () => {
 			return true;
 		} catch (err) {
 			console.error("Error removing user from space:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while removing the user from the space.",
-			);
-			return false;
-		} finally {
+
 			setLoading(false);
 		}
 	};

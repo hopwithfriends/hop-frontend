@@ -27,13 +27,7 @@ export const useDeclineFriendRequest = () => {
 				return result;
 			} catch (err) {
 				console.error("Error declining friend request:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while declining friend request.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

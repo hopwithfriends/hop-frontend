@@ -39,38 +39,36 @@ const AddFriendComponent = () => {
 			}
 		} catch (err) {
 			console.error("Error adding friend:", err);
-			if (err instanceof SyntaxError) {
-				setLoading(false);
-			}
-		}
+			setLoading(false);
 
-		return (
-			<div className="p-4 space-y-4">
-				<h2 className="text-2xl font-bold">Add Friend</h2>
-				<div className="flex space-x-2">
-					<Input
-						type="text"
-						value={friendId}
-						onChange={(e) => setFriendId(e.target.value)}
-						placeholder="Enter friend ID"
-						className="flex-grow"
-					/>
-					<Button onClick={addFriend} disabled={loading}>
-						{loading ? "Adding..." : "Add Friend"}
-					</Button>
-				</div>
-
-				{success && (
-					<div
-						className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
-						role="alert"
-					>
-						<div className="font-medium">Success</div>
-						<div>Friend added successfully!</div>
+			return (
+				<div className="p-4 space-y-4">
+					<h2 className="text-2xl font-bold">Add Friend</h2>
+					<div className="flex space-x-2">
+						<Input
+							type="text"
+							value={friendId}
+							onChange={(e) => setFriendId(e.target.value)}
+							placeholder="Enter friend ID"
+							className="flex-grow"
+						/>
+						<Button onClick={addFriend} disabled={loading}>
+							{loading ? "Adding..." : "Add Friend"}
+						</Button>
 					</div>
-				)}
-			</div>
-		);
+
+					{success && (
+						<div
+							className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+							role="alert"
+						>
+							<div className="font-medium">Success</div>
+							<div>Friend added successfully!</div>
+						</div>
+					)}
+				</div>
+			);
+		}
 	};
 };
 

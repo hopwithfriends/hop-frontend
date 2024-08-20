@@ -26,13 +26,7 @@ export const useDeclineSpaceRequest = () => {
 				return result;
 			} catch (err) {
 				console.error("Error declining space request:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while declining space request.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

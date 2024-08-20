@@ -27,12 +27,7 @@ const SpaceSettings = () => {
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
 	const user = useUser({ or: "redirect" });
-	const {
-		addFriendToSpace,
-		result: addUserResult,
-		loading: addingUser,
-		error: addUserError,
-	} = useAddFriendToSpace();
+	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	useEffect(() => {
 		const extractSpaceId = () => {
@@ -145,14 +140,7 @@ const SpaceSettings = () => {
 					onRemoveFriend={handleRemoveFriend}
 				/>
 				<div className="absolute bottom-3 right-3 flex items-center">
-					{addUserError && (
-						<p className="text-red-500 mr-5 text-md">{addUserError}</p>
-					)}
-					{addUserResult?.success && (
-						<p className="text-green-500 mr-5 text-md">
-							Friends added successfully!
-						</p>
-					)}
+
 					<button
 						type="button"
 						onClick={handleAddFriendsToSpace}

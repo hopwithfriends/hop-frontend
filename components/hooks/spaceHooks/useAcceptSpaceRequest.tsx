@@ -26,13 +26,7 @@ export const useAcceptSpaceRequest = () => {
 				return result;
 			} catch (err) {
 				console.error("Error accepting space request:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while accepting space request.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},
