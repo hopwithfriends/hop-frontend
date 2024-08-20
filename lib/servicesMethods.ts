@@ -15,7 +15,7 @@ export class ServiceMethods {
   apiService() {
     return new ApiService(this.accessToken, this.refreshToken);
   }
-  async fetchUser() {
+  async fetchUser(friendId: string) {
     return this.apiService().get('/user');
   }
 
@@ -40,7 +40,7 @@ export class ServiceMethods {
   }
 
   async fetchAcceptFriendRequest(requestId: string) {
-    return this.apiService().post(`/user/friend/request/${requestId}`, {});
+    return this.apiService().post(`/user/friend/addRequest/${requestId}`, {});
   }
 
   async fetchDeclineFriendRequest(requestId: string) {
