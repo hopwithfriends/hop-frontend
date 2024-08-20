@@ -1,4 +1,5 @@
 "use client";
+
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
 import { createContext, useContext, useEffect, useState } from "react";
