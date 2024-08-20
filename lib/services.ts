@@ -1,7 +1,5 @@
-import dotenv from "dotenv"; 
-dotenv.config();
 export class ApiService {
-  private BASE_URL = `${process.env.BACKEND_URL || "http://localhost:8080"}/api`;
+  private BASE_URL = `${process.env.BACKEND_URL || 'http://localhost:8080'}/api`;
   private accessToken = '';
   private refreshToken = '';
 
@@ -32,9 +30,9 @@ export class ApiService {
       throw new Error(`HTTP Error: ${res.status}`);
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Error Message: ${error.message}`)
+        throw new Error(`Error Message: ${error.message}`);
       }
-      throw new Error(`Unknown Error: ${error}`)
+      throw new Error(`Unknown Error: ${error}`);
     }
   }
 
@@ -45,52 +43,52 @@ export class ApiService {
         headers: this.getHeaders(),
         body: JSON.stringify(data)
       });
-  
+
+      if (res.ok) {
+        if (res.json) return await res.json();
+      }
+      throw new Error(`HTTP Error: ${res.status}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Error message: ${error.message}`);
+      }
+      throw new Error(`Unknown Error: ${error}`);
+    }
+  }
+
+  async put(endpoint: string, data: unknown) {
+    try {
+      const res = await fetch(`${this.BASE_URL}${endpoint}`, {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(data)
+      });
       if (res.ok) {
         return await res.json();
       }
       throw new Error(`HTTP Error: ${res.status}`);
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Error message: ${error.message}`)
+        throw new Error(`Error Message: ${error.message}`);
       }
-      throw new Error(`Unknown Error: ${error}`)
+      throw new Error(`Unknown Error: ${error}`);
     }
-  }
-
-  async put(endpoint: string, data: unknown) {
-    try {
-    const res = await fetch(`${this.BASE_URL}${endpoint}`, {
-      method: 'PUT',
-      headers: this.getHeaders(),
-      body: JSON.stringify(data)
-    });
-    if (res.ok) {
-      return await res.json();
-    }
-    throw new Error(`HTTP Error: ${res.status}`);
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error Message: ${error.message}`)
-    }
-      throw new Error(`Unknown Error: ${error}`)
-  }
   }
   async delete(endpoint: string, data: unknown) {
     try {
-    const res = await fetch(`${this.BASE_URL}${endpoint}`, {
-      method: 'DELETE',
-      headers: this.getHeaders()
-    });
-    if (res.ok) {
-      return await res.json();
+      const res = await fetch(`${this.BASE_URL}${endpoint}`, {
+        method: 'DELETE',
+        headers: this.getHeaders()
+      });
+      if (res.ok) {
+        return await res.json();
+      }
+      throw new Error(`HTTP Error: ${res.status}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Error Message: ${error.message}`);
+      }
+      throw new Error(`Unknown Error: ${error}`);
     }
-    throw new Error(`HTTP Error: ${res.status}`);
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error Message: ${error.message}`)
-    }
-    throw new Error(`Unknown Error: ${error}`)
-  }
   }
 }
