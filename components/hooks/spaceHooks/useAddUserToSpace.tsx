@@ -45,12 +45,7 @@ const useAddUserToSpace = (): AddUserToSpaceResult => {
 			console.log("User added to space successfully");
 		} catch (error) {
 			console.error("Error adding user to space:", error);
-			setError(
-				error instanceof Error
-					? error.message
-					: "An unexpected error occurred while adding user to space",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	};

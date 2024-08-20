@@ -26,13 +26,7 @@ export const useRemoveSpace = () => {
 				return result;
 			} catch (err) {
 				console.error("Error removing space:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while removing space.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

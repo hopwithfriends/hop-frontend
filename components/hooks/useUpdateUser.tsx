@@ -30,13 +30,7 @@ export const useUpdateUser = () => {
 				return updatedUser;
 			} catch (err) {
 				console.error("Error updating user:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while updating user.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

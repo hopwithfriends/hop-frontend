@@ -26,13 +26,7 @@ export const useFetchSpaceMembers = () => {
 				return spaceMembers;
 			} catch (err) {
 				console.error("Error fetching space members:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while fetching space members.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

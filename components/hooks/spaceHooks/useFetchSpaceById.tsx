@@ -39,13 +39,7 @@ export const useFetchSpaceById = () => {
 				}
 			} catch (err) {
 				console.error("Error fetching space:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while fetching the space.",
-				);
-				setSpace(null);
-			} finally {
+
 				setLoading(false);
 			}
 		},

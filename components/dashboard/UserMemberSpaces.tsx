@@ -1,13 +1,14 @@
+"use client";
+
 import { useState, useEffect, useCallback } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
 import Image from "next/image";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink } from "react-icons/fa";
-import InviteContainer from "./InviteContainer";
 import { useRemoveUserFromSpace } from "@components/hooks/spaceHooks/useRemoveUserFromSpace";
 import { useFetchUserId } from "@components/hooks/useFetchUserId";
-import dotenv from "dotenv"; 
+import dotenv from "dotenv";
 dotenv.config();
 
 interface Space {
@@ -24,17 +25,8 @@ const UserMemberSpaces = () => {
 	const [spaces, setSpaces] = useState<Space[]>([]);
 	const user = useUser({ or: "redirect" });
 	const [copiedSpaceId, setCopiedSpaceId] = useState<string | null>(null);
-	const {
-		removeUserFromSpace,
-		loading: removeLoading,
-		error: removeError,
-	} = useRemoveUserFromSpace();
-	const {
-		fetchUserId,
-		userId,
-		loading: userIdLoading,
-		error: userIdError,
-	} = useFetchUserId();
+	const { removeUserFromSpace } = useRemoveUserFromSpace();
+	const { fetchUserId, userId } = useFetchUserId();
 
 	const fetchSpaces = async () => {
 		setLoading(true);
@@ -102,19 +94,10 @@ const UserMemberSpaces = () => {
 		setTimeout(() => setCopiedSpaceId(null), 3000);
 	};
 
-	if (loading || userIdLoading) {
-		return <div>Loading...</div>;
-	}
-
-	if (error || userIdError) {
-		return <div>Error: {error || userIdError}</div>;
-	}
-
 	return (
 		<div className="">
 			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
 			<div className="flex gap-4 justify-between">
-				{/* <InviteContainer /> */}
 				{spaces.map((space) => (
 					<div key={space.id} className="flex flex-col min-w-[25%] max-w-[33%]">
 						<div

@@ -25,13 +25,7 @@ export const useFetchFriendRequests = () => {
 			return friendRequests;
 		} catch (err) {
 			console.error("Error fetching friend requests:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching friend requests.",
-			);
-			return null;
-		} finally {
+
 			setLoading(false);
 		}
 	}, [user]);
