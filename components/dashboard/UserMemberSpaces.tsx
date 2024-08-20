@@ -75,7 +75,7 @@ const UserMemberSpaces = () => {
 	}, [fetchUserId]);
 
 	const openVNC = (spaceId: string) => {
-		const spaceUrl = `https://hop.vercel.app/space/${spaceId}`;
+		const spaceUrl = `${process.env.FRONTEND_URL}/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -95,7 +95,7 @@ const UserMemberSpaces = () => {
 	);
 
 	const copyToClipboard = (space: Space) => {
-		const spaceUrl = `https://hop.vercel.app/space/${space.id}`;
+		const spaceUrl = `${process.env.FRONTEND_URL}/space/${space.id}`;
 		setCopiedSpaceId(space.id);
 		setTimeout(() => setCopiedSpaceId(null), 3000);
 	};

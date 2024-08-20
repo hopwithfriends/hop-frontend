@@ -2,6 +2,8 @@ import type React from "react";
 import { useEffect, useRef } from "react";
 import useWebSocket from "react-use-websocket";
 import throttle from "lodash.throttle";
+import dotenv from "dotenv"; 
+dotenv.config();
 interface UserState {
 	username: string;
 	color: string;

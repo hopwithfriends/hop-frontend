@@ -1,5 +1,7 @@
+import dotenv from "dotenv"; 
+dotenv.config();
 export class ApiService {
-  private BASE_URL = "https://hop-backend.fly.dev/api";
+  private BASE_URL = `${process.env.BACKEND_URL}/api`;
   private accessToken = '';
   private refreshToken = '';
 
