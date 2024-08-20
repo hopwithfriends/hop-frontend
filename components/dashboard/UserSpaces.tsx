@@ -6,8 +6,8 @@ import CreateSpaceButton from "./CreateSpaceButton";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink, FaSearch } from "react-icons/fa";
 import FriendSearch from "./popupCreateSpace/FriendSearch";
-import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
 import dotenv from "dotenv";
+import { useAddFriendToSpace } from "@components/hooks/spaceHooks/useAddFriendToSpace";
 dotenv.config();
 
 interface Space {
@@ -34,11 +34,11 @@ const UserSpaces = () => {
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
 	const {
-		addUser,
+		addFriendToSpace,
+		result: addUserResult,
 		loading: addingUser,
 		error: addUserError,
-		success: addUserSuccess,
-	} = useAddUserToSpace();
+	} = useAddFriendToSpace();
 
 	const fetchSpaces = async () => {
 		setLoading(true);
@@ -113,19 +113,17 @@ const UserSpaces = () => {
 		setSelectedFriends((prev) => [...prev, friend]);
 	};
 
-	const handleRemoveFriend = (friend: Friend) => {
-		setSelectedFriends((prev) => prev.filter((f) => f.id !== friend.id));
+	const handleRemoveFriend = (removedFriend: Friend) => {
+		setSelectedFriends((prev) =>
+			prev.filter((friend) => friend.id !== removedFriend.id),
+		);
 	};
 
 	const handleAddFriendsToSpace = async () => {
 		if (!selectedSpaceId) return;
 
 		for (const friend of selectedFriends) {
-			await addUser({
-				spaceId: selectedSpaceId,
-				userId: friend.id,
-				role: "member",
-			});
+			await addFriendToSpace(friend.id, selectedSpaceId, "anonymous");
 		}
 
 		setIsSearchVisible(false);
@@ -180,7 +178,7 @@ const UserSpaces = () => {
 								{addUserError && (
 									<p className="text-red-500 mr-5 text-md">{addUserError}</p>
 								)}
-								{addUserSuccess && (
+								{addUserResult?.success && (
 									<p className="text-green-500 mr-5 text-md">
 										Friends added successfully!
 									</p>
