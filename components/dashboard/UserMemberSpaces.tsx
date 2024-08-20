@@ -7,6 +7,8 @@ import { FaLink } from "react-icons/fa";
 import InviteContainer from "./InviteContainer";
 import { useRemoveUserFromSpace } from "@components/hooks/spaceHooks/useRemoveUserFromSpace";
 import { useFetchUserId } from "@components/hooks/useFetchUserId";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Space {
 	flyUrl: string;

@@ -5,6 +5,8 @@ import { useUser } from "@stackframe/stack";
 import FriendSearch from "@components/dashboard/popupCreateSpace/FriendSearch";
 import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
 import { useFetchSpaces } from "@components/hooks/spaceHooks/useFetchSpaces";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Friend {
 	id: string;

@@ -5,6 +5,8 @@ import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { generateUUID, generatePassword } from "./UUID&PasswordGenerator";
 import FriendSearch from "./FriendSearch";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Friend {
 	id: string;
