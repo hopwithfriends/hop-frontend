@@ -5,6 +5,8 @@ import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { generateUUID, generatePassword } from "./UUID&PasswordGenerator";
 import FriendSearch from "./FriendSearch";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Friend {
 	id: string;
@@ -96,7 +98,7 @@ const CreateSpaceForm: React.FC = () => {
 		);
 	};
 
-	const spaceUrl = spaceId ? `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}` : null;
+	const spaceUrl = spaceId ? `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}` : null;
 
 	return (
 		<div className="w-full max-w-md mx-auto p-4 bg-gray-800 rounded-lg">

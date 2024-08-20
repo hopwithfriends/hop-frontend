@@ -7,6 +7,8 @@ import { FaLink } from "react-icons/fa";
 import InviteContainer from "./InviteContainer";
 import { useRemoveUserFromSpace } from "@components/hooks/spaceHooks/useRemoveUserFromSpace";
 import { useFetchUserId } from "@components/hooks/useFetchUserId";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Space {
 	flyUrl: string;
@@ -75,7 +77,7 @@ const UserMemberSpaces = () => {
 	}, []);
 
 	const openVNC = (spaceId: string) => {
-		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
+		const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -95,7 +97,7 @@ const UserMemberSpaces = () => {
 	);
 
 	const copyToClipboard = (space: Space) => {
-		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
+		const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 		setCopiedSpaceId(space.id);
 		setTimeout(() => setCopiedSpaceId(null), 3000);
 	};

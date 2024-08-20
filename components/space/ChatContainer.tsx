@@ -39,7 +39,7 @@ const ChatContainer: React.FC = () => {
 	
 
 
-	const fetch = async () => {
+	const fetchIt = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			if (!accessToken || !refreshToken) return;
@@ -51,12 +51,21 @@ const ChatContainer: React.FC = () => {
 		}
 	};
 
+	function getRandomInt(min: number, max: number) {
+		const minimum = Math.ceil(min);
+		const maximum = Math.floor(max);
+		return Math.floor(Math.random() * (maximum - minimum + 1)) + min;
+	}
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchAndSetUserData = async () => {
-			const result = await fetch();
+			const result = await fetchIt();
 			if (result) {
 				setUsername(result.username);
+			}else {
+				const randNum: number = getRandomInt(1, 100);
+				setUsername(`user${randNum}`);
 			}
 		};
 		fetchAndSetUserData();

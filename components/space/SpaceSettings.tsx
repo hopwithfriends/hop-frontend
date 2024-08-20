@@ -5,6 +5,8 @@ import { useUser } from "@stackframe/stack";
 import FriendSearch from "@components/dashboard/popupCreateSpace/FriendSearch";
 import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
 import { useFetchSpaces } from "@components/hooks/spaceHooks/useFetchSpaces";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Friend {
 	id: string;
@@ -52,7 +54,7 @@ const SpaceSettings = () => {
 		await refetchSpaces();
 		const space = spaces.find((s) => s.id === spaceId);
 		if (space) {
-			const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
+			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 			copyToClipboard(shareText);
 		} else {
