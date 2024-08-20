@@ -13,10 +13,10 @@ const OnlineFriendsContainer: React.FC<OnlineFriendsContainerProps> = ({
 	const onlineFriends = friends.filter((friend) => friend.status);
 
 	return (
-		<div className="bg-gray-800 w-full h-full p-4 rounded-xl shadow-lg border border-gray-700 overflow-auto">
+		<div className="w-full rounded-xl shadow-lg overflow-auto">
 			<ul className="space-y-3">
 				{onlineFriends.map((friend) => (
-					<li key={friend.id}>
+					<li key={friend.id} className="w-full mt-3 flex flex-col gap-2">
 						<OnlineFriend
 							id={friend.id}
 							nickname={friend.nickname}

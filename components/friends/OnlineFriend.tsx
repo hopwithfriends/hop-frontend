@@ -19,11 +19,11 @@ const OnlineFriend: React.FC<OnlineFriendProps> = (friend) => {
 	return (
 		<div
 			ref={friendRef}
-			className="mt-1 mb-3 bg-gray-700 rounded-xl h-12 flex items-center px-2 relative"
+			className="bg-hop-friend-bg py-3 pl-4 rounded-xl relative flex gap-2"
 			onMouseEnter={() => setShowHoverCard(true)}
 			onMouseLeave={() => setShowHoverCard(false)}
 		>
-			<div className="relative w-10 h-10 bg-gray-500 rounded-full flex-shrink-0 overflow-hidden">
+			<div className="relative w-10 h-10 rounded-full flex-shrink-0 overflow-hidden">
 				<Image
 					src={friend.profilePicture || defaultProfilePicture}
 					alt={`${friend.nickname}'s profile picture`}
@@ -32,17 +32,17 @@ const OnlineFriend: React.FC<OnlineFriendProps> = (friend) => {
 					className="object-cover"
 				/>
 			</div>
-			<div className="flex-1 flex flex-col justify-center ml-2">
-				<div className="flex items-center space-x-2">
-					<div className="text-white font-semibold text-sm">
-						{friend.nickname}
+			<div className="">
+				<div className="flex items-center gap-2">
+					<div className="text-white font-medium text-md">
+						{friend.username}
 					</div>
 					<div
 						className={`w-2 h-2 rounded-full ${friend.isOnline ? "bg-gray-500" : "bg-green-400"}`}
 					/>
 				</div>
-				<div className="text-gray-400 text-xs">
-					{friend.currentRoom || `@${friend.username}`}
+				<div className="text-hop-light-purple text-xs">
+					{friend.currentRoom || `@${friend.nickname}`}
 				</div>
 			</div>
 			{showHoverCard && <HoverCard friend={friend} parentRef={friendRef} />}
