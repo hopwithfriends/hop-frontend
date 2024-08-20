@@ -33,12 +33,7 @@ const UserSpaces = () => {
 	const [selectedSpaceId, setSelectedSpaceId] = useState<string | null>(null);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
-	const {
-		addFriendToSpace,
-		result: addUserResult,
-		loading: addingUser,
-		error: addUserError,
-	} = useAddFriendToSpace();
+	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	const fetchSpaces = async () => {
 		setLoading(true);
@@ -64,12 +59,7 @@ const UserSpaces = () => {
 			}
 		} catch (err) {
 			console.error("Error fetching user spaces:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching user spaces.",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	};

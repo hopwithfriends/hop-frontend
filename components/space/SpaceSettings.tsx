@@ -27,12 +27,7 @@ const SpaceSettings = () => {
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
 	const user = useUser({ or: "redirect" });
-	const {
-		addFriendToSpace,
-		result: addUserResult,
-		loading: addingUser,
-		error: addUserError,
-	} = useAddFriendToSpace();
+	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	useEffect(() => {
 		const extractSpaceId = () => {
