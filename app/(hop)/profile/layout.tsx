@@ -1,10 +1,5 @@
 const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div>
-      <h2>ProfileLayout</h2>
-      {children}
-    </div>
-  );
+	return <div>{children}</div>;
 };
 
 export default ProfileLayout;
