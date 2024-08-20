@@ -1,23 +1,38 @@
-import type { FriendInviteType } from "@components/layout/LeftSidebar";
+import { useAcceptFriendRequest } from "@components/hooks/friendHooks/useAcceptFriendRequest";
+import { useDeclineFriendRequest } from "@components/hooks/friendHooks/useDeclineFriendRequest";
+import type { FriendRequestType } from "@components/layout/LeftSidebar";
 import Image from "next/image";
 import { useState } from "react";
 
 type FriendInvitesContainerProps = {
-	invites: FriendInviteType[];
-	setFriendInvites: (invites: FriendInviteType[]) => void;
+	invites: FriendRequestType[];
+	setFriendInvites: (invites: FriendRequestType[]) => void;
 };
 
 export default function FriendInvitesContainer({
 	invites,
 	setFriendInvites,
 }: FriendInvitesContainerProps) {
-	const handleAcceptInvite = (invite: FriendInviteType) => {
+	const {
+		acceptFriendRequest,
+		loading: acceptFriendRequestLoading,
+		error: acceptFriendRequestError,
+	} = useAcceptFriendRequest();
+	const {
+		declineFriendRequest,
+		loading: declineFriendRequestLoading,
+		error: declineFriendRequestError,
+	} = useDeclineFriendRequest();
+
+	const handleAcceptInvite = async (invite: FriendRequestType) => {
 		// ! Implement endpoint interaction here
+		await acceptFriendRequest(invite.id);
 		setFriendInvites(invites.filter((i) => i.id !== invite.id));
 	};
 
-	const handleRejectInvite = (invite: FriendInviteType) => {
+	const handleRejectInvite = async (invite: FriendRequestType) => {
 		// ! Implement endpoint interaction here
+		await declineFriendRequest(invite.id);
 		setFriendInvites(invites.filter((i) => i.id !== invite.id));
 	};
 
@@ -30,13 +45,13 @@ export default function FriendInvitesContainer({
 				>
 					<div className="flex items-center gap-2">
 						<Image
-							src={invite.profilePicture}
-							alt={invite.username}
+							src={invite.userId.profilePicture}
+							alt={invite.userId.username}
 							width={20}
 							height={20}
 							className="rounded-full"
 						/>
-						<div className="text-sm font-medium">{invite.username}</div>
+						<div className="text-sm font-medium">{invite.userId.username}</div>
 					</div>
 					<div className="flex items-center gap-2">
 						<button

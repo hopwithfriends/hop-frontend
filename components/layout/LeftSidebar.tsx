@@ -5,12 +5,25 @@ import OnlineFriendsContainer from "./OnlineFriendsContainer";
 import type { FriendsType } from "@app/context/SocketProvider";
 import FriendInvitesContainer from "@components/dashboard/FriendInvitesContainer";
 import SpaceInvitesContainer from "@components/dashboard/SpaceInvitesContainer";
-import { useState } from "react";
-import clsx from "clsx";
+import { useEffect, useState } from "react";
+import { useFetchFriendRequests } from "@components/hooks/friendHooks/useFetchFriendRequests";
+import { useUser } from "@stackframe/stack";
+import { ServiceMethods } from "@lib/servicesMethods";
+import { IoMdReturnLeft } from "react-icons/io";
 
 interface LeftSidebarProps {
 	friends: FriendsType[];
 }
+
+export type FriendRequestType = {
+	id: string;
+	userId: {
+		id: string;
+		profilePicture: string;
+		username: string;
+	};
+	friendId: string;
+};
 
 export type FriendInviteType = {
 	id: string;
@@ -59,10 +72,29 @@ const mockSpaceRequests = [
 ];
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
-	const [friendInvites, setFriendInvites] =
-		useState<FriendInviteType[]>(mockFriendInvites);
+	const user = useUser();
+	const [friendInvites, setFriendInvites] = useState<FriendRequestType[]>([]);
 	const [spaceRequests, setSpaceRequests] =
 		useState<SpaceRequestType[]>(mockSpaceRequests);
+	const {
+		fetchFriendRequests,
+		loading: friendRequestLoading,
+		error: friendRequestError,
+	} = useFetchFriendRequests();
+
+	useEffect(() => {
+		const fetchFriendRequestsData = async () => {
+			const friendRequests = await fetchFriendRequests();
+			if (friendRequests === null) {
+				setFriendInvites([]);
+				return;
+			}
+			setFriendInvites(friendRequests);
+			console.log(friendRequests);
+		};
+		fetchFriendRequestsData();
+	}, []);
+
 	return (
 		<div className="bg-hop-purple text-white p-6 w-80 h-screen flex flex-col items-center">
 			<Link href="/dashboard" className="mt-10">
@@ -80,7 +112,11 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 					</button>
 				</Link>
 				<p className="text-2xl font-bold text-white mt-5">online friends</p>
-				<OnlineFriendsContainer friends={friends} />
+				{friendRequestLoading ? (
+					"loading.."
+				) : (
+					<OnlineFriendsContainer friends={friends} />
+				)}
 
 				<div className="mt-5">
 					{spaceRequests.length > 0 || friendInvites.length > 0 ? (
