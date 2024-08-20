@@ -41,7 +41,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const newSocket = io("ws://hop-backend.fly.dev", {
+		const newSocket = io("wss://hop-backend.fly.dev", {
 			autoConnect: false,
 			reconnectionAttempts: 20,
 			reconnectionDelay: 2000,
