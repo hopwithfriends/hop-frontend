@@ -10,6 +10,7 @@ import { ServiceMethods } from "@lib/servicesMethods";
 import { useState, useEffect, useRef } from "react";
 import CursorContainer from "@components/space/CursorContainer";
 import EnterSpace from "@components/space/EnterSpace";
+import { useSocket } from "@app/context/SocketProvider";
 interface UserState {
 	username: string;
 	color: string;
@@ -37,6 +38,7 @@ const SpacePage: React.FC = () => {
 	const [enterSpace, setEnterSpace] = useState<boolean>(false);
 	const [otherUsers, setOtherUsers] = useState<Users>({});
 	const user = useUser({ or: "redirect" });
+	const { socket } = useSocket();
 
 	const fetch = async () => {
 		try {
@@ -58,6 +60,7 @@ const SpacePage: React.FC = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
+		socket?.emit("space_join", spaceId);
 		const fetchAndSetUserData = async () => {
 			const result = await fetch();
 			if (result) {
@@ -70,6 +73,9 @@ const SpacePage: React.FC = () => {
 			}
 		};
 		fetchAndSetUserData();
+		return () => {
+			socket?.emit("space_leave", spaceId);
+		};
 	}, [user]);
 
 	return (
