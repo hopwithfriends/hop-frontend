@@ -79,9 +79,9 @@ const UserMemberSpaces = () => {
 		<div className="">
 			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
 			<div className="flex gap-4 justify-between">
-				<InviteContainer />
+				{/* <InviteContainer /> */}
 				{spaces.map((space) => (
-					<div key={space.id} className="flex flex-col w-full">
+					<div key={space.id} className="flex flex-col min-w-[25%] max-w-[33%]">
 						<div
 							className="relative w-full h-56 rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer"
 							onClick={() => openVNC(space.id)}
