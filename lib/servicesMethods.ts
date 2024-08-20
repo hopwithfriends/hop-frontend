@@ -15,7 +15,7 @@ export class ServiceMethods {
   apiService() {
     return new ApiService(this.accessToken, this.refreshToken);
   }
-  async fetchUser(friendId: string) {
+  async fetchUser() {
     return this.apiService().get('/user');
   }
 
