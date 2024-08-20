@@ -10,34 +10,37 @@ import LoadingSpinner from "@components/ui/Spiner";
 const Dashboard: React.FC = () => {
 	const user = useUser({ or: "redirect" });
 	const [userData, setUserData] = useState<UserType>();
+	const [loading, setLoading] = useState(true);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		async function fetchData() {
-			const { accessToken, refreshToken } = await user.getAuthJson();
-			const serviceMethods = new ServiceMethods(
-				accessToken || "",
-				refreshToken || "",
-			);
-			const userDataReq = await serviceMethods.fetchUser();
-			setUserData(userDataReq);
-			return userData;
-		}
+		const fetchData = async () => {
+			try {
+				const { accessToken, refreshToken } = await user.getAuthJson();
+				if (!accessToken || !refreshToken) return;
+
+				const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+				const userDataReq = await serviceMethods.fetchUser();
+				setUserData(userDataReq);
+			} catch (error) {
+				console.log("Error fetching user data:", error);
+			} finally {
+				setLoading(false);
+			}
+		};
 		fetchData();
 	}, []);
-	
-	const color = "border-white"
 
 	return (
 		<div className="flex bg-hop-secondary-bg text-white h-screen">
-			{userData ? (
+			{!loading && userData ? (
 				<SpaceContainer
-					profilePicture={userData.profilePicture}
-					username={userData.username}
+					profilePicture={userData.profilePicture || "/fallback.png"}
+					username={userData.username || ""}
 				/>
 			) : (
-				<div className= "ml-[43%]">
-					<LoadingSpinner border={color}/>
+				<div className="ml-[43%]">
+					<LoadingSpinner border="border-white" />
 				</div>
 			)}
 		</div>
