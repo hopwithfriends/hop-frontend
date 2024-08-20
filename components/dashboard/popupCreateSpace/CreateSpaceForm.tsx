@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Copy } from "lucide-react";
-import useCreateSpace from "./hooks/useCreateSpace";
+import useCreateSpace from "@components/hooks/spaceHooks/useCreateSpace";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { generateUUID, generatePassword } from "./UUID&PasswordGenerator";
@@ -96,7 +96,7 @@ const CreateSpaceForm: React.FC = () => {
 		);
 	};
 
-	const spaceUrl = spaceId ? `http://localhost:3000/space/${spaceId}` : null;
+	const spaceUrl = spaceId ? `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}` : null;
 
 	return (
 		<div className="w-full max-w-md mx-auto p-4 bg-gray-800 rounded-lg">

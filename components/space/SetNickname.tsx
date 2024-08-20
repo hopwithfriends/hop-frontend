@@ -37,6 +37,7 @@ const SetNickname: React.FC<NicknameProps> = ({
 			setWsUrl(
 				`ws://localhost:8000?username=${encodeURIComponent(realUsername)}`,
 			);
+			console.log("hi")
 		}
 	}, [realUsername]);
 

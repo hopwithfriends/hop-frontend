@@ -1,12 +1,10 @@
 import type React from "react";
-import Avatar from "@components/ui/UserAvatar";
 import { Slider } from "@/components/ui/slider";
 import { IoMdVolumeHigh } from "react-icons/io";
 import { useUser } from "@stackframe/stack";
 import { useEffect, useState } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { AnimatedTooltip } from "@components/ui/animated-tooltip";
-
 interface UserState {
 	username: string;
 	color: string;
@@ -37,6 +35,8 @@ interface Item {
 const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	const user = useUser({ or: "redirect" });
 	const [fetchedUser, setFetchedUser] = useState<Item | null>(null);
+	const [volume, setVolume] = useState<number>(33);
+
 
 	const fetch = async () => {
 		try {
@@ -56,7 +56,7 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 			const result = await fetch();
 
 			setFetchedUser({
-				id: 1, 
+				id: 1,
 				name: result.nickname,
 				designation: result.username,
 				image: result.profilePicture,
@@ -77,11 +77,12 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 		});
 	};
 
-    const items = fetchedUser ? [fetchedUser, ...convertUsersToItems(otherUsers)] : convertUsersToItems(otherUsers);
+	const items = fetchedUser
+		? [fetchedUser, ...convertUsersToItems(otherUsers)]
+		: convertUsersToItems(otherUsers);
 
 	return (
 		<div className="bg-gray-200 p-3 flex items-center justify-between">
-			{/* <SelectCursor setSelectedCursor={setSelectedCursor} /> */}
 			<div className="flex-1 flex justify-center ml-[32%] mb-[0.5%]">
 				<AnimatedTooltip items={items} />
 			</div>
@@ -93,7 +94,11 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 					defaultValue={[33]}
 					max={100}
 					step={1}
+					onValueChange={(value: number[]) => {
+						setVolume(value[0]);
+					}}
 				/>
+				<div>{volume}%</div>
 			</div>
 		</div>
 	);

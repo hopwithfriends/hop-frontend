@@ -1,5 +1,3 @@
-import { Button } from "@components/ui/Button";
-import { Trash2 } from "lucide-react";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
 import { CiTrash } from "react-icons/ci";

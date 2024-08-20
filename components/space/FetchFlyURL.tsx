@@ -5,7 +5,6 @@ import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import LoadingSpinner from "@components/ui/Spiner";
 
-
 interface VncDisplayProps {
 	spaceId: string;
 }
@@ -21,8 +20,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 		let timeoutId: NodeJS.Timeout;
 
 		const fetchSpaceData = async () => {
-			if (!isMounted || flyUrl) return; // Stop if component is unmounted or we already have a flyUrl
-
+			if (!isMounted || flyUrl) return;
 
 			try {
 				const { accessToken, refreshToken } = await user.getAuthJson();
@@ -36,7 +34,6 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 				const response = await serviceMethods.fetchSpaceById(spaceId);
 
 				console.log("Space data:", response);
-
 
 				if (isMounted) {
 					if (response.flyUrl) {
@@ -58,12 +55,10 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 					// Even on error, we continue trying
 					timeoutId = setTimeout(fetchSpaceData, 5000);
 				}
-
 			}
 		};
 
 		fetchSpaceData();
-
 
 		return () => {
 			isMounted = false;
@@ -71,22 +66,21 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 		};
 	}, [user, spaceId, flyUrl]);
 
-
 	return (
 		<div className="relative w-full h-full">
-            {flyUrl ? (
-                <iframe
-                    className="absolute inset-0 w-full h-full border-0"
-                    title="vnc"
-                    src={flyUrl}
-                />
-            ) : (
-                <div className="flex justify-center items-center w-full h-full">
-                    <LoadingSpinner />
-                    <p className="ml-4 text-center">Waiting for VNC to be ready...</p>
-                </div>
-            )}
-        </div>
+			{flyUrl ? (
+				<iframe
+					className="absolute inset-0 w-full h-full border-0"
+					title="vnc"
+					src={flyUrl}
+				/>
+			) : (
+				<div className="flex justify-center items-center w-full h-full">
+					<LoadingSpinner />
+					<p className="ml-4 text-center">Waiting for VNC to be ready...</p>
+				</div>
+			)}
+		</div>
 	);
 };
 
