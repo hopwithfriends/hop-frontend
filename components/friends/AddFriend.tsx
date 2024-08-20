@@ -40,7 +40,7 @@ const AddFriendComponent = () => {
 		} catch (err) {
 			console.error("Error adding friend:", err);
 			setLoading(false);
-		}
+
 
 		return (
 			<div className="p-4 space-y-4">

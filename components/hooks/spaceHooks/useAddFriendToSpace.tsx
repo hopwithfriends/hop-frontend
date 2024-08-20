@@ -27,6 +27,7 @@ export const useAddFriendToSpace = () => {
 					);
 				}
 
+
 				const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 				const response = await serviceMethods.fetchSendSpaceRequests(
 					friendId,
@@ -44,6 +45,7 @@ export const useAddFriendToSpace = () => {
 				}
 			} catch (err) {
 				console.error("Error adding friend to space:", err);
+
 
 				setLoading(false);
 			}
