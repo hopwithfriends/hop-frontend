@@ -6,7 +6,7 @@ import { useUser } from "@stackframe/stack";
 import BottomBar2 from "@components/space/BottomBar2";
 import RightSideBar from "@components/space/RightSideBar";
 import { ServiceMethods } from "@lib/servicesMethods";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import CursorContainer from "@components/space/CursorContainer";
 interface UserState {
 	username: string;
