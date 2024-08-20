@@ -4,7 +4,8 @@ import { ServiceMethods } from "@lib/servicesMethods";
 import LoadingSpinner from "@components/ui/Spiner";
 import io from "socket.io-client";
 import debounce from "lodash/debounce";
-
+import dotenv from "dotenv"; 
+dotenv.config();
 interface VncDisplayProps {
 	spaceId: string;
 }
