@@ -47,15 +47,9 @@ export class ServiceMethods {
 		return this.apiService().get("/user/friend/request");
 	}
 
-<<<<<<< HEAD
 	async fetchAcceptFriendRequest(requestId: string) {
-		return this.apiService().post(`/user/friend/request/${requestId}`, {});
+		return this.apiService().post(`/user/friend/addRequest/${requestId}`, {});
 	}
-=======
-  async fetchAcceptFriendRequest(requestId: string) {
-    return this.apiService().post(`/user/friend/addRequest/${requestId}`, {});
-  }
->>>>>>> fce139345cec47ec3d00bc143ee914ff2755f139
 
 	async fetchDeclineFriendRequest(requestId: string) {
 		return this.apiService().delete(`/user/friend/request/${requestId}`, {});
