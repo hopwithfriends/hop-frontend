@@ -39,7 +39,7 @@ const ChatContainer: React.FC = () => {
 	
 
 
-	const fetch = async () => {
+	const fetchIt = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			if (!accessToken || !refreshToken) return;
@@ -60,7 +60,7 @@ const ChatContainer: React.FC = () => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchAndSetUserData = async () => {
-			const result = await fetch();
+			const result = await fetchIt();
 			if (result) {
 				setUsername(result.username);
 			}else {
