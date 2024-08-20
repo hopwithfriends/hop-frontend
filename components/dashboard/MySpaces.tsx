@@ -7,6 +7,8 @@ import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink, FaSearch } from "react-icons/fa";
 import FriendSearch from "./popupCreateSpace/FriendSearch";
 import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 interface Space {
 	flyUrl: string;
@@ -78,7 +80,7 @@ const UserSpaces = () => {
 	}, []);
 
 	const openVNC = (spaceId: string) => {
-		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
+		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -87,7 +89,7 @@ const UserSpaces = () => {
 	};
 
 	const copyToClipboard = (space: Space) => {
-		const spaceUrl = `http://localhost:3000/space/${space.id}`;
+		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 		const textToCopy = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 		navigator.clipboard.writeText(textToCopy).then(() => {
 			setCopiedSpaceId(space.id);

@@ -1,5 +1,7 @@
+import dotenv from "dotenv"; 
+dotenv.config();
 export class ApiService {
-  private BASE_URL = "http://localhost:8080/api";
+  private BASE_URL = `${process.env.BACKEND_URL || "http://localhost:8080"}/api`;
   private accessToken = '';
   private refreshToken = '';
 

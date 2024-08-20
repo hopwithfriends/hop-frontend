@@ -2,6 +2,8 @@ import type React from "react";
 import { useEffect, useRef } from "react";
 import useWebSocket from "react-use-websocket";
 import throttle from "lodash.throttle";
+import dotenv from "dotenv"; 
+dotenv.config();
 interface UserState {
 	username: string;
 	color: string;
@@ -34,7 +36,7 @@ const CursorContainer: React.FC<HomeProps> = ({
 	setOtherUsers,
 }) => {
 
-	const WS_URL = `${process.env.DEPLOYED_WS}?username=${encodeURIComponent(username)}&color=${encodeURIComponent(color)}&pfp=${encodeURIComponent(pfp)}&nickname=${encodeURIComponent(nickname)}`;
+	const WS_URL = `wss://hop-websocket1-76a542d0c47b.herokuapp.com?username=${encodeURIComponent(username)}&color=${encodeURIComponent(color)}&pfp=${encodeURIComponent(pfp)}&nickname=${encodeURIComponent(nickname)}`;
 
 	const { sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL, {
 		shouldReconnect: () => true,
