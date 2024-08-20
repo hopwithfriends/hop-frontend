@@ -3,13 +3,11 @@
 import { useParams } from "next/navigation";
 import VncDisplay from "@components/space/FetchFlyURL";
 import { useUser } from "@stackframe/stack";
-import BottomBar from "@components/space/BottomBar";
 import BottomBar2 from "@components/space/BottomBar2";
 import RightSideBar from "@components/space/RightSideBar";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useState, useEffect, useRef } from "react";
 import CursorContainer from "@components/space/CursorContainer";
-import EnterSpace from "@components/space/EnterSpace";
 interface UserState {
 	username: string;
 	color: string;
@@ -78,23 +76,13 @@ const SpacePage: React.FC = () => {
 				<div className="flex flex-grow overflow-hidden relative">
 					<main className="flex-grow flex flex-col relative ">
 						<div className="relative flex-grow flex items-center justify-center">
-							{enterSpace ? (
-								<CursorContainer
-									username={username}
-									nickname={nickname}
-									pfp={pfp}
-									color={color}
-									setOtherUsers={setOtherUsers}
-								/>
-							) : (
-								<EnterSpace
-									onSubmit={setEnterSpace}
-									setColorProp={setColor}
-									username={username}
-									pfp={pfp}
-									nickname={nickname}
-								/>
-							)}
+							<CursorContainer
+								username={username}
+								nickname={nickname}
+								pfp={pfp}
+								color={color}
+								setOtherUsers={setOtherUsers}
+							/>
 							<VncDisplay spaceId={spaceId} />
 						</div>
 						<BottomBar2 otherUsers={otherUsers} />
