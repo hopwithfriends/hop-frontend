@@ -33,18 +33,7 @@ const DeleteFriendComponent: React.FC<DeleteFriendComponentProps> = ({
 			onFriendRemoved(friendId);
 		} catch (err) {
 			console.error("Error deleting friend:", err);
-			if (err instanceof Error) {
-				if (err.message.includes("404")) {
-					setError(
-						"Failed to delete friend: Not Found. The friend may not exist in your friend list.",
-					);
-				} else {
-					setError(`Failed to delete friend: ${err.message}`);
-				}
-			} else {
-				setError("An unexpected error occurred while deleting friend.");
-			}
-		} finally {
+
 			setLoading(false);
 		}
 	};
@@ -59,7 +48,6 @@ const DeleteFriendComponent: React.FC<DeleteFriendComponentProps> = ({
 			>
 				{loading ? "Removing..." : "Remove friend"}
 			</Button>
-			{error && <p className="text-red-500 mt-2">{error}</p>}
 			{success && (
 				<p className="text-green-500 mt-2">Friend removed successfully!</p>
 			)}

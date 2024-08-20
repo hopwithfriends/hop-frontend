@@ -94,13 +94,6 @@ const FriendRequestsContainer: React.FC = () => {
 		}
 	};
 
-	if (fetchLoading)
-		return <div className="text-center py-4">Loading friend requests...</div>;
-	if (fetchError)
-		return (
-			<div className="text-center py-4 text-red-500">Error: {fetchError}</div>
-		);
-
 	return (
 		<div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
 			<h2 className="text-2xl font-bold mb-4 p-4 bg-gray-100">
@@ -139,16 +132,6 @@ const FriendRequestsContainer: React.FC = () => {
 					</div>
 				))}
 			</div>
-			{acceptError && (
-				<div className="p-4 text-red-500">
-					Error accepting request: {acceptError}
-				</div>
-			)}
-			{declineError && (
-				<div className="p-4 text-red-500">
-					Error declining request: {declineError}
-				</div>
-			)}
 		</div>
 	);
 };

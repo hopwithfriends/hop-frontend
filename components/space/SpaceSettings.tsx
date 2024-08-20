@@ -3,9 +3,9 @@ import { FiSettings, FiCopy, FiX } from "react-icons/fi";
 import { RiUserAddFill } from "react-icons/ri";
 import { useUser } from "@stackframe/stack";
 import FriendSearch from "@components/dashboard/popupCreateSpace/FriendSearch";
-import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
 import { useFetchSpaces } from "@components/hooks/spaceHooks/useFetchSpaces";
-import dotenv from "dotenv"; 
+import { useAddFriendToSpace } from "@components/hooks/spaceHooks/useAddFriendToSpace";
+import dotenv from "dotenv";
 dotenv.config();
 
 interface Friend {
@@ -28,11 +28,11 @@ const SpaceSettings = () => {
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
 	const user = useUser({ or: "redirect" });
 	const {
-		addUser,
+		addFriendToSpace,
+		result: addUserResult,
 		loading: addingUser,
 		error: addUserError,
-		success: addUserSuccess,
-	} = useAddUserToSpace();
+	} = useAddFriendToSpace();
 
 	useEffect(() => {
 		const extractSpaceId = () => {
@@ -52,48 +52,39 @@ const SpaceSettings = () => {
 	const handleCopyLinkClick = async () => {
 		if (!spaceId) return;
 		await refetchSpaces();
-		const space = spaces.find((s) => s.id === spaceId);
+		const space = spaces.find((space) => space.id === spaceId);
 		if (space) {
 			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
 			copyToClipboard(shareText);
-		} else {
-			console.log("Space not found");
 		}
 	};
 
 	const copyToClipboard = (text: string) => {
-		navigator.clipboard.writeText(text).then(
-			() => {
-				setIsCopied(true);
-				console.log("Copied to clipboard:", text);
-				setTimeout(() => setIsCopied(false), 2000);
-			},
-			(err) => {
-				console.error("Could not copy text: ", err);
-			},
-		);
+		navigator.clipboard.writeText(text).then(() => {
+			setIsCopied(true);
+			console.log("Copied to clipboard:", text);
+			setTimeout(() => setIsCopied(false), 2000);
+		});
 	};
 
 	const handleSelectFriend = (friend: Friend) => {
-		if (!selectedFriends.some((f) => f.id === friend.id)) {
+		if (!selectedFriends.some((friend) => friend.id === `${friend.id}`)) {
 			setSelectedFriends([...selectedFriends, friend]);
 		}
 	};
 
-	const handleRemoveFriend = (friend: Friend) => {
-		setSelectedFriends(selectedFriends.filter((f) => f.id !== friend.id));
+	const handleRemoveFriend = (removedFriend: Friend) => {
+		setSelectedFriends(
+			selectedFriends.filter((friend) => friend.id !== removedFriend.id),
+		);
 	};
 
 	const handleAddFriendsToSpace = async () => {
 		if (!spaceId) return;
 
 		for (const friend of selectedFriends) {
-			await addUser({
-				spaceId: spaceId,
-				userId: friend.id,
-				role: "member",
-			});
+			await addFriendToSpace(spaceId, friend.id, "anonymous");
 		}
 
 		setSelectedFriends([]);
@@ -157,7 +148,7 @@ const SpaceSettings = () => {
 					{addUserError && (
 						<p className="text-red-500 mr-5 text-md">{addUserError}</p>
 					)}
-					{addUserSuccess && (
+					{addUserResult?.success && (
 						<p className="text-green-500 mr-5 text-md">
 							Friends added successfully!
 						</p>
