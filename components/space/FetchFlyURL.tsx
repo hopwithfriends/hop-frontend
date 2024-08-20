@@ -105,6 +105,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 
 	useEffect(() => {
 		let isMounted = true;
+		let timeoutId: NodeJS.Timeout;
 
 		const fetchSpaceData = async () => {
 			if (!isMounted || flyUrl) return;
@@ -123,7 +124,10 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 				if (isMounted && response.flyUrl) {
 					setFlyUrl(response.flyUrl);
 					setLoading(false);
+				} else {
+					timeoutId = setTimeout(fetchSpaceData, 5000);
 				}
+
 			} catch (err) {
 				if (isMounted) {
 					setError(
@@ -131,6 +135,8 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 							? err.message
 							: "An unexpected error occurred while fetching space data.",
 					);
+					// Even on error, we continue trying
+					timeoutId = setTimeout(fetchSpaceData, 5000);
 				}
 			}
 		};
@@ -139,6 +145,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 
 		return () => {
 			isMounted = false;
+			if (timeoutId) clearTimeout(timeoutId);
 		};
 	}, [user, spaceId, flyUrl]);
 
