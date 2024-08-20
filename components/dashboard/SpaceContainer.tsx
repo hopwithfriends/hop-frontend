@@ -8,36 +8,28 @@ import UserMemberSpaces from "./UserMemberSpaces";
 import Image from "next/image";
 
 interface SpaceContainerProps {
-	link?: string;
-	members: number;
-	screen: string;
-	pfp: string;
-	realUsername: string;
+	profilePicture: string;
+	username: string;
 }
 
 const SpaceContainer: React.FC<SpaceContainerProps> = ({
-	link,
-	members,
-	screen,
-	pfp,
-	realUsername,
+	profilePicture,
+	username,
 }) => {
 	return (
 		<main className="flex-1 p-6 relative">
-			<h1 className="text-5xl font-bold mb-6 mt-5">
-				{`${realUsername}'s`} Spaces
-			</h1>
+			<h1 className="text-5xl font-bold mb-6 mt-5">{`${username}'s`} Spaces</h1>
 			<div className="absolute top-10 right-11">
 				<Link href="/profile">
 					<div className="flex items-center gap-2 bg-hop-purple-300 rounded-lg py-3 px-4">
 						<Image
-							src={pfp}
+							src={profilePicture}
 							alt="Profile"
 							width={30}
 							height={30}
 							className="rounded-full"
 						/>
-						<h2 className="text-xl font-bold">{realUsername}</h2>
+						<h2 className="text-xl font-bold">{username}</h2>
 					</div>
 				</Link>
 			</div>

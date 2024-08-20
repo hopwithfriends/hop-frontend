@@ -96,7 +96,7 @@ const MarketingPage = () => {
 
 					<div className="flex flex-wrap center justify-center pb-10 w-full">
 						<img
-							src="placeholderVideo.png"
+							src="./images/hop-hero-browser.png"
 							alt="placeholder"
 							className="w-3/4"
 						/>

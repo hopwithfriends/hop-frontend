@@ -74,7 +74,7 @@ const UserMemberSpaces = () => {
 	useEffect(() => {
 		fetchSpaces();
 		fetchUserId();
-	}, [fetchUserId]);
+	}, []);
 
 	const openVNC = (spaceId: string) => {
 		const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
