@@ -4,6 +4,8 @@ import { useUser } from "@stackframe/stack";
 import type React from "react";
 import { useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import dotenv from "dotenv"; 
+dotenv.config();
 
 const Onboard: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -33,7 +35,7 @@ const Onboard: React.FC = () => {
 
 			const { accessToken, refreshToken } = await user.getAuthJson()
 			if (!accessToken || !refreshToken)  return null
-      const response = await fetch("http://localhost:8080/api/user", {
+      const response = await fetch(`${process.env.BACKEND_URL || "http://localhost:8080"}/api/user`, {
 				headers: {
 					'x-stack-access-token': accessToken,
 					'x-stack-refresh-token': refreshToken,
