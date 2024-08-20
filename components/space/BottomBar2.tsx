@@ -37,7 +37,7 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	const [fetchedUser, setFetchedUser] = useState<Item | null>(null);
 	const [volume, setVolume] = useState<number>(33);
 
-	const fetch = async () => {
+	const fetchIt = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			if (!accessToken || !refreshToken) return;
@@ -52,7 +52,7 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchAndSetUserData = async () => {
-			const result = await fetch();
+			const result = await fetchIt();
 			if (result) {
 				setFetchedUser({
 					id: 1,

@@ -34,7 +34,7 @@ const SpacePage: React.FC = () => {
 	const [otherUsers, setOtherUsers] = useState<Users>({});
 	const user = useUser({ or: "redirect" });
 
-	const fetch = async () => {
+	const fetchIt = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
 			if (!accessToken || !refreshToken) return null;
@@ -55,7 +55,7 @@ const SpacePage: React.FC = () => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchAndSetUserData = async () => {
-			const result = await fetch();
+			const result = await fetchIt();
 			if (result) {
 				setUsername(result.username);
 				setPfp(result.profilePicture);
