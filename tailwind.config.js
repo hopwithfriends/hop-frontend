@@ -18,84 +18,95 @@ module.exports = {
 			},
 		},
 		extend: {
-			theme: {
-				extend: {
-					fontFamily: {
-						inter: ["var(--font-inter)", "sans-serif"],
-						montserrat: ["var(--font-montserrat)", "sans-serif"],
+			colors: {
+				"hop-purple": "#160B38",
+				"hop-secondary-bg": "#26203E",
+				"purp-grad-1": "#392E6E",
+				"purp-grad-2": "#62559F",
+				"hop-light-purple": "#968DB1",
+				"hop-friend-bg": "#393053",
+				"hop-text-purple": "#BFB0FF",
+				"hop-purple-400": "#7868A6",
+				"hop-purple-200": "#AB9BF1",
+				"hop-purple-300": "#61539D",
+				theme: {
+					extend: {
+						fontFamily: {
+							inter: ["var(--font-inter)", "sans-serif"],
+							montserrat: ["var(--font-montserrat)", "sans-serif"],
+						},
 					},
 				},
-			},
-			plugins: [],
-      size: {
-        '128': '40rem',
-      },
-			colors: {
-				border: "hsl(var(--border))",
-				input: "hsl(var(--input))",
-				ring: "hsl(var(--ring))",
-				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
-
-				primary: {
-					DEFAULT: "hsl(var(--primary))",
-					foreground: "hsl(var(--primary-foreground))",
+				plugins: [],
+				size: {
+					128: "40rem",
 				},
-				secondary: {
-					DEFAULT: "hsl(var(--secondary))",
-					foreground: "hsl(var(--secondary-foreground))",
+				colors: {
+					border: "hsl(var(--border))",
+					input: "hsl(var(--input))",
+					ring: "hsl(var(--ring))",
+					background: "hsl(var(--background))",
+					foreground: "hsl(var(--foreground))",
+					primary: {
+						DEFAULT: "hsl(var(--primary))",
+						foreground: "hsl(var(--primary-foreground))",
+					},
+					secondary: {
+						DEFAULT: "hsl(var(--secondary))",
+						foreground: "hsl(var(--secondary-foreground))",
+					},
+					destructive: {
+						DEFAULT: "hsl(var(--destructive))",
+						foreground: "hsl(var(--destructive-foreground))",
+					},
+					muted: {
+						DEFAULT: "hsl(var(--muted))",
+						foreground: "hsl(var(--muted-foreground))",
+					},
+					accent: {
+						DEFAULT: "hsl(var(--accent))",
+						foreground: "hsl(var(--accent-foreground))",
+					},
+					popover: {
+						DEFAULT: "hsl(var(--popover))",
+						foreground: "hsl(var(--popover-foreground))",
+					},
+					card: {
+						DEFAULT: "hsl(var(--card))",
+						foreground: "hsl(var(--card-foreground))",
+					},
 				},
-				destructive: {
-					DEFAULT: "hsl(var(--destructive))",
-					foreground: "hsl(var(--destructive-foreground))",
+				keyframes: {
+					"accordion-down": {
+						from: { height: "0" },
+						to: { height: "var(--radix-accordion-content-height)" },
+					},
+					"accordion-up": {
+						from: { height: "var(--radix-accordion-content-height)" },
+						to: { height: "0" },
+					},
+					shimmer: {
+						"0%": { backgroundPosition: "0 0" },
+						"100%": { backgroundPosition: "-200% 0" },
+					},
+					marquee: {
+						"0%": { transform: "translateX(0%)" },
+						"100%": { transform: "translateX(-100%)" },
+					},
+					marquee2: {
+						"0%": { transform: "translateX(100%)" },
+						"100%": { transform: "translateX(0%)" },
+					},
 				},
-				muted: {
-					DEFAULT: "hsl(var(--muted))",
-					foreground: "hsl(var(--muted-foreground))",
+				animation: {
+					"accordion-down": "accordion-down 0.2s ease-out",
+					"accordion-up": "accordion-up 0.2s ease-out",
+					shimmer: "shimmer 1s linear",
+					marquee: "marquee 25s linear infinite",
+					marquee2: "marquee2 25s linear infinite",
 				},
-				accent: {
-					DEFAULT: "hsl(var(--accent))",
-					foreground: "hsl(var(--accent-foreground))",
-				},
-				popover: {
-					DEFAULT: "hsl(var(--popover))",
-					foreground: "hsl(var(--popover-foreground))",
-				},
-				card: {
-					DEFAULT: "hsl(var(--card))",
-					foreground: "hsl(var(--card-foreground))",
-				},
-			},
-			keyframes: {
-				"accordion-down": {
-					from: { height: "0" },
-					to: { height: "var(--radix-accordion-content-height)" },
-				},
-				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: "0" },
-				},
-				shimmer: {
-					"0%": { backgroundPosition: "0 0" },
-					"100%": { backgroundPosition: "-200% 0" },
-				},
-				marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
-        marquee2: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0%)' },
-        },
-			},
-			animation: {
-				"accordion-down": "accordion-down 0.2s ease-out",
-				"accordion-up": "accordion-up 0.2s ease-out",
-				shimmer: "shimmer 1s linear",
-				marquee: "marquee 25s linear infinite",
-				marquee2: "marquee2 25s linear infinite",
 			},
 		},
+		plugins: [require("tailwindcss-animate")],
 	},
-	plugins: [require("tailwindcss-animate")],
 };

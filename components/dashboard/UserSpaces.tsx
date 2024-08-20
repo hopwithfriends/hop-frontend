@@ -136,92 +136,88 @@ const UserSpaces = () => {
 	};
 
 	return (
-		<div className="container mx-auto px-4">
+		<div>
 			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
-			<div className="mb-4">
+			<div className="flex gap-4">
 				<CreateSpaceButton />
-			</div>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{spaces.map((space) => (
-					<div key={space.id} className="flex flex-col">
-						<div className="relative w-full h-56">
-							<div className="relative w-full h-full rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer">
-								<div
-									onKeyUp={() => {}}
-									onClick={() => openVNC(space.id)}
-									className="w-full h-full relative"
-								>
-									<Image
-										src="/placeholder.jpg"
-										alt={space.name}
-										fill={true}
-										sizes="100%"
-										priority
-										className="object-cover"
-									/>
-								</div>
-								<div className="absolute bottom-2 right-2 border-0">
-									<RemoveSpaceButton
-										spaceId={space.id}
-										onRemove={handleRemoveSpace}
-									/>
-								</div>
-							</div>
+					<div key={space.id} className="min-w-[25%] max-w-[33%]">
+						<div className="relative w-full h-full rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer">
 							<div
-								className={`absolute inset-0 bg-gray-800 bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
-									isSearchVisible && selectedSpaceId === space.id
-										? "opacity-100 visible"
-										: "opacity-0 invisible"
-								}`}
+								onKeyUp={() => {}}
+								onClick={() => openVNC(space.id)}
+								className="w-full h-full relative"
 							>
-								<FriendSearch
-									onSelectFriend={handleSelectFriend}
-									selectedFriends={selectedFriends}
-									onRemoveFriend={handleRemoveFriend}
+								<Image
+									src="/placeholder.jpg"
+									alt={space.name}
+									fill={true}
+									sizes="100%"
+									priority
+									className="object-cover"
 								/>
-								<div className="absolute bottom-3 right-3 flex items-center">
-									{addUserError && (
-										<p className="text-red-500 mr-5 text-md">{addUserError}</p>
-									)}
-									{addUserSuccess && (
-										<p className="text-green-500 mr-5 text-md">
-											Friends added successfully!
-										</p>
-									)}
-									<button
-										type="button"
-										onClick={handleAddFriendsToSpace}
-										disabled={selectedFriends.length === 0 || addingUser}
-										className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
-									>
-										{addingUser ? (
-											<span className="animate-spin">&#8987;</span>
-										) : (
-											"+"
-										)}
-									</button>
-								</div>
 							</div>
-							<div className="flex items-center justify-between text-sm sm:text-base mt-2">
-								<p className="font-bold truncate max-w-[150px]">{space.name}</p>
-								<div className="flex items-center">
-									{copiedSpaceId === space.id ? (
-										<span className="ml-2 text-green-500">Copied</span>
+							<div className="absolute bottom-2 right-2 border-0">
+								<RemoveSpaceButton
+									spaceId={space.id}
+									onRemove={handleRemoveSpace}
+								/>
+							</div>
+						</div>
+						<div
+							className={`absolute inset-0 bg-gray-800 bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
+								isSearchVisible && selectedSpaceId === space.id
+									? "opacity-100 visible"
+									: "opacity-0 invisible"
+							}`}
+						>
+							<FriendSearch
+								onSelectFriend={handleSelectFriend}
+								selectedFriends={selectedFriends}
+								onRemoveFriend={handleRemoveFriend}
+							/>
+							<div className="absolute bottom-3 right-3 flex items-center">
+								{addUserError && (
+									<p className="text-red-500 mr-5 text-md">{addUserError}</p>
+								)}
+								{addUserSuccess && (
+									<p className="text-green-500 mr-5 text-md">
+										Friends added successfully!
+									</p>
+								)}
+								<button
+									type="button"
+									onClick={handleAddFriendsToSpace}
+									disabled={selectedFriends.length === 0 || addingUser}
+									className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+								>
+									{addingUser ? (
+										<span className="animate-spin">&#8987;</span>
 									) : (
-										<FaLink
-											className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
-											onClick={(e) => {
-												e.stopPropagation();
-												copyToClipboard(space);
-											}}
-											title="Copy space URL and password to clipboard"
-										/>
+										"+"
 									)}
-									<FaSearch
+								</button>
+							</div>
+						</div>
+						<div className="flex items-center justify-between text-sm sm:text-base mt-2">
+							<p className="font-bold truncate max-w-[150px]">{space.name}</p>
+							<div className="flex items-center">
+								{copiedSpaceId === space.id ? (
+									<span className="ml-2 text-green-500">Copied</span>
+								) : (
+									<FaLink
 										className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
-										onClick={() => toggleSearchBar(space.id)}
+										onClick={(e) => {
+											e.stopPropagation();
+											copyToClipboard(space);
+										}}
+										title="Copy space URL and password to clipboard"
 									/>
-								</div>
+								)}
+								<FaSearch
+									className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
+									onClick={() => toggleSearchBar(space.id)}
+								/>
 							</div>
 						</div>
 					</div>
