@@ -35,7 +35,7 @@ const Onboard: React.FC = () => {
 
 			const { accessToken, refreshToken } = await user.getAuthJson()
 			if (!accessToken || !refreshToken)  return null
-      const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
+      const response = await fetch(`${process.env.BACKEND_URL || "http://localhost:8080"}/api/user`, {
 				headers: {
 					'x-stack-access-token': accessToken,
 					'x-stack-refresh-token': refreshToken,
