@@ -38,12 +38,7 @@ export const useFetchSpaces = () => {
 			}
 		} catch (err) {
 			console.error("Error fetching user spaces:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching user spaces.",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	};

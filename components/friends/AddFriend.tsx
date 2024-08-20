@@ -39,9 +39,7 @@ const AddFriendComponent = () => {
 			}
 		} catch (err) {
 			console.error("Error adding friend:", err);
-			if (err instanceof SyntaxError) {
-				setLoading(false);
-			}
+			setLoading(false);
 		}
 
 		return (

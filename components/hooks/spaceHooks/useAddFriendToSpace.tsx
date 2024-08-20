@@ -44,16 +44,7 @@ export const useAddFriendToSpace = () => {
 				}
 			} catch (err) {
 				console.error("Error adding friend to space:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while adding friend to space.",
-				);
-				setResult({
-					success: false,
-					message: "Failed to add friend to space",
-				});
-			} finally {
+
 				setLoading(false);
 			}
 		},

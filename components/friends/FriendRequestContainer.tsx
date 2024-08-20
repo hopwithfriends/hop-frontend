@@ -23,21 +23,11 @@ interface UserDetailsMap {
 const FriendRequestsContainer: React.FC = () => {
 	const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
 	const [userDetails, setUserDetails] = useState<UserDetailsMap>({});
-	const {
-		fetchFriendRequests,
-		loading: fetchLoading,
-		error: fetchError,
-	} = useFetchFriendRequests();
-	const {
-		acceptFriendRequest,
-		loading: acceptLoading,
-		error: acceptError,
-	} = useAcceptFriendRequest();
-	const {
-		declineFriendRequest,
-		loading: declineLoading,
-		error: declineError,
-	} = useDeclineFriendRequest();
+	const { fetchFriendRequests } = useFetchFriendRequests();
+	const { acceptFriendRequest, loading: acceptLoading } =
+		useAcceptFriendRequest();
+	const { declineFriendRequest, loading: declineLoading } =
+		useDeclineFriendRequest();
 	const user = useUser({ or: "redirect" });
 
 	useEffect(() => {

@@ -175,14 +175,6 @@ const UserSpaces = () => {
 								onRemoveFriend={handleRemoveFriend}
 							/>
 							<div className="absolute bottom-3 right-3 flex items-center">
-								{addUserError && (
-									<p className="text-red-500 mr-5 text-md">{addUserError}</p>
-								)}
-								{addUserResult?.success && (
-									<p className="text-green-500 mr-5 text-md">
-										Friends added successfully!
-									</p>
-								)}
 								<button
 									type="button"
 									onClick={handleAddFriendsToSpace}

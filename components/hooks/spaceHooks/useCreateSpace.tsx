@@ -50,12 +50,7 @@ const useCreateSpace = (): CreateSpaceResult => {
 			console.log("Space created successfully");
 		} catch (error) {
 			console.error("Error creating space:", error);
-			setError(
-				error instanceof Error
-					? error.message
-					: "An unexpected error occurred while creating the space",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	};

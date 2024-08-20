@@ -61,9 +61,6 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 		setSearchResults([]);
 	};
 
-	if (loading) return <div>Loading friends...</div>;
-	if (error) return <div>Error: {error}</div>;
-
 	return (
 		<div className="w-full max-w-md mx-auto p-4 bg-transparent rounded-lg">
 			<form onSubmit={handleSearch} className="mb-4 relative">

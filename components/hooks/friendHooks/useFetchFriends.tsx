@@ -36,12 +36,7 @@ export const useFetchFriends = () => {
 			}
 		} catch (err) {
 			console.error("Error fetching friends:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching friends.",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	};
