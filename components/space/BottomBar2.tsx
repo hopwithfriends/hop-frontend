@@ -37,7 +37,6 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	const [fetchedUser, setFetchedUser] = useState<Item | null>(null);
 	const [volume, setVolume] = useState<number>(33);
 
-
 	const fetch = async () => {
 		try {
 			const { accessToken, refreshToken } = await user.getAuthJson();
@@ -54,13 +53,14 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	useEffect(() => {
 		const fetchAndSetUserData = async () => {
 			const result = await fetch();
-
-			setFetchedUser({
-				id: 1,
-				name: result.nickname,
-				designation: result.username,
-				image: result.profilePicture,
-			});
+			if (result) {
+				setFetchedUser({
+					id: 1,
+					name: result.nickname,
+					designation: result.username,
+					image: result.profilePicture,
+				});
+			}
 		};
 		fetchAndSetUserData();
 	}, [user]);
