@@ -42,8 +42,10 @@ const Dashboard: React.FC = () => {
 		<div className="flex bg-gray-700 text-white h-screen">
 			<SpaceContainer
 				screen={screen}
-
-				pfp={userData?.profilePicture || "https://res.cloudinary.com/dksp40fgp/image/upload/v1723767101/oklypy7hrfwisbjnxwaw.png"}
+				pfp={
+					userData?.profilePicture ||
+					"https://res.cloudinary.com/dksp40fgp/image/upload/v1723767101/oklypy7hrfwisbjnxwaw.png"
+				}
 				link={link}
 				members={members}
 				realUsername={userData?.username || ""}

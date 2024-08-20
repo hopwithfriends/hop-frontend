@@ -63,7 +63,7 @@ const FriendRequestsContainer: React.FC = () => {
 
 		for (const request of requests) {
 			try {
-				const userDetail = await serviceMethods.fetchUser(request.friendId);
+				const userDetail = await serviceMethods.fetchUser();
 				details[request.friendId] = userDetail;
 			} catch (error) {
 				console.error(
