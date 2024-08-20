@@ -43,7 +43,7 @@ const EnterSpace: React.FC<NicknameProps> = ({
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
         setWsUrl(
-            `${process.env.DEPLOYED_WS}?username=${encodeURIComponent(username)}&pfp=${encodeURIComponent(pfp)}&nickname=${encodeURIComponent(nickname)}`,
+            `${process.env.NEXT_PUBLIC_DEPLOYED_WS}?username=${encodeURIComponent(username)}&pfp=${encodeURIComponent(pfp)}&nickname=${encodeURIComponent(nickname)}`,
         );
     }, []);
 
