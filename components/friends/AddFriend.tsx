@@ -76,9 +76,7 @@ const AddFriendComponent = () => {
 				>
 					<div className="font-medium">Error</div>
 					<div>{error}</div>
-					<div className="mt-2">
-						If the problem persists, please contact support.
-					</div>
+					<div className="mt-2">Please contact support.</div>
 				</div>
 			)}
 

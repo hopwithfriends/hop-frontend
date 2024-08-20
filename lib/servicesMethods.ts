@@ -40,7 +40,7 @@ export class ServiceMethods {
   }
 
   async fetchAcceptFriendRequest(requestId: string) {
-    return this.apiService().post(`/user/friend/request/${requestId}`, {});
+    return this.apiService().post(`/user/friend/addRequest/${requestId}`, {});
   }
 
   async fetchDeclineFriendRequest(requestId: string) {
