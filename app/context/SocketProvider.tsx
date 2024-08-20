@@ -40,7 +40,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const newSocket = io("ws://localhost:8080", {
+		const newSocket = io("ws://hop-backend.fly.dev", {
 			autoConnect: false,
 			reconnectionAttempts: 5,
 			reconnectionDelay: 2000,
