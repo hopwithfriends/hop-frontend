@@ -139,16 +139,6 @@ const FriendRequestsContainer: React.FC = () => {
 					</div>
 				))}
 			</div>
-			{acceptError && (
-				<div className="p-4 text-red-500">
-					Error accepting request: {acceptError}
-				</div>
-			)}
-			{declineError && (
-				<div className="p-4 text-red-500">
-					Error declining request: {declineError}
-				</div>
-			)}
 		</div>
 	);
 };

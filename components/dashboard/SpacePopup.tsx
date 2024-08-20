@@ -70,7 +70,7 @@ const SpacePopup: React.FC<SpacePopupProps> = ({
 					width: "90%",
 					maxWidth: "400px",
 					height: "90%",
-					maxHeight: "450px",
+					maxHeight: "575px",
 				}}
 				onAnimationEnd={handleAnimationEnd}
 			>
