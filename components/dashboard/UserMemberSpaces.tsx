@@ -75,7 +75,7 @@ const UserMemberSpaces = () => {
 	}, [fetchUserId]);
 
 	const openVNC = (spaceId: string) => {
-		const spaceUrl = `${process.env.FRONTEND_URL}/space/${spaceId}`;
+		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -95,7 +95,7 @@ const UserMemberSpaces = () => {
 	);
 
 	const copyToClipboard = (space: Space) => {
-		const spaceUrl = `${process.env.FRONTEND_URL}/space/${space.id}`;
+		const spaceUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
 		setCopiedSpaceId(space.id);
 		setTimeout(() => setCopiedSpaceId(null), 3000);
 	};
