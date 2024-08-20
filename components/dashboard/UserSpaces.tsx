@@ -50,8 +50,6 @@ const UserSpaces = () => {
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			const response = await serviceMethods.fetchUserSpaces();
 
-			console.log("Fetched user spaces:", response);
-
 			if (Array.isArray(response) && response.length > 0) {
 				setSpaces(response);
 			} else {
@@ -113,7 +111,7 @@ const UserSpaces = () => {
 		if (!selectedSpaceId) return;
 
 		for (const friend of selectedFriends) {
-			await addFriendToSpace(friend.id, selectedSpaceId, "anonymous");
+			await addFriendToSpace(selectedSpaceId, friend.id, "anonymous");
 		}
 
 		setIsSearchVisible(false);
@@ -165,7 +163,6 @@ const UserSpaces = () => {
 								onRemoveFriend={handleRemoveFriend}
 							/>
 							<div className="absolute bottom-3 right-3 flex items-center">
-
 								<button
 									type="button"
 									onClick={handleAddFriendsToSpace}

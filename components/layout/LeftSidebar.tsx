@@ -91,7 +91,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 				return;
 			}
 			setFriendInvites(friendRequests);
-			console.log(friendRequests);
 		};
 		fetchFriendRequestsData();
 	}, []);
