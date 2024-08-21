@@ -152,24 +152,24 @@ const UserSpaces = () => {
 							</div>
 						</div>
 						<div
-							className={`absolute bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
+							className={`absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-90 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
 								isSearchVisible && selectedSpaceId === space.id
 									? "opacity-100 visible"
 									: "opacity-0 invisible"
 							}`}
 						>
-							<FriendSearch
-								onSelectFriend={handleSelectFriend}
-								selectedFriends={selectedFriends}
-								onRemoveFriend={handleRemoveFriend}
-								onClose={() => toggleSearchBar(space.id)}
-							/>
-							<div className="absolute bottom-12 right-12 flex items-center">
+							<div className=" p-4 rounded-lg w-3/4 max-w-md">
+								<FriendSearch
+									onSelectFriend={handleSelectFriend}
+									selectedFriends={selectedFriends}
+									onRemoveFriend={handleRemoveFriend}
+									onClose={() => toggleSearchBar(space.id)}
+								/>
 								<button
 									type="button"
 									onClick={handleAddFriendsToSpace}
 									disabled={selectedFriends.length === 0 || addingUser}
-									className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+									className="mt-4 w-full bg-gray-300 text-hop-purple rounded-full h-12 flex items-center justify-center transition-colors duration-200 disabled:opacity-50"
 								>
 									{addingUser ? (
 										<span className="animate-spin">&#8987;</span>

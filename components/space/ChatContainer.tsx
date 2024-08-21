@@ -21,7 +21,6 @@ const ChatContainer: React.FC = () => {
 	const [inputMessage, setInputMessage] = useState("");
 	const [username, setUsername] = useState("");
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-	const [time, setTime] = useState("");
 	const user = useUser({ or: "redirect" });
 	const wsRef = useRef<WebSocket | null>(null);
 	const isInitialConnection = useRef(true);
@@ -119,8 +118,8 @@ const ChatContainer: React.FC = () => {
 	}, [username]);
 
 	const handleSendMessage = () => {
-		setTime(moment().format("LT"));
 		if (inputMessage.trim() && wsRef.current) {
+			const time = moment().format("LT");
 			const message = {
 				type: "chat",
 				username: username,
@@ -138,10 +137,8 @@ const ChatContainer: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col h-full p-4 ">
-			<p className="text-3xl font-bold p-2 text-white">chat</p>
-
-			<div className="bg-black broder-2 border-white rounded-xl p-4 flex flex-col h-full max-h-[896px] message-container">
+		<div className="flex flex-col h-full p-4">
+			<div className="bg-black broder-2 border-white rounded-xl p-4 flex flex-col h-full max-h-[911px] message-container">
 				<div
 					className="flex flex-col message-list overflow-y-auto"
 					ref={messageListRef}
@@ -153,10 +150,10 @@ const ChatContainer: React.FC = () => {
 							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<div className="flex flex-col message" key={index}>
 								<div className="flex flex-col">
-									<p className="whitespace-pre-wrap break-words border-2 font-bold rounded-xl p-2 bg-purple-400 text-black border-purple-600">
+									<p className="whitespace-pre-wrap break-words border-2 font-bold rounded-xl p-2 text-black bg-purple-300 border-purple-600">
 										{`${msg.username}: ${msg.message}`}
 									</p>
-									<p className="text-sm font-light text-white">{msg.time}</p>
+									<p className="text-sm font-light text-white ml-1">{msg.time}</p>
 								</div>
 							</div>
 						);
@@ -165,7 +162,7 @@ const ChatContainer: React.FC = () => {
 			</div>
 
 			<div className="mt-4 text-white">
-				<div className="p-2 border-t border-gray-300">
+				<div className="p-2 border-t-2 border-purple-500">
 					<div className="relative flex items-center pt-2">
 						<button
 							type="button"

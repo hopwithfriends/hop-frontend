@@ -200,12 +200,18 @@ export default function Home() {
 									{/* Harouni image here */}
 								</div>
 								<div className="flex flex-col pl-10 w-full">
-									<h2 className="text-6xl font-bold pb-5">Very Coolio</h2>
-									<p className="">
-										Curabitur auctor vehicula urna, eget congue ex bibendum at.
-										Curabitur feugiat magna finibus nulla dapibus, vitae
-										elementum tellus convallis. Proin consequat sollicitudin
-										laoreet.
+
+									<h2 className="text-5xl font-bold pb-5">
+										Shareable Browsers
+									</h2>
+									<p className="text-lg">
+										Introducing Shareable Browsers – the ultimate way to connect
+										and collaborate with others in real-time. Whether you're
+										hosting a watch party, working on a project, or exploring
+										new ideas, our shareable browsers let everyone take the
+										reins effortlessly. Perfect for showcasing product demos,
+										planning trips, or shopping together, it’s never been easier
+										to stay in sync with your team or friends.
 									</p>
 								</div>
 							</div>
@@ -216,12 +222,17 @@ export default function Home() {
 						<div className="h-[26rem] w-[60rem] bg-purple-400 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100 flex">
 							<div className="w-full flex flex-row items-start p-10">
 								<div className="flex flex-col pr-10 w-full">
-									<h2 className="text-6xl font-bold pb-5">Very Coolio</h2>
-									<p className="">
-										Curabitur auctor vehicula urna, eget congue ex bibendum at.
-										Curabitur feugiat magna finibus nulla dapibus, vitae
-										elementum tellus convallis. Proin consequat sollicitudin
-										laoreet.
+
+									<h2 className="text-5xl font-bold pb-5">
+										Stay Connected with Friends
+									</h2>
+									<p className="text-lg">
+										Effortlessly keep up with your friends and join their spaces
+										with just a tap. Instantly see what they’re up to and dive
+										into shared experiences together. Invite your friends with a
+										single click and enjoy seamless, spontaneous connections
+										like never before.
+
 									</p>
 								</div>
 								<div className="w-full h-full  bg-white rounded-xl">
