@@ -25,9 +25,6 @@ export default function FriendInvitesContainer({
 		await declineFriendRequest(invite.id);
 		setFriendInvites(invites.filter((i) => i.id !== invite.id));
 	};
-	if (!invites || invites.length === 0) {
-		return <div className="text-sm text-hop-purple-400">No friend invites</div>;
-	}
 	return (
 		<div className="flex flex-col gap-2">
 			{invites.map((invite) => (
