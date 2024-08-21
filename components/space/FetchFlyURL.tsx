@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
-import LoadingSpinner from "@components/ui/Spiner";
+import LoadingSpinner from "@components/ui/Spinner";
 import io from "socket.io-client";
 import debounce from "lodash/debounce";
-import dotenv from "dotenv"; 
+import dotenv from "dotenv";
 dotenv.config();
 interface VncDisplayProps {
 	spaceId: string;
@@ -149,7 +149,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 	}, [user, spaceId, flyUrl]);
 
 	if (loading) {
-		const color= "border-gray-500"
+		const color = "border-gray-500";
 		return (
 			<div className="flex justify-center items-center w-full h-full">
 				<LoadingSpinner border={color} />
