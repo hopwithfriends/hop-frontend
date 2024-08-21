@@ -119,7 +119,7 @@ const SpaceSettings = () => {
 	return (
 		<div className="flex justify-center items-center bg-gray-100">
 			<div className="bg-hop-purple p-2 w-full max-w-md relative pt-5">
-				<div className="flex flex-col space-y-4">
+				<div className="flex flex-col">
 					{buttons.map((item) => (
 						<button
 							key={item.text}
@@ -156,7 +156,7 @@ const SpaceSettings = () => {
 								type="button"
 								onClick={handleAddFriendsToSpace}
 								disabled={selectedFriends.length === 0 || addingUser}
-								className="w-8 h-8 bg-green-600 rounded mr-4 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+								className="w-8 h-8 bg-green-600 rounded mr-4 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400 text-xl font-bold"
 							>
 								{addingUser ? (
 									<span className="animate-spin">&#8987;</span>
