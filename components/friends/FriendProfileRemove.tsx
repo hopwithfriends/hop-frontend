@@ -8,9 +8,8 @@ interface FriendProfileProps {
 		nickname: string;
 		username: string;
 		profilePicture?: string;
-		isOnline?: boolean;
-		currentRoom?: string;
-	};
+		status: string | { name: string; spaceId: string } | null;
+	},
 	onClose: () => void;
 	onFriendRemoved: (friendId: string) => void;
 }
@@ -23,7 +22,7 @@ const FriendProfileRemoveBTN: React.FC<FriendProfileProps> = ({
 	const defaultProfilePicture = "/images/pfp-placeholder.png";
 
 	return (
-		<div className="bg-gray-700 p-6 rounded-xl shadow-lg">
+		<div className=" bg-[#2f2754] p-6 rounded-xl shadow-lg">
 			<button
 				onClick={onClose}
 				className="float-right text-gray-400 hover:text-white"
@@ -47,22 +46,19 @@ const FriendProfileRemoveBTN: React.FC<FriendProfileProps> = ({
 				<p className="text-gray-400 mb-4">@{friend.username}</p>
 				<div className="flex items-center mb-4">
 					<div
-						className={`w-3 h-3 rounded-full mr-2 ${friend.isOnline ? "bg-green-400" : "bg-gray-500"}`}
+						className={`w-3 h-3 rounded-full mr-2 ${friend.status ? "bg-green-400" : "bg-gray-500"}`}
 					/>
 					<span className="text-gray-300">
-						{friend.isOnline ? "Online" : "Offline"}
+						{friend.status ? "Online" : "Offline"}
 					</span>
 				</div>
-				{friend.currentRoom && (
-					<p className="text-gray-300">Currently in: {friend.currentRoom}</p>
-				)}
 				<div className="flex flex-col items-center mt-4">
-					<Button
-						className="bg-blue-500 text-white px-4 py-2 rounded-lg mb-2"
+					<button
+						className="focus:outline-none font-bold  text-white bg-[#7964D9] hover:bg-[#534399] rounded-md text-md px-5 py-2 mx-3 my-3 transition duration-300 ease-in-out"
 						type="button"
 					>
 						Send message
-					</Button>
+					</button>
 					<DeleteFriendComponent
 						friendId={friend.id}
 						onFriendRemoved={onFriendRemoved}

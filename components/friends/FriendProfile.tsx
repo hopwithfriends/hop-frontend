@@ -6,15 +6,14 @@ interface FriendProfileProps {
 		nickname: string;
 		username: string;
 		profilePicture?: string;
-		isOnline?: boolean;
-		currentRoom?: string;
+		status: string | { name: string; spaceId: string } | null;
 	};
 	onClose: () => void;
 }
 
 const FriendProfile: React.FC<FriendProfileProps> = ({ friend, onClose }) => {
 	const defaultProfilePicture = "/images/pfp-placeholder.png";
-
+	
 	return (
 		<div className="bg-gray-700 p-6 rounded-xl shadow-lg">
 			<button
@@ -35,19 +34,17 @@ const FriendProfile: React.FC<FriendProfileProps> = ({ friend, onClose }) => {
 				</div>
 				<h2 className="text-2xl font-bold text-white mb-2">
 					{friend.nickname}
+					{`${friend.status} haaa`}
 				</h2>
 				<p className="text-gray-400 mb-4">@{friend.username}</p>
 				<div className="flex items-center mb-4">
 					<div
-						className={`w-3 h-3 rounded-full mr-2 ${friend.isOnline ? "bg-green-400" : "bg-gray-500"}`}
+						className={`w-3 h-3 rounded-full mr-2 ${friend.status ? "bg-green-400" : "bg-gray-500"}`}
 					/>
 					<span className="text-gray-300">
-						{friend.isOnline ? "Online" : "Offline"}
+						{friend.status ? "Online" : "Offline"}
 					</span>
 				</div>
-				{friend.currentRoom && (
-					<p className="text-gray-300">Currently in: {friend.currentRoom}</p>
-				)}
 			</div>
 		</div>
 	);

@@ -22,12 +22,12 @@ const HoverCard: React.FC<HoverCardProps> = ({ friend, parentRef }) => {
 		if (parentRef.current) {
 			const rect = parentRef.current.getBoundingClientRect();
 			const containerRect = parentRef.current
-				.closest(".bg-gray-800")
+				.closest(".bg-hop-friend-bg")
 				?.getBoundingClientRect();
 			if (containerRect) {
 				setPosition({
-					top: rect.top - containerRect.top + 100,
-					left: containerRect.right - containerRect.left + 10,
+					top: rect.top - containerRect.top + 200,
+					left: containerRect.right - containerRect.left + 60,
 				});
 			}
 		}
@@ -35,7 +35,7 @@ const HoverCard: React.FC<HoverCardProps> = ({ friend, parentRef }) => {
 
 	const card = (
 		<div
-			className="fixed z-50 bg-gray-700 p-4 rounded-xl shadow-lg w-64"
+			className="fixed z-50 bg-gradient-to-br from-[#3f3666] to-[#5c5482] p-4 rounded-xl w-64 text-white border-2 border-opacity-30 border-gray-100"
 			style={{ top: `${position.top}px`, left: `${position.left}px` }}
 		>
 			<div className="flex flex-col items-center">

@@ -2,7 +2,7 @@ import FriendList from "@components/friends/FriendList";
 
 const FriendsPage = () => {
 	return (
-		<div className="flex h-screen overflow-hidden bg-gray-500">
+		<div className="flex h-screen overflow-hidden bg-hop-secondary-bg text-white">
 			<FriendList />
 		</div>
 	);
