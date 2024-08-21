@@ -33,7 +33,7 @@ interface Item {
 	image: string;
 }
 
-const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
+const BottomBar: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	const user = useUser({ or: "redirect" });
 	const [fetchedUser, setFetchedUser] = useState<Item | null>(null);
 	const [volume, setVolume] = useState<number>(33);
@@ -112,4 +112,4 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	);
 };
 
-export default BottomBar2;
+export default BottomBar;
