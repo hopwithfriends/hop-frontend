@@ -137,25 +137,23 @@ const SpaceSettings = () => {
 
 				{isSearchVisible && (
 					<div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50">
-						<div className="w-full max-w-lg mt-8">
+						<div className="w-[400px] h-[500px] bg-hop-purple rounded-lg flex flex-col relative">
 							<FriendSearch
 								onSelectFriend={handleSelectFriend}
 								selectedFriends={selectedFriends}
 								onRemoveFriend={handleRemoveFriend}
 								onClose={toggleSearchBar}
 							/>
-						</div>
-						<div className="mt-4 flex justify-end">
 							<button
 								type="button"
 								onClick={handleAddFriendsToSpace}
 								disabled={selectedFriends.length === 0 || addingUser}
-								className="bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400"
+								className="absolute bottom-4 right-4 bg-gray-300 text-hop-purple rounded-full w-12 h-12 flex items-center justify-center transition-colors duration-200 disabled:opacity-50 z-10"
 							>
 								{addingUser ? (
 									<span className="animate-spin">&#8987;</span>
 								) : (
-									<IoMdAddCircle />
+									<IoMdAddCircle size={24} />
 								)}
 							</button>
 						</div>
