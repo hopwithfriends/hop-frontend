@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FiSettings, FiCopy, FiX } from "react-icons/fi";
+import { IoMdAddCircle } from "react-icons/io";
 import { RiUserAddFill } from "react-icons/ri";
 import { useUser } from "@stackframe/stack";
 import FriendSearch from "@components/dashboard/popupCreateSpace/FriendSearch";
@@ -17,10 +18,11 @@ interface Friend {
 const SpaceSettings = () => {
 	const { spaces, refetchSpaces } = useFetchSpaces();
 	const [urlCopied, setUrlCopied] = useState(false);
-	const [ passCopied, setPassCopied] =useState(false);
+	const [passCopied, setPassCopied] = useState(false);
 	const [spaceId, setSpaceId] = useState<string | null>(null);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
+	const [isButtonClicked, setIsButtonClicked] = useState(false); 
 	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	useEffect(() => {
@@ -78,6 +80,8 @@ const SpaceSettings = () => {
 
 	const handleAddFriendsToSpace = async () => {
 		if (!spaceId) return;
+		setIsButtonClicked(true); 
+		console.log("clicked")
 
 		for (const friend of selectedFriends) {
 			await addFriendToSpace(spaceId, friend.id, "anonymous");
@@ -85,6 +89,7 @@ const SpaceSettings = () => {
 
 		setSelectedFriends([]);
 		setIsSearchVisible(false);
+		setTimeout(() => setIsButtonClicked(false), 1000); 
 	};
 
 	const toggleSearchBar = () => {
@@ -151,12 +156,12 @@ const SpaceSettings = () => {
 								type="button"
 								onClick={handleAddFriendsToSpace}
 								disabled={selectedFriends.length === 0 || addingUser}
-								className="w-8 h-8 bg-green-600 text-white rounded mr-4 flex items-center justify-center hover:bg-green-700 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+								className="w-8 h-8 bg-green-600 rounded mr-4 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
 							>
 								{addingUser ? (
 									<span className="animate-spin">&#8987;</span>
 								) : (
-									"+"
+									<IoMdAddCircle />
 								)}
 							</button>
 						</div>
