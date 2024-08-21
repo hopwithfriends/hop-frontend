@@ -15,12 +15,12 @@ interface Friend {
 }
 
 const SpaceSettings = () => {
-	const { spaces, loading, error, refetchSpaces } = useFetchSpaces();
-	const [isCopied, setIsCopied] = useState(false);
+	const { spaces, refetchSpaces } = useFetchSpaces();
+	const [urlCopied, setUrlCopied] = useState(false);
+	const [ passCopied, setPassCopied] =useState(false);
 	const [spaceId, setSpaceId] = useState<string | null>(null);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
-	const user = useUser({ or: "redirect" });
 	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	useEffect(() => {
@@ -44,17 +44,24 @@ const SpaceSettings = () => {
 		const space = spaces.find((space) => space.id === spaceId);
 		if (space) {
 			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
-			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
-			copyToClipboard(shareText);
+			navigator.clipboard.writeText(spaceUrl).then(() => {
+				setUrlCopied(true);
+				setTimeout(() => setUrlCopied(false), 2000);
+			});
 		}
 	};
 
-	const copyToClipboard = (text: string) => {
-		navigator.clipboard.writeText(text).then(() => {
-			setIsCopied(true);
-			console.log("Copied to clipboard:", text);
-			setTimeout(() => setIsCopied(false), 2000);
-		});
+	const handleCopyPasswordClick = async () => {
+		if (!spaceId) return;
+		await refetchSpaces();
+		const space = spaces.find((space) => space.id === spaceId);
+		if (space) {
+			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
+			navigator.clipboard.writeText(space.password).then(() => {
+				setPassCopied(true);
+				setTimeout(() => setPassCopied(false), 2000);
+			});
+		}
 	};
 
 	const handleSelectFriend = (friend: Friend) => {
@@ -91,9 +98,15 @@ const SpaceSettings = () => {
 		{ icon: FiSettings, text: "Settings", onClick: handleSettingsClick },
 		{
 			icon: FiCopy,
-			text: "Copy",
+			text: "Copy link",
 			onClick: handleCopyLinkClick,
-			color: isCopied ? "text-green-500" : "text-white", 
+			color: urlCopied ? "text-green-500" : "text-white",
+		},
+		{
+			icon: FiCopy,
+			text: "Copy password",
+			onClick: handleCopyPasswordClick,
+			color: passCopied ? "text-green-500" : "text-white",
 		},
 		{ icon: RiUserAddFill, text: "Add Friend", onClick: toggleSearchBar },
 	];
