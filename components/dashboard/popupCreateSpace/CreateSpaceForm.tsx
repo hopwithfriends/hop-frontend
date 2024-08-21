@@ -111,6 +111,7 @@ const CreateSpaceForm: React.FC = () => {
 				onSelectFriend={handleSelectFriend}
 				selectedFriends={selectedFriends}
 				onRemoveFriend={handleRemoveFriend}
+				onClose={() => {}}
 			/>
 
 			<div className="flex items-center justify-between mb-4">
