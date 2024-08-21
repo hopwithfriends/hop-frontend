@@ -57,7 +57,7 @@ export default function Home() {
 										<img src="hoplogo.svg" alt="Hop" className="" />
 										<img src="hop.svg" alt="HopLetters" className="pl-3 pt-2" />
 									</div>
-									<div className="rounded-xl flex flex-w justify-center">
+									<div className="rounded-xl flex flex-w justify-center text-center">
 										<button
 											type="button"
 											className="focus:outline-none font-bold  text-white bg-[#7964D9] hover:bg-[#534399] rounded-md text-lg px-5 py-2 mx-3 transition duration-300 ease-in-out "
@@ -67,7 +67,7 @@ export default function Home() {
 										<Link
 											href="/dashboard"
 											type="button"
-											className="focus:outline-none font-bold text-white bg-[#7964D9] hover:bg-[#534399]   rounded-md text-lg px-6 py-1 transition duration-300 ease-in-out"
+											className="focus:outline-none font-bold text-white bg-[#7964D9] hover:bg-[#534399]   rounded-md text-lg px-5 py-3 mx-3 transition duration-300 ease-in-out"
 										>
 											Login
 										</Link>
