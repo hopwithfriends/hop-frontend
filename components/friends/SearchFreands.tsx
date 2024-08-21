@@ -32,7 +32,7 @@ const SlidingSearchBar: React.FC<SlidingSearchBarProps> = ({ onSearch }) => {
 		<div className="relative flex items-center">
 			<button
 				onClick={toggleSearch}
-				className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center focus:outline-none hover:bg-gray-600 transition-colors duration-200"
+				className="w-10 h-10 bg-[#3d3364] rounded-full flex items-center justify-center focus:outline-none hover:bg-[#6b5ab0] transition-colors duration-200"
 				type="button"
 			>
 				<Search className="text-gray-300" />
@@ -49,7 +49,7 @@ const SlidingSearchBar: React.FC<SlidingSearchBarProps> = ({ onSearch }) => {
 						placeholder="Search friends..."
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						className="w-full h-full px-4 py-2 bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
+						className="w-full h-full px-4 py-2 bg-[#3d3364] text-white placeholder-gray-400 focus:outline-none"
 					/>
 					{isOpen && (
 						<button

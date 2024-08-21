@@ -40,14 +40,14 @@ const DeleteFriendComponent: React.FC<DeleteFriendComponentProps> = ({
 
 	return (
 		<div>
-			<Button
+			<button
 				onClick={deleteFriend}
-				className="bg-red-500 text-white px-4 py-2 rounded-lg"
+				className="focus:outline-none font-bold  text-white bg-[#7964D9] hover:bg-[#534399] rounded-md text-md px-5 py-2 mx-3 my-3 transition duration-300 ease-in-out"
 				type="button"
 				disabled={loading}
 			>
 				{loading ? "Removing..." : "Remove friend"}
-			</Button>
+			</button>
 			{success && (
 				<p className="text-green-500 mt-2">Friend removed successfully!</p>
 			)}

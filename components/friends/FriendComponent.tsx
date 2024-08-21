@@ -5,8 +5,7 @@ interface SingleFriendProps {
 	nickname: string;
 	username: string;
 	profilePicture?: string;
-	isOnline?: boolean;
-	currentRoom?: string;
+	status: string | {name:string, spaceId: string} | null;
 	onClick: () => void;
 }
 
@@ -15,15 +14,14 @@ const SingleFriend: React.FC<SingleFriendProps> = ({
 	nickname,
 	username,
 	id,
-	isOnline = false,
-	currentRoom = "",
+	status,
 	onClick,
 }) => {
 	const defaultProfilePicture = "/images/pfp-placeholder.png";
-
+	
 	return (
 		<div
-			className="flex items-center p-3 rounded-2xl bg-gray-700 shadow-md space-x-4 cursor-pointer hover:bg-gray-600 transition-colors duration-200"
+			className="flex items-center p-3 rounded-2xl  bg-[#2f2754] hover:bg-[#534399] text-lg px-5 py-2 mx-3 ease-in-out  shadow-md space-x-4 cursor-pointer transition-colors duration-200"
 			onClick={onClick}
 			onKeyDown={onClick}
 			onKeyPress={onClick}
@@ -45,12 +43,12 @@ const SingleFriend: React.FC<SingleFriendProps> = ({
 					<div className="text-white font-semibold text-lg">{nickname}</div>
 					<div
 						className={`w-3.5 h-3.5 rounded-full ${
-							isOnline ? "bg-green-400" : "bg-gray-500"
+							status ? "bg-green-400" : "bg-gray-500"
 						}`}
 					/>
 				</div>
 				<div className="text-gray-400 text-sm">
-					{currentRoom || `@${username}`}
+					{`@${username}`}
 				</div>
 			</div>
 		</div>

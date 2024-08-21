@@ -81,7 +81,7 @@ const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
 		<>
 			<button
 				onClick={togglePopup}
-				className="absolute bottom-6 right-6 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center focus:outline-none hover:bg-blue-600 transition-colors duration-200 shadow-lg"
+				className="absolute bottom-6 right-6 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center focus:outline-none hover:bg-purple-600 transition-colors duration-200 shadow-lg"
 				type="button"
 			>
 				<UserPlus className="text-white" size={20} />
@@ -102,7 +102,7 @@ const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
 							/>
 							<button
 								type="submit"
-								className="h-10 bg-blue-500 text-white px-4 rounded-r-md hover:bg-blue-600 transition-colors duration-200"
+								className="h-10 bg-purple-500 text-white px-4 rounded-r-md hover:bg-purple-600 transition-colors duration-200"
 								disabled={loading}
 							>
 								{loading ? "Adding..." : "Add"}
@@ -123,7 +123,7 @@ const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
 					<button
 						onClick={handleClose}
 						type="button"
-						className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+						className="mt-4 w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded"
 					>
 						Close
 					</button>
