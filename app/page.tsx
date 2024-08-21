@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "@styles/globals.css";
+import Image from "next/image";
 
 export default function Home() {
 	return (
@@ -95,10 +96,12 @@ export default function Home() {
 					</div>
 
 					<div className="flex flex-wrap center justify-center pb-10 w-full">
-						<img
-							src="./images/hop-hero-browser.png"
+						<Image
+							src="/images/hop-hero-browser.png"
 							alt="placeholder"
-							className="w-3/4"
+							width={1440}
+							height={1080}
+							quality={100}
 						/>
 					</div>
 
@@ -197,6 +200,7 @@ export default function Home() {
 									{/* Harouni image here */}
 								</div>
 								<div className="flex flex-col pl-10 w-full">
+
 									<h2 className="text-5xl font-bold pb-5">
 										Shareable Browsers
 									</h2>
@@ -218,6 +222,7 @@ export default function Home() {
 						<div className="h-[26rem] w-[60rem] bg-purple-400 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100 flex">
 							<div className="w-full flex flex-row items-start p-10">
 								<div className="flex flex-col pr-10 w-full">
+
 									<h2 className="text-5xl font-bold pb-5">
 										Stay Connected with Friends
 									</h2>
@@ -227,6 +232,7 @@ export default function Home() {
 										into shared experiences together. Invite your friends with a
 										single click and enjoy seamless, spontaneous connections
 										like never before.
+
 									</p>
 								</div>
 								<div className="w-full h-full  bg-white rounded-xl">
