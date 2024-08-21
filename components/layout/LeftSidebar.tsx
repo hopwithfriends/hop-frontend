@@ -43,8 +43,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 	const user = useUser();
 	const [friendInvites, setFriendInvites] = useState<FriendRequestType[]>([]);
 	const [spaceRequests, setSpaceRequests] = useState<SpaceRequestType[]>([]);
-	const { fetchFriendRequests, loading: friendRequestLoading } =
-		useFetchFriendRequests();
+	const { fetchFriendRequests } = useFetchFriendRequests();
 	const { fetchSpaceRequests } = useFetchSpaceRequests();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
