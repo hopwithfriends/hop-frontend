@@ -39,21 +39,6 @@ export type SpaceRequestType = {
 	role: string;
 };
 
-// const mockSpaceRequests = [
-// 	{
-// 		id: "1",
-// 		spaceName: "Space 1",
-// 		username: "@aidan",
-// 		profilePicture: "https://via.placeholder.com/150",
-// 	},
-// 	{
-// 		id: "2",
-// 		spaceName: "Space 2",
-// 		username: "@aidan",
-// 		profilePicture: "https://via.placeholder.com/150",
-// 	},
-// ];
-
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 	const user = useUser();
 	const [friendInvites, setFriendInvites] = useState<FriendRequestType[]>([]);
@@ -97,7 +82,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 						type="button"
 						className="bg-gradient-to-r from-purp-grad-1 to-purp-grad-2 mt-1 flex items-center justify-center rounded-xl"
 					>
-						<span className="text-2xl font-semibold text-hop-text-purple px-24 py-4">
+						<span className="text-xl font-semibold text-hop-text-purple px-24 py-2">
 							friends
 						</span>
 					</button>
