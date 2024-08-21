@@ -139,7 +139,7 @@ const ChatContainer: React.FC = () => {
 
 	return (
 		<div className="flex flex-col h-full p-4 ">
-			<p className="text-3xl font-semibold p-2 text-white">Chat</p>
+			<p className="text-3xl font-bold p-2 text-white">chat</p>
 
 			<div className="bg-black broder-2 border-white rounded-xl p-4 flex flex-col h-full max-h-[896px] message-container">
 				<div

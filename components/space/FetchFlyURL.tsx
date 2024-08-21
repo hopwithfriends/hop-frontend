@@ -163,7 +163,7 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 	}
 
 	return (
-		<div className="relative w-full h-screen">
+		<div className="relative w-full h-full">
 			{flyUrl && (
 				<>
 					<iframe
@@ -172,7 +172,6 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 						title="vnc"
 						src={flyUrl}
 					/>
-					<CursorOverlay />
 				</>
 			)}
 		</div>
