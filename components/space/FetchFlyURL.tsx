@@ -172,7 +172,6 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 						title="vnc"
 						src={flyUrl}
 					/>
-					<CursorOverlay />
 				</>
 			)}
 		</div>
