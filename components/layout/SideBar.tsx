@@ -3,15 +3,6 @@
 import { useSocket } from "@app/context/SocketProvider";
 import LeftSidebar from "@components/layout/LeftSidebar";
 
-interface Friend {
-	id: string;
-	nickname: string;
-	username: string;
-	profilePicture?: string;
-	isOnline?: boolean;
-	currentRoom?: string;
-}
-
 export default function SideBar({
 	children,
 }: {

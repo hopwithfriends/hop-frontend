@@ -13,6 +13,7 @@ interface ChatMessage {
 	type: "chat" | "join";
 	username: string;
 	message?: string;
+	time: string;
 }
 
 const ChatContainer: React.FC = () => {
@@ -29,15 +30,13 @@ const ChatContainer: React.FC = () => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (messageListRef.current) {
-		  const scrollOptions: ScrollToOptions = {
-			top: messageListRef.current.scrollHeight,
-			behavior: 'smooth'
-		  };
-		  messageListRef.current.scrollTo(scrollOptions);
+			const scrollOptions: ScrollToOptions = {
+				top: messageListRef.current.scrollHeight,
+				behavior: "smooth",
+			};
+			messageListRef.current.scrollTo(scrollOptions);
 		}
-	  }, [messages]);
-	
-
+	}, [messages]);
 
 	const fetchIt = async () => {
 		try {
@@ -63,7 +62,7 @@ const ChatContainer: React.FC = () => {
 			const result = await fetchIt();
 			if (result) {
 				setUsername(result.username);
-			}else {
+			} else {
 				const randNum: number = getRandomInt(1, 100);
 				setUsername(`user${randNum}`);
 			}
@@ -120,16 +119,16 @@ const ChatContainer: React.FC = () => {
 	}, [username]);
 
 	const handleSendMessage = () => {
+		setTime(moment().format("LT"));
 		if (inputMessage.trim() && wsRef.current) {
 			const message = {
 				type: "chat",
 				username: username,
 				message: inputMessage,
+				time: time,
 			};
 			wsRef.current.send(JSON.stringify(message));
 			setInputMessage("");
-
-			setTime(moment().format("LT"));
 		}
 	};
 
@@ -139,11 +138,14 @@ const ChatContainer: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col h-full p-4">
-			<p className="text-3xl font-semibold p-2">Chat</p>
+		<div className="flex flex-col h-full p-4 ">
+			<p className="text-3xl font-semibold p-2 text-white">Chat</p>
 
-			<div className="bg-white rounded-xl p-4 flex flex-col h-full max-h-[896px] message-container">
-				<div className="flex flex-col message-list overflow-y-auto" ref={messageListRef}>
+			<div className="bg-black broder-2 border-white rounded-xl p-4 flex flex-col h-full max-h-[896px] message-container">
+				<div
+					className="flex flex-col message-list overflow-y-auto"
+					ref={messageListRef}
+				>
 					{messages.map((msg, index) => {
 						if (!msg.username) return null;
 
@@ -151,10 +153,10 @@ const ChatContainer: React.FC = () => {
 							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<div className="flex flex-col message" key={index}>
 								<div className="flex flex-col">
-									<p className="whitespace-pre-wrap break-words border-2 rounded-xl p-2 bg-purple-200 text-green-800 border-purple-400">
+									<p className="whitespace-pre-wrap break-words border-2 font-bold rounded-xl p-2 bg-purple-400 text-black border-purple-600">
 										{`${msg.username}: ${msg.message}`}
 									</p>
-									<p className="text-sm font-light">{time}</p>
+									<p className="text-sm font-light text-white">{msg.time}</p>
 								</div>
 							</div>
 						);
@@ -162,13 +164,12 @@ const ChatContainer: React.FC = () => {
 				</div>
 			</div>
 
-
-			<div className="mt-4">
+			<div className="mt-4 text-white">
 				<div className="p-2 border-t border-gray-300">
-					<div className="relative flex items-center">
+					<div className="relative flex items-center pt-2">
 						<button
 							type="button"
-							className="absolute left-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+							className="absolute left-2 text-purple-500 hover:text-purple-700 focus:outline-none"
 							onClick={() => setShowEmojiPicker(!showEmojiPicker)}
 						>
 							<FiSmile className="w-5 h-5" />
@@ -190,12 +191,12 @@ const ChatContainer: React.FC = () => {
 							onChange={(e) => setInputMessage(e.target.value)}
 							onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
 							placeholder="Type a message..."
-							className="w-full p-3 pl-12 pr-16 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+							className="w-full p-3 pl-12 pr-16 rounded-lg border-2 text-white font-bold border-purple-500 bg-black focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
 						/>
 						<button
 							type="button"
 							onClick={handleSendMessage}
-							className="absolute right-2 text-blue-500 hover:text-blue-600 focus:outline-none p-2"
+							className="absolute right-2 text-purple-500 hover:text-purple-800 focus:outline-none p-2"
 						>
 							<FiSend className="w-6 h-6" />
 						</button>

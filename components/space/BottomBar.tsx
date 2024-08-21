@@ -1,11 +1,10 @@
 import type React from "react";
-import Avatar from "@components/ui/UserAvatar";
 import { Slider } from "@/components/ui/slider";
 import { IoMdVolumeHigh } from "react-icons/io";
-import SelectCursor from "./SelectCursor";
 import { useUser } from "@stackframe/stack";
 import { useEffect, useState } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
+import { AnimatedTooltip } from "@components/ui/animated-tooltip";
 interface UserState {
 	username: string;
 	color: string;
@@ -15,21 +14,28 @@ interface UserState {
 }
 interface User {
 	username: string;
+	nickname: string;
+	pfp: string;
 	state: UserState;
 }
 interface Users {
 	[uuid: string]: User;
 }
 interface BottomBarProps {
-	setSelectedCursor: (cursor: string) => void;
 	otherUsers: Users;
 }
 
-const BottomBar: React.FC<BottomBarProps> = (setSelectedCursor, otherUsers) => {
-	const [username, setUsername] = useState("");
-	const [nickname, setnickname] = useState("");
-	const [pfp, setPfp] = useState("");
+interface Item {
+	id: number;
+	name: string;
+	designation: string;
+	image: string;
+}
+
+const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	const user = useUser({ or: "redirect" });
+	const [fetchedUser, setFetchedUser] = useState<Item | null>(null);
+	const [volume, setVolume] = useState<number>(33);
 
 	const fetchIt = async () => {
 		try {
@@ -48,32 +54,37 @@ const BottomBar: React.FC<BottomBarProps> = (setSelectedCursor, otherUsers) => {
 		const fetchAndSetUserData = async () => {
 			const result = await fetchIt();
 			if (result) {
-				setUsername(result.username);
-				setnickname(result.nickname);
-				setPfp(result.profilePicture);
-			} else {
-				setUsername("User1");
+				setFetchedUser({
+					id: 1,
+					name: result.nickname,
+					designation: result.username,
+					image: result.profilePicture,
+				});
 			}
 		};
 		fetchAndSetUserData();
 	}, [user]);
 
+	const convertUsersToItems = (otherUsers: Users): Item[] => {
+		return Object.keys(otherUsers).map((uuid, index) => {
+			const user = otherUsers[uuid];
+			return {
+				id: index + 2,
+				name: user.nickname,
+				designation: user.username,
+				image: user.pfp,
+			};
+		});
+	};
+
+	const items = fetchedUser
+		? [fetchedUser, ...convertUsersToItems(otherUsers)]
+		: convertUsersToItems(otherUsers);
+
 	return (
 		<div className="bg-gray-200 p-3 flex items-center justify-between">
-			{/* <SelectCursor setSelectedCursor={setSelectedCursor} /> */}
 			<div className="flex-1 flex justify-center ml-[32%] mb-[0.5%]">
-				<Avatar username={username} nickname={nickname} icon={pfp} />
-
-				{Object.keys(otherUsers).map((uuid) => {
-					const { username, state } = otherUsers[uuid];
-					return (
-						<Avatar
-							key={uuid}
-							username={username}
-							nickname={state.username} // CHANGE THIS 
-						/>
-					);
-				})}
+				<AnimatedTooltip items={items} />
 			</div>
 
 			<div className="w-1/3 flex justify-end items-center space-x-2">
@@ -83,10 +94,14 @@ const BottomBar: React.FC<BottomBarProps> = (setSelectedCursor, otherUsers) => {
 					defaultValue={[33]}
 					max={100}
 					step={1}
+					onValueChange={(value: number[]) => {
+						setVolume(value[0]);
+					}}
 				/>
+				<div>{volume}%</div>
 			</div>
 		</div>
 	);
 };
 
-export default BottomBar;
+export default BottomBar2;

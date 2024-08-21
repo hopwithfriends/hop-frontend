@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FiSettings, FiCopy, FiX } from "react-icons/fi";
+import { IoMdAddCircle } from "react-icons/io";
 import { RiUserAddFill } from "react-icons/ri";
 import { useUser } from "@stackframe/stack";
 import FriendSearch from "@components/dashboard/popupCreateSpace/FriendSearch";
@@ -14,19 +15,14 @@ interface Friend {
 	username: string;
 }
 
-interface Space {
-	id: string;
-	name: string;
-	password: string;
-}
-
 const SpaceSettings = () => {
-	const { spaces, loading, error, refetchSpaces } = useFetchSpaces();
-	const [isCopied, setIsCopied] = useState(false);
+	const { spaces, refetchSpaces } = useFetchSpaces();
+	const [urlCopied, setUrlCopied] = useState(false);
+	const [passCopied, setPassCopied] = useState(false);
 	const [spaceId, setSpaceId] = useState<string | null>(null);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
-	const user = useUser({ or: "redirect" });
+	const [isButtonClicked, setIsButtonClicked] = useState(false); 
 	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	useEffect(() => {
@@ -50,17 +46,24 @@ const SpaceSettings = () => {
 		const space = spaces.find((space) => space.id === spaceId);
 		if (space) {
 			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
-			const shareText = `Space URL: ${spaceUrl}\nPassword: ${space.password}`;
-			copyToClipboard(shareText);
+			navigator.clipboard.writeText(spaceUrl).then(() => {
+				setUrlCopied(true);
+				setTimeout(() => setUrlCopied(false), 2000);
+			});
 		}
 	};
 
-	const copyToClipboard = (text: string) => {
-		navigator.clipboard.writeText(text).then(() => {
-			setIsCopied(true);
-			console.log("Copied to clipboard:", text);
-			setTimeout(() => setIsCopied(false), 2000);
-		});
+	const handleCopyPasswordClick = async () => {
+		if (!spaceId) return;
+		await refetchSpaces();
+		const space = spaces.find((space) => space.id === spaceId);
+		if (space) {
+			const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${space.id}`;
+			navigator.clipboard.writeText(space.password).then(() => {
+				setPassCopied(true);
+				setTimeout(() => setPassCopied(false), 2000);
+			});
+		}
 	};
 
 	const handleSelectFriend = (friend: Friend) => {
@@ -77,6 +80,8 @@ const SpaceSettings = () => {
 
 	const handleAddFriendsToSpace = async () => {
 		if (!spaceId) return;
+		setIsButtonClicked(true); 
+		console.log("clicked")
 
 		for (const friend of selectedFriends) {
 			await addFriendToSpace(spaceId, friend.id, "anonymous");
@@ -84,6 +89,7 @@ const SpaceSettings = () => {
 
 		setSelectedFriends([]);
 		setIsSearchVisible(false);
+		setTimeout(() => setIsButtonClicked(false), 1000); 
 	};
 
 	const toggleSearchBar = () => {
@@ -97,60 +103,70 @@ const SpaceSettings = () => {
 		{ icon: FiSettings, text: "Settings", onClick: handleSettingsClick },
 		{
 			icon: FiCopy,
-			text: "Copy",
+			text: "Copy link",
 			onClick: handleCopyLinkClick,
-			color: isCopied ? "text-green-500" : "text-white",
+			color: urlCopied ? "text-green-500" : "text-white",
+		},
+		{
+			icon: FiCopy,
+			text: "Copy password",
+			onClick: handleCopyPasswordClick,
+			color: passCopied ? "text-green-500" : "text-white",
 		},
 		{ icon: RiUserAddFill, text: "Add Friend", onClick: toggleSearchBar },
 	];
 
 	return (
-		<div className="p-4 bg-gray-800 rounded-lg max-w-md mx-auto relative">
-			<h2 className="text-xl font-semibold mb-4 text-white">Space Settings</h2>
-
-			<div className="flex flex-col space-y-2">
-				{buttons.map((item) => (
-					<button
-						key={item.text}
-						type="button"
-						className={`flex items-center space-x-2 p-2 hover:bg-gray-700 rounded text-sm sm:text-base ${item.color || "text-white"}`}
-						onClick={item.onClick}
-					>
-						<item.icon className="w-4 h-4 sm:w-5 sm:h-5" />
-						<span>{item.text}</span>
-					</button>
-				))}
-			</div>
-
-			<div
-				className={`absolute inset-0 bg-gray-800 bg-opacity-90 p-4 rounded-lg z-10 transition-all duration-300 ease-in-out ${
-					isSearchVisible ? "opacity-100 visible" : "opacity-0 invisible"
-				}`}
-			>
-				<button
-					type="button"
-					onClick={toggleSearchBar}
-					className="absolute top-2 right-2 text-white hover:text-gray-300"
-				>
-					<FiX size={24} />
-				</button>
-				<FriendSearch
-					onSelectFriend={handleSelectFriend}
-					selectedFriends={selectedFriends}
-					onRemoveFriend={handleRemoveFriend}
-				/>
-
-				<div className="absolute bottom-3 right-3 flex items-center">
-
-					<button
-						type="button"
-						onClick={handleAddFriendsToSpace}
-						disabled={selectedFriends.length === 0 || addingUser}
-						className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
-					>
-						{addingUser ? <span className="animate-spin">&#8987;</span> : "+"}
-					</button>
+		<div className="flex justify-center items-center bg-gray-100">
+			<div className="bg-hop-purple p-2 w-full max-w-md relative pt-5">
+				<div className="flex flex-col space-y-4">
+					{buttons.map((item) => (
+						<button
+							key={item.text}
+							type="button"
+							className={`flex items-center space-x-3 px-5 py-3 w-full hover:bg-gray-800 rounded-lg text-base font-semibold transition-colors ${
+								item.color || "text-white"
+							}`}
+							onClick={item.onClick}
+						>
+							<item.icon className="w-6 h-6" />
+							<span>{item.text}</span>
+						</button>
+					))}
 				</div>
+
+				{isSearchVisible && (
+					<div className="absolute inset-0 bg-black bg-opacity-90 p-8 z-10 flex flex-col justify-center items-center">
+						<button
+							type="button"
+							onClick={toggleSearchBar}
+							className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+						>
+							<FiX size={28} />
+						</button>
+						<div className="w-full max-w-lg mt-8">
+							<FriendSearch
+								onSelectFriend={handleSelectFriend}
+								selectedFriends={selectedFriends}
+								onRemoveFriend={handleRemoveFriend}
+							/>
+						</div>
+						<div className="absolute mt-[161px] right-5">
+							<button
+								type="button"
+								onClick={handleAddFriendsToSpace}
+								disabled={selectedFriends.length === 0 || addingUser}
+								className="w-8 h-8 bg-green-600 rounded mr-4 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+							>
+								{addingUser ? (
+									<span className="animate-spin">&#8987;</span>
+								) : (
+									<IoMdAddCircle />
+								)}
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
