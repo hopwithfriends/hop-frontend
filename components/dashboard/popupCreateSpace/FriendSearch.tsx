@@ -84,7 +84,7 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 					/>
 					<button
 						type="submit"
-						className="h-12 bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600 transition-colors duration-150 flex items-center justify-center"
+						className="h-12 bg-purple-500 text-white px-4 rounded-r-lg hover:bg-purple-600 transition-colors duration-150 flex items-center justify-center"
 					>
 						<Search size={16} />
 					</button>

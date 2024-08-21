@@ -1,6 +1,7 @@
+import { useAcceptSpaceRequest } from "@components/hooks/spaceHooks/useAcceptSpaceRequest";
+import { useDeclineSpaceRequest } from "@components/hooks/spaceHooks/useDeclineSpaceRequest";
 import type { SpaceRequestType } from "@components/layout/LeftSidebar";
 import Image from "next/image";
-import { useState } from "react";
 
 type SpaceInvitesContainerProps = {
 	invites: SpaceRequestType[];
@@ -11,11 +12,20 @@ export default function SpaceInvitesContainer({
 	invites,
 	setSpaceRequests,
 }: SpaceInvitesContainerProps) {
-	const handleAccept = (invite: SpaceRequestType) => {
-		setSpaceRequests(invites.filter((i) => i.id !== invite.id));
+	const { acceptSpaceRequest } = useAcceptSpaceRequest();
+	const { declineSpaceRequest } = useDeclineSpaceRequest();
+
+	const handleAccept = async (invite: SpaceRequestType) => {
+		try {
+			await acceptSpaceRequest(invite.id);
+			setSpaceRequests(invites.filter((i) => i.id !== invite.id));
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
-	const handleReject = (invite: SpaceRequestType) => {
+	const handleReject = async (invite: SpaceRequestType) => {
+		await declineSpaceRequest(invite.id);
 		setSpaceRequests(invites.filter((i) => i.id !== invite.id));
 	};
 
@@ -26,15 +36,20 @@ export default function SpaceInvitesContainer({
 					key={invite.id}
 					className="bg-hop-friend-bg flex items-center gap-2 px-4 py-2 justify-between rounded-md"
 				>
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-4">
 						<Image
-							src={invite.profilePicture}
-							alt={invite.username}
-							width={20}
-							height={20}
+							src={invite.inviterId.profilePicture}
+							alt={invite.inviterId.username}
+							width={30}
+							height={30}
 							className="rounded-full"
 						/>
-						<div className="text-sm font-medium">{invite.spaceName}</div>
+						<div className="flex flex-col">
+							<p className="text-md font-medium">{invite.spaceId.name}</p>
+							<p className="text-xs text-hop-light-purple font-normal">
+								@{invite.inviterId.username}
+							</p>
+						</div>
 					</div>
 					<div className="flex items-center gap-2">
 						<button

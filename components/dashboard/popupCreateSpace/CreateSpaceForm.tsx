@@ -98,13 +98,13 @@ const CreateSpaceForm: React.FC = () => {
 		: null;
 
 	return (
-		<div className="w-full max-w-md mx-auto p-4 bg-gray-800 rounded-lg">
+		<div className="w-full max-w-md mx-auto p-4 bg-[#160b38] rounded-lg">
 			<input
 				type="text"
 				placeholder="Space name"
 				value={spaceName}
 				onChange={(e) => setSpaceName(e.target.value)}
-				className="w-full h-10 px-3 py-1 mb-6 bg-gray-700 text-white placeholder-gray-400 focus:outline-none rounded-xl text-sm"
+				className="w-full h-10 px-3 py-1 mb-6 bg-white text-black placeholder-gray-400 focus:outline-none rounded-xl text-sm"
 			/>
 
 			<FriendSearch
@@ -114,7 +114,7 @@ const CreateSpaceForm: React.FC = () => {
 				onClose={() => {}}
 			/>
 
-			<div className="flex items-center justify-between mb-4">
+			<div className="flex items-center justify-between my-4">
 				<span className="text-white">Privacy setting</span>
 				<label className="flex items-center cursor-pointer">
 					<div className="relative">
@@ -126,7 +126,7 @@ const CreateSpaceForm: React.FC = () => {
 						/>
 						<div
 							className={`block w-14 h-8 rounded-full ${
-								isPrivate ? "bg-blue-500" : "bg-gray-600"
+								isPrivate ? "bg-purple-500" : "bg-gray-600"
 							}`}
 						/>
 						<div
@@ -141,7 +141,7 @@ const CreateSpaceForm: React.FC = () => {
 			<button
 				type="button"
 				onClick={handleCreateSpace}
-				className="w-full bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition-colors duration-200"
+				className="w-full bg-purple-500 text-white py-2 rounded-xl hover:bg-purple-600 transition-colors duration-200"
 			>
 				Create Space
 			</button>
