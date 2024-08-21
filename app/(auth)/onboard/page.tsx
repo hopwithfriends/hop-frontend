@@ -6,6 +6,7 @@ import { useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import dotenv from "dotenv"; 
 dotenv.config();
+import "@styles/globals.css";
 
 const Onboard: React.FC = () => {
   const [username, setUsername] = useState("");
