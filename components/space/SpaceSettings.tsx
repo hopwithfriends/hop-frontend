@@ -14,12 +14,6 @@ interface Friend {
 	username: string;
 }
 
-interface Space {
-	id: string;
-	name: string;
-	password: string;
-}
-
 const SpaceSettings = () => {
 	const { spaces, loading, error, refetchSpaces } = useFetchSpaces();
 	const [isCopied, setIsCopied] = useState(false);
@@ -99,58 +93,62 @@ const SpaceSettings = () => {
 			icon: FiCopy,
 			text: "Copy",
 			onClick: handleCopyLinkClick,
-			color: isCopied ? "text-green-500" : "text-white",
+			color: isCopied ? "text-green-500" : "text-white", 
 		},
 		{ icon: RiUserAddFill, text: "Add Friend", onClick: toggleSearchBar },
 	];
 
 	return (
-		<div className="p-4 bg-gray-800 rounded-lg max-w-md mx-auto relative">
-			<h2 className="text-xl font-semibold mb-4 text-white">Space Settings</h2>
-
-			<div className="flex flex-col space-y-2">
-				{buttons.map((item) => (
-					<button
-						key={item.text}
-						type="button"
-						className={`flex items-center space-x-2 p-2 hover:bg-gray-700 rounded text-sm sm:text-base ${item.color || "text-white"}`}
-						onClick={item.onClick}
-					>
-						<item.icon className="w-4 h-4 sm:w-5 sm:h-5" />
-						<span>{item.text}</span>
-					</button>
-				))}
-			</div>
-
-			<div
-				className={`absolute inset-0 bg-gray-800 bg-opacity-90 p-4 rounded-lg z-10 transition-all duration-300 ease-in-out ${
-					isSearchVisible ? "opacity-100 visible" : "opacity-0 invisible"
-				}`}
-			>
-				<button
-					type="button"
-					onClick={toggleSearchBar}
-					className="absolute top-2 right-2 text-white hover:text-gray-300"
-				>
-					<FiX size={24} />
-				</button>
-				<FriendSearch
-					onSelectFriend={handleSelectFriend}
-					selectedFriends={selectedFriends}
-					onRemoveFriend={handleRemoveFriend}
-				/>
-
-				<div className="absolute bottom-3 right-3 flex items-center">
-
-					<button
-						type="button"
-						onClick={handleAddFriendsToSpace}
-						disabled={selectedFriends.length === 0 || addingUser}
-						className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
-					>
-						{addingUser ? <span className="animate-spin">&#8987;</span> : "+"}
-					</button>
+		<div className="flex justify-center items-center bg-gray-100">
+			<div className="bg-hop-purple p-2 w-full max-w-md relative pt-5">
+				<div className="flex flex-col space-y-4">
+					{buttons.map((item) => (
+						<button
+							key={item.text}
+							type="button"
+							className={`flex items-center space-x-3 px-5 py-3 w-full hover:bg-gray-800 rounded-lg text-base font-semibold transition-colors ${
+								item.color || "text-white"
+							}`}
+							onClick={item.onClick}
+						>
+							<item.icon className="w-6 h-6" />
+							<span>{item.text}</span>
+						</button>
+					))}
 				</div>
+
+				{isSearchVisible && (
+					<div className="absolute inset-0 bg-gray-800 bg-opacity-90 p-8 z-10 flex flex-col justify-center items-center">
+						<button
+							type="button"
+							onClick={toggleSearchBar}
+							className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+						>
+							<FiX size={28} />
+						</button>
+						<div className="w-full max-w-lg mt-8">
+							<FriendSearch
+								onSelectFriend={handleSelectFriend}
+								selectedFriends={selectedFriends}
+								onRemoveFriend={handleRemoveFriend}
+							/>
+						</div>
+						<div className="absolute mt-[161px] right-5">
+							<button
+								type="button"
+								onClick={handleAddFriendsToSpace}
+								disabled={selectedFriends.length === 0 || addingUser}
+								className="w-8 h-8 bg-green-600 text-white rounded mr-3 flex items-center justify-center hover:bg-green-700 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+							>
+								{addingUser ? (
+									<span className="animate-spin">&#8987;</span>
+								) : (
+									"+"
+								)}
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

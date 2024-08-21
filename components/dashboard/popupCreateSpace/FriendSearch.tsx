@@ -62,50 +62,49 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 	};
 
 	return (
-		<div className="w-full max-w-md mx-auto p-4 bg-transparent rounded-lg">
-			<form onSubmit={handleSearch} className="mb-4 relative">
-				<div className="flex">
+		<div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg">
+			<form onSubmit={handleSearch} className="relative">
+				<div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
 					<input
 						type="text"
 						placeholder="Search friends"
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						className="flex-grow h-10 px-3 py-1 bg-gray-700 text-white placeholder-gray-700 focus:outline-none rounded-l-xl text-sm"
+						className="flex-grow h-12 px-4 py-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-l-lg text-sm"
 					/>
 					<button
 						type="submit"
-						className="h-10 bg-blue-500 text-white px-4 rounded-r-xl hover:bg-blue-600 transition-colors duration-200"
+						className="h-12 bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600 transition-colors duration-150 flex items-center justify-center"
 					>
 						<Search size={16} />
 					</button>
 				</div>
-				<div className="absolute left-0 right-0 mt-1 z-10 bg-slate-400/90 backdrop-blur-sm rounded-xl shadow-lg">
+				<div className="absolute left-0 right-0 mt-2 bg-white rounded-lg max-h-48 overflow-y-auto z-10">
 					{searchResults.map((friend) => (
+						// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 						<div
-							onKeyUp={() => {}}
 							key={friend.id}
 							onClick={() => handleUserClick(friend)}
-							className="cursor-pointer hover:bg-gray-700 p-2 rounded-xl"
+							className="cursor-pointer hover:bg-gray-200 p-3 rounded-lg transition-colors duration-150"
 						>
-							<span className="text-white">{friend.username}</span>
+							<span className="text-gray-900">{friend.username}</span>
 						</div>
 					))}
 				</div>
 			</form>
 
-			<div className="mb-4">
-				<h3 className="text-white mb-2">Selected Friends</h3>
-				<div className="h-[77px] overflow-y-auto pr-2 space-y-2">
+			<div>
+				<div className="max-h-16 h-16 overflow-y-auto space-y-1">
 					{selectedFriends.map((friend) => (
 						<div
 							key={friend.id}
-							className="flex items-center justify-between bg-gray-700 rounded-xl p-2"
+							className="flex items-center justify-between bg-gray-100 border border-gray-200 rounded-lg p-3"
 						>
-							<span className="text-white">{friend.username}</span>
+							<span className="text-gray-900">{friend.username}</span>
 							<button
 								type="button"
 								onClick={() => onRemoveFriend(friend)}
-								className="text-red-500 hover:text-red-600"
+								className="text-red-500 hover:text-red-600 transition-colors duration-150"
 							>
 								<X size={16} />
 							</button>

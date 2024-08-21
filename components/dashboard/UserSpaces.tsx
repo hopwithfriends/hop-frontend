@@ -68,7 +68,8 @@ const UserSpaces = () => {
 	}, []);
 
 	const openVNC = (spaceId: string) => {
-		const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
+		//const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
+		const spaceUrl = `http://localhost:3000/space/${spaceId}`
 		window.open(spaceUrl, "_blank");
 	};
 
