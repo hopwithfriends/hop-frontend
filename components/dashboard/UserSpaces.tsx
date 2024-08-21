@@ -70,7 +70,7 @@ const UserSpaces = () => {
 
 	const openVNC = (spaceId: string) => {
 		//const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
-		const spaceUrl = `http://localhost:3000/space/${spaceId}`
+		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -152,7 +152,7 @@ const UserSpaces = () => {
 							</div>
 						</div>
 						<div
-							className={`absolute inset-0 bg-gray-800 bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
+							className={`absolute bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
 								isSearchVisible && selectedSpaceId === space.id
 									? "opacity-100 visible"
 									: "opacity-0 invisible"
@@ -162,9 +162,9 @@ const UserSpaces = () => {
 								onSelectFriend={handleSelectFriend}
 								selectedFriends={selectedFriends}
 								onRemoveFriend={handleRemoveFriend}
+								onClose={() => toggleSearchBar(space.id)}
 							/>
-							<div className="absolute bottom-3 right-3 flex items-center">
-
+							<div className="absolute bottom-12 right-12 flex items-center">
 								<button
 									type="button"
 									onClick={handleAddFriendsToSpace}
