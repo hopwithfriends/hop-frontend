@@ -33,7 +33,7 @@ interface Item {
 	image: string;
 }
 
-const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
+const BottomBar: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	const user = useUser({ or: "redirect" });
 	const [fetchedUser, setFetchedUser] = useState<Item | null>(null);
 	const [volume, setVolume] = useState<number>(33);
@@ -83,19 +83,19 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 		: convertUsersToItems(otherUsers);
 
 	return (
-		<div className="p-3 flex items-center justify-between">
-			<div className="flex-1 flex justify-center ml-[32%] mb-[0.5%]">
+		<div className="pt-2 flex items-center justify-between bg-black ">
+			<div className="flex-1 flex justify-center ml-[34%] mb-[0.5%]">
 				<AnimatedTooltip items={items} />
 			</div>
 
-			<div className="w-1/3 flex items-center justify-end mr-3">
-				<div className="flex items-center pr-[10px]">
+			<div className="w-1/3 flex items-center justify-end pb-2">
+				<div className="flex items-center pr-[10px] text-gray-400">
 					{volume === 0 ? (
 						<IoMdVolumeMute size={24} />
 					) : (
 						<IoMdVolumeHigh size={24} />
 					)}
-					<div className="relative w-32">
+					<div className="relative w-32 ">
 						<Slider
 							className="w-full bg-gray-400 rounded"
 							defaultValue={[33]}
@@ -112,4 +112,4 @@ const BottomBar2: React.FC<BottomBarProps> = ({ otherUsers }) => {
 	);
 };
 
-export default BottomBar2;
+export default BottomBar;

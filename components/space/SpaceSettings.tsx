@@ -119,7 +119,7 @@ const SpaceSettings = () => {
 	return (
 		<div className="flex justify-center items-center bg-gray-100">
 			<div className="bg-hop-purple p-2 w-full max-w-md relative pt-5">
-				<div className="flex flex-col space-y-4">
+				<div className="flex flex-col">
 					{buttons.map((item) => (
 						<button
 							key={item.text}
