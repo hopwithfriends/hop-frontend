@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Search, X } from "lucide-react";
+import { Search, X, XCircle } from "lucide-react";
 import debounce from "lodash/debounce";
 import { useFetchFriends } from "@components/hooks/friendHooks/useFetchFriends";
 
@@ -13,12 +13,14 @@ interface FriendSearchProps {
 	onSelectFriend: (friend: Friend) => void;
 	selectedFriends: Friend[];
 	onRemoveFriend: (friend: Friend) => void;
+	onClose: () => void;
 }
 
 const FriendSearch: React.FC<FriendSearchProps> = ({
 	onSelectFriend,
 	selectedFriends,
 	onRemoveFriend,
+	onClose,
 }) => {
 	const { friends, loading, error } = useFetchFriends();
 	const [searchQuery, setSearchQuery] = useState("");
@@ -62,7 +64,15 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 	};
 
 	return (
-		<div className="w-full max-w-md mx-auto p-6 bg-hop-purple rounded-lg ">
+		<div className="w-[400px] h-[500px] bg-hop-purple rounded-lg flex flex-col  p-4 ">
+			<button
+				type="button"
+				onClick={onClose}
+				className=" top-4 right-2 flex  mb-5 justify-end text-gray-600 hover:text-gray-800"
+				aria-label="Close"
+			>
+				<XCircle size={24} />
+			</button>
 			<form onSubmit={handleSearch} className="relative">
 				<div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
 					<input
@@ -74,7 +84,7 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 					/>
 					<button
 						type="submit"
-						className="h-12 bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600 transition-colors duration-150 flex items-center justify-center"
+						className="h-12 bg-purple-500 text-white px-4 rounded-r-lg hover:bg-purple-600 transition-colors duration-150 flex items-center justify-center"
 					>
 						<Search size={16} />
 					</button>
@@ -94,7 +104,7 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 			</form>
 
 			<div>
-				<div className="max-h-16 h-16 overflow-y-auto space-y-1">
+				<div className=" h-70 mt-3 overflow-y-auto space-y-1">
 					{selectedFriends.map((friend) => (
 						<div
 							key={friend.id}

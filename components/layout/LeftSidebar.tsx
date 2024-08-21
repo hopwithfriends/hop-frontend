@@ -2,7 +2,6 @@
 
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
-// import { FaUserFriends } from "react-icons/fa";
 import OnlineFriendsContainer from "./OnlineFriendsContainer";
 import type { FriendsType } from "@app/context/SocketProvider";
 import FriendInvitesContainer from "@components/dashboard/FriendInvitesContainer";
@@ -10,6 +9,7 @@ import SpaceInvitesContainer from "@components/dashboard/SpaceInvitesContainer";
 import { useEffect, useState } from "react";
 import { useFetchFriendRequests } from "@components/hooks/friendHooks/useFetchFriendRequests";
 import { useUser } from "@stackframe/stack";
+import { useFetchSpaceRequests } from "@components/hooks/spaceHooks/useFetchSpaceRequests";
 
 interface LeftSidebarProps {
 	friends: FriendsType[];
@@ -25,62 +25,26 @@ export type FriendRequestType = {
 	friendId: string;
 };
 
-export type FriendInviteType = {
-	id: string;
-	username: string;
-	profilePicture: string;
-};
-
-const mockFriendInvites = [
-	{
-		id: "1",
-		username: "@aidan",
-		profilePicture: "https://via.placeholder.com/150",
-	},
-	{
-		id: "2",
-		username: "@aidan",
-		profilePicture: "https://via.placeholder.com/150",
-	},
-	{
-		id: "3",
-		username: "@aidan",
-		profilePicture: "https://via.placeholder.com/150",
-	},
-];
-
 export type SpaceRequestType = {
 	id: string;
-	spaceName: string;
-	username: string;
-	profilePicture: string;
+	spaceId: {
+		id: string;
+		name: string;
+	};
+	inviterId: {
+		id: string;
+		username: string;
+		profilePicture: string;
+	};
+	role: string;
 };
-
-const mockSpaceRequests = [
-	{
-		id: "1",
-		spaceName: "Space 1",
-		username: "@aidan",
-		profilePicture: "https://via.placeholder.com/150",
-	},
-	{
-		id: "2",
-		spaceName: "Space 2",
-		username: "@aidan",
-		profilePicture: "https://via.placeholder.com/150",
-	},
-];
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 	const user = useUser();
 	const [friendInvites, setFriendInvites] = useState<FriendRequestType[]>([]);
-	const [spaceRequests, setSpaceRequests] =
-		useState<SpaceRequestType[]>(mockSpaceRequests);
-	const {
-		fetchFriendRequests,
-		loading: friendRequestLoading,
-		error: friendRequestError,
-	} = useFetchFriendRequests();
+	const [spaceRequests, setSpaceRequests] = useState<SpaceRequestType[]>([]);
+	const { fetchFriendRequests } = useFetchFriendRequests();
+	const { fetchSpaceRequests } = useFetchSpaceRequests();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
@@ -92,7 +56,18 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 			}
 			setFriendInvites(friendRequests);
 		};
+
+		const fetchSpaceRequestsData = async () => {
+			const spaceRequestsData = await fetchSpaceRequests();
+			if (spaceRequestsData === null) {
+				setSpaceRequests([]);
+				return;
+			}
+			setSpaceRequests(spaceRequestsData);
+			console.log("Space Requests Data", spaceRequestsData);
+		};
 		fetchFriendRequestsData();
+		fetchSpaceRequestsData();
 	}, []);
 
 	return (
@@ -106,18 +81,13 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 						type="button"
 						className="bg-gradient-to-r from-purp-grad-1 to-purp-grad-2 mt-1 flex items-center justify-center rounded-xl"
 					>
-						<span className="text-2xl font-semibold text-hop-text-purple px-24 py-4">
+						<span className="text-xl font-semibold text-hop-text-purple px-24 py-2">
 							friends
 						</span>
 					</button>
 				</Link>
 				<p className="text-2xl font-bold text-white mt-5">online friends</p>
-				{friendRequestLoading ? (
-					"loading.."
-				) : (
-					<OnlineFriendsContainer friends={friends} />
-				)}
-
+				<OnlineFriendsContainer friends={friends} />
 				<div className="mt-5">
 					{spaceRequests.length > 0 || friendInvites.length > 0 ? (
 						<h1 className="text-2xl font-bold text-white mb-1">invites</h1>

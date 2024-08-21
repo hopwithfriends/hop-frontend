@@ -14,6 +14,7 @@ interface Space {
 	flyUrl: string;
 	id: string;
 	name: string;
+	thumbnail: string;
 	theme: string;
 	password: string;
 }
@@ -69,7 +70,7 @@ const UserSpaces = () => {
 
 	const openVNC = (spaceId: string) => {
 		//const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
-		const spaceUrl = `http://localhost:3000/space/${spaceId}`
+		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
 
@@ -124,22 +125,21 @@ const UserSpaces = () => {
 
 	return (
 		<div>
-			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
 			<div className="flex gap-4">
 				<CreateSpaceButton />
 				{spaces.map((space) => (
 					<div key={space.id} className="min-w-[25%] max-w-[33%]">
-						<div className="relative w-full h-full rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer">
+						<div className="relative w-full h-full rounded-2xl border-4 border-purple-800 overflow-hidden cursor-pointer transition-colors duration-500 ease-in-out hover:border-purple-400">
 							<div
 								onKeyUp={() => {}}
 								onClick={() => openVNC(space.id)}
 								className="w-full h-full relative"
 							>
 								<Image
-									src="/placeholder.jpg"
+									src={ space.thumbnail || "/placeholder.jpg"}
 									alt={space.name}
 									fill={true}
-									sizes="100%"
+									sizes="90%"
 									priority
 									className="object-cover"
 								/>
@@ -152,7 +152,7 @@ const UserSpaces = () => {
 							</div>
 						</div>
 						<div
-							className={`absolute inset-0 bg-gray-800 bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
+							className={`absolute bg-opacity-90 p-4 rounded-2xl z-10 transition-all duration-300 ease-in-out ${
 								isSearchVisible && selectedSpaceId === space.id
 									? "opacity-100 visible"
 									: "opacity-0 invisible"
@@ -162,9 +162,9 @@ const UserSpaces = () => {
 								onSelectFriend={handleSelectFriend}
 								selectedFriends={selectedFriends}
 								onRemoveFriend={handleRemoveFriend}
+								onClose={() => toggleSearchBar(space.id)}
 							/>
-							<div className="absolute bottom-3 right-3 flex items-center">
-
+							<div className="absolute bottom-12 right-12 flex items-center">
 								<button
 									type="button"
 									onClick={handleAddFriendsToSpace}

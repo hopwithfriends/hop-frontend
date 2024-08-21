@@ -7,7 +7,6 @@ import { io, type Socket } from "socket.io-client";
 
 type SocketType = {
 	socket: Socket | null;
-	isConnected: boolean;
 	friends: FriendsType[];
 };
 
@@ -24,7 +23,6 @@ export type FriendsType = {
 
 const SocketContext = createContext<SocketType>({
 	socket: null,
-	isConnected: false,
 	friends: [],
 });
 
@@ -36,6 +34,8 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 	const user = useUser();
 	const [socket, setSocket] = useState<Socket | null>(null);
 	const [friends, setFriends] = useState<FriendsType[]>([]);
+	const [friendRequests, setFriendRequests] = useState();
+	const [spaceRequests, setSpaceRequests] = useState();
 	const [refetchFriends, setRefetchFriends] = useState<Date>();
 	const [isConnected, setIsConnected] = useState(false);
 
@@ -94,7 +94,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [refetchFriends]);
 
 	return (
-		<SocketContext.Provider value={{ socket, isConnected, friends }}>
+		<SocketContext.Provider value={{ socket, friends }}>
 			{children}
 		</SocketContext.Provider>
 	);

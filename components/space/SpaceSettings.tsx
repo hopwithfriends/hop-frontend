@@ -22,7 +22,7 @@ const SpaceSettings = () => {
 	const [spaceId, setSpaceId] = useState<string | null>(null);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
-	const [isButtonClicked, setIsButtonClicked] = useState(false); 
+	const [isButtonClicked, setIsButtonClicked] = useState(false);
 	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	useEffect(() => {
@@ -80,8 +80,8 @@ const SpaceSettings = () => {
 
 	const handleAddFriendsToSpace = async () => {
 		if (!spaceId) return;
-		setIsButtonClicked(true); 
-		console.log("clicked")
+		setIsButtonClicked(true);
+		console.log("clicked");
 
 		for (const friend of selectedFriends) {
 			await addFriendToSpace(spaceId, friend.id, "anonymous");
@@ -89,7 +89,7 @@ const SpaceSettings = () => {
 
 		setSelectedFriends([]);
 		setIsSearchVisible(false);
-		setTimeout(() => setIsButtonClicked(false), 1000); 
+		setTimeout(() => setIsButtonClicked(false), 1000);
 	};
 
 	const toggleSearchBar = () => {
@@ -136,27 +136,21 @@ const SpaceSettings = () => {
 				</div>
 
 				{isSearchVisible && (
-					<div className="absolute inset-0 bg-black bg-opacity-90 p-8 z-10 flex flex-col justify-center items-center">
-						<button
-							type="button"
-							onClick={toggleSearchBar}
-							className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-						>
-							<FiX size={28} />
-						</button>
+					<div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50">
 						<div className="w-full max-w-lg mt-8">
 							<FriendSearch
 								onSelectFriend={handleSelectFriend}
 								selectedFriends={selectedFriends}
 								onRemoveFriend={handleRemoveFriend}
+								onClose={toggleSearchBar}
 							/>
 						</div>
-						<div className="absolute mt-[161px] right-5">
+						<div className="mt-4 flex justify-end">
 							<button
 								type="button"
 								onClick={handleAddFriendsToSpace}
 								disabled={selectedFriends.length === 0 || addingUser}
-								className="w-8 h-8 bg-green-600 rounded mr-4 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400 text-xl font-bold"
+								className="bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 disabled:bg-gray-400"
 							>
 								{addingUser ? (
 									<span className="animate-spin">&#8987;</span>

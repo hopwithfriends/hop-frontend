@@ -5,7 +5,7 @@ import { useUser } from "@stackframe/stack";
 import SpaceContainer from "@components/dashboard/SpaceContainer";
 import { useEffect, useState } from "react";
 import { ServiceMethods, type UserType } from "@lib/servicesMethods";
-import LoadingSpinner from "@components/ui/Spiner";
+import LoadingSpinner from "@components/ui/Spinner";
 
 const Dashboard: React.FC = () => {
 	const user = useUser({ or: "redirect" });
