@@ -62,7 +62,7 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 	};
 
 	return (
-		<div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg">
+		<div className="w-full max-w-md mx-auto p-6 bg-hop-purple rounded-lg ">
 			<form onSubmit={handleSearch} className="relative">
 				<div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
 					<input

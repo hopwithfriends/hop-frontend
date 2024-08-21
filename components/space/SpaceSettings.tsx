@@ -131,7 +131,7 @@ const SpaceSettings = () => {
 				</div>
 
 				{isSearchVisible && (
-					<div className="absolute inset-0 bg-gray-800 bg-opacity-90 p-8 z-10 flex flex-col justify-center items-center">
+					<div className="absolute inset-0 bg-black bg-opacity-90 p-8 z-10 flex flex-col justify-center items-center">
 						<button
 							type="button"
 							onClick={toggleSearchBar}
@@ -151,7 +151,7 @@ const SpaceSettings = () => {
 								type="button"
 								onClick={handleAddFriendsToSpace}
 								disabled={selectedFriends.length === 0 || addingUser}
-								className="w-8 h-8 bg-green-600 text-white rounded mr-3 flex items-center justify-center hover:bg-green-700 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
+								className="w-8 h-8 bg-green-600 text-white rounded mr-4 flex items-center justify-center hover:bg-green-700 transition-colors duration-200 disabled:bg-gray-400 text-2xl font-bold"
 							>
 								{addingUser ? (
 									<span className="animate-spin">&#8987;</span>
