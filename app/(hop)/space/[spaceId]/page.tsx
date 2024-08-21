@@ -85,13 +85,11 @@ const SpacePage: React.FC = () => {
 		share: true,
 	});
 
-	const THROTTLE = 10;
 
-	const sendJsonMessageThrottled = useRef(throttle(sendJsonMessage, THROTTLE));
-
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const timeoutId = setInterval(() => {
-			sendJsonMessageThrottled.current("");
+			sendJsonMessage("");
 			if (lastJsonMessage) {
 				const users = lastJsonMessage as Users;
 				const seenUsernames = new Set<string>();
@@ -117,7 +115,7 @@ const SpacePage: React.FC = () => {
 				}, {});
 				setOtherUsers(filteredUsers);
 			}
-		}, 50);
+		}, 5);
 		return () => clearTimeout(timeoutId);
 	}, [lastJsonMessage, username]);
 
