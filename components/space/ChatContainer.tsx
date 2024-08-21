@@ -14,16 +14,20 @@ interface ChatMessage {
 	username: string;
 	message?: string;
 	time: string;
+	roomId?: string; 
 }
 
-const ChatContainer: React.FC = () => {
+interface ChatContainerProps {
+	spaceId: string
+}
+
+const ChatContainer: React.FC<ChatContainerProps> = ({spaceId}) => {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [inputMessage, setInputMessage] = useState("");
 	const [username, setUsername] = useState("");
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 	const user = useUser({ or: "redirect" });
 	const wsRef = useRef<WebSocket | null>(null);
-	const isInitialConnection = useRef(true);
 	const messageListRef = useRef<HTMLDivElement | null>(null);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -73,19 +77,11 @@ const ChatContainer: React.FC = () => {
 		if (!username) return;
 
 		const connectWebSocket = () => {
-			const WS_URL = `wss://hop-websocket1-76a542d0c47b.herokuapp.com?username=${encodeURIComponent(username)}`;
+			const WS_URL = `wss://hop-websocket1-76a542d0c47b.herokuapp.com?username=${encodeURIComponent(username)}&roomId=${encodeURIComponent(spaceId)}`;
 			const ws = new WebSocket(WS_URL);
 
 			ws.onopen = () => {
 				console.log("open ws");
-				if (isInitialConnection.current) {
-					const joinMessage = {
-						type: "join",
-						username: username,
-					};
-					ws.send(JSON.stringify(joinMessage));
-					isInitialConnection.current = false;
-				}
 			};
 
 			ws.onmessage = (event) => {
@@ -115,7 +111,7 @@ const ChatContainer: React.FC = () => {
 				wsRef.current.close();
 			}
 		};
-	}, [username]);
+	}, [username, spaceId]);
 
 	const handleSendMessage = () => {
 		if (inputMessage.trim() && wsRef.current) {
@@ -125,6 +121,7 @@ const ChatContainer: React.FC = () => {
 				username: username,
 				message: inputMessage,
 				time: time,
+				roomId: spaceId
 			};
 			wsRef.current.send(JSON.stringify(message));
 			setInputMessage("");

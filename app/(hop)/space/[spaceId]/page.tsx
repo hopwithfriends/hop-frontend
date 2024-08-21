@@ -131,7 +131,7 @@ const SpacePage: React.FC = () => {
 						</div>
 						<BottomBar otherUsers={otherUsers} />
 					</main>
-					<RightSideBar />
+					<RightSideBar spaceId={spaceId} />
 				</div>
 			</div>
 		</>
