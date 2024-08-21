@@ -26,13 +26,7 @@ export const useAcceptFriendRequest = () => {
 				return result;
 			} catch (err) {
 				console.error("Error accepting friend request:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while accepting friend request.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

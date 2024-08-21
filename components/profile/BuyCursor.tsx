@@ -33,7 +33,6 @@ const PlaceholderImageStore: React.FC = () => {
 	}, [searchTerm]);
 
 	const handlePurchase = (image: PlaceholderImage) => {
-		// purchase logic here
 		alert(`You've successfully purchased "${image.alt}" for $1!`);
 		setSelectedImage(null);
 	};

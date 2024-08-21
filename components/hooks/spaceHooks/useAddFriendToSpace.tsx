@@ -1,74 +1,57 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 
-interface User {
-	id: string;
-	username: string;
+interface AddFriendToSpaceResult {
+	success: boolean;
+	message?: string;
 }
 
 export const useAddFriendToSpace = () => {
+	const [result, setResult] = useState<AddFriendToSpaceResult | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [searchResults, setSearchResults] = useState<User[]>([]);
 	const user = useUser({ or: "redirect" });
 
-	const searchUsers = async (query: string) => {
-		setLoading(true);
-		setError(null);
+	const addFriendToSpace = useCallback(
+		async (friendId: string, spaceId: string, role: string) => {
+			setLoading(true);
+			setError(null);
+			setResult(null);
 
-		try {
-			const { accessToken, refreshToken } = await user.getAuthJson();
-			if (!accessToken || !refreshToken) {
-				throw new Error(
-					"Access/refresh token are required for the ServiceMethods",
+			try {
+				const { accessToken, refreshToken } = await user.getAuthJson();
+				if (!accessToken || !refreshToken) {
+					throw new Error(
+						"Access/refresh token are required for the ServiceMethods",
+					);
+				}
+
+
+				const serviceMethods = new ServiceMethods(accessToken, refreshToken);
+				const response = await serviceMethods.fetchSendSpaceRequests(
+					friendId,
+					spaceId,
+					role,
 				);
+
+				if (response && typeof response === "object") {
+					setResult({
+						success: true,
+						message: "Friend successfully added to space",
+					});
+				} else {
+					throw new Error("Invalid response format");
+				}
+			} catch (err) {
+				console.error("Error adding friend to space:", err);
+
+
+				setLoading(false);
 			}
+		},
+		[user],
+	);
 
-			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
-			const results = await serviceMethods.searchUsers(query);
-
-			setSearchResults(results);
-		} catch (err) {
-			console.error("Error searching users:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "Failed to search users. Please try again.",
-			);
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const addFriendToSpace = async (spaceId: string, friendId: string) => {
-		setLoading(true);
-		setError(null);
-
-		try {
-			const { accessToken, refreshToken } = await user.getAuthJson();
-			if (!accessToken || !refreshToken) {
-				throw new Error(
-					"Access/refresh token are required for the ServiceMethods",
-				);
-			}
-
-			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
-			await serviceMethods.fetchAddFriendToSpace(spaceId, friendId, "member");
-
-			console.log("Friend added to space successfully");
-		} catch (err) {
-			console.error("Error adding friend to space:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "Failed to add friend to space. Please try again.",
-			);
-			throw err;
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	return { addFriendToSpace, searchUsers, searchResults, loading, error };
+	return { addFriendToSpace, result, loading, error };
 };

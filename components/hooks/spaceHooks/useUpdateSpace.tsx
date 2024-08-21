@@ -30,13 +30,7 @@ export const useUpdateSpace = () => {
 				return result;
 			} catch (err) {
 				console.error("Error updating space:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while updating space.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

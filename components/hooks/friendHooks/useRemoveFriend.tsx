@@ -26,13 +26,7 @@ export const useRemoveFriend = () => {
 				return result;
 			} catch (err) {
 				console.error("Error removing friend:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while removing friend.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},

@@ -40,12 +40,7 @@ const FriendList: React.FC = () => {
 			setHasFetched(true);
 		} catch (err) {
 			console.error("Error fetching friends:", err);
-			setError(
-				err instanceof Error
-					? `Failed to fetch friends: ${err.message}`
-					: "An unexpected error occurred while fetching friends.",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	}, [user, hasFetched]);
@@ -86,14 +81,6 @@ const FriendList: React.FC = () => {
 		);
 		setSelectedFriend(null);
 	};
-
-	if (loading && friends.length === 0) {
-		return <div className="text-center">Loading friends...</div>;
-	}
-
-	if (error && friends.length === 0) {
-		return <div className="text-center text-red-500">{error}</div>;
-	}
 
 	return (
 		<div className="flex h-full w-full ml-3 mr-3 mt-4 rounded-xl bg-gray-600 relative">

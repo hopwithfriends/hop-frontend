@@ -5,7 +5,7 @@ import { useUser } from "@stackframe/stack";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { generateUUID, generatePassword } from "./UUID&PasswordGenerator";
 import FriendSearch from "./FriendSearch";
-import dotenv from "dotenv"; 
+import dotenv from "dotenv";
 dotenv.config();
 
 interface Friend {
@@ -23,21 +23,18 @@ const CreateSpaceForm: React.FC = () => {
 	const [spacePassword, setSpacePassword] = useState<string | null>(null);
 	const [isSpaceCreated, setIsSpaceCreated] = useState(false);
 
-	const {
-		createSpace,
-		loading: creating,
-		error: createError,
-		success,
-	} = useCreateSpace();
+	const { createSpace } = useCreateSpace();
 
 	const handleSelectFriend = (friend: Friend) => {
-		if (!selectedFriends.some((f) => f.id === friend.id)) {
+		if (!selectedFriends.some((otherFriend) => otherFriend.id === friend.id)) {
 			setSelectedFriends([...selectedFriends, friend]);
 		}
 	};
 
 	const handleRemoveFriend = (friend: Friend) => {
-		setSelectedFriends(selectedFriends.filter((f) => f.id !== friend.id));
+		setSelectedFriends(
+			selectedFriends.filter((otherFriend) => otherFriend.id !== friend.id),
+		);
 	};
 
 	const handleCreateSpace = async () => {
@@ -79,11 +76,9 @@ const CreateSpaceForm: React.FC = () => {
 					"member",
 				);
 			}
-
 			console.log("Space created and friends added successfully");
 		} catch (error) {
 			console.error("Failed to create space or add friends:", error);
-			alert("An error occurred while creating the space or adding friends.");
 		}
 	};
 
@@ -98,7 +93,9 @@ const CreateSpaceForm: React.FC = () => {
 		);
 	};
 
-	const spaceUrl = spaceId ? `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}` : null;
+	const spaceUrl = spaceId
+		? `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`
+		: null;
 
 	return (
 		<div className="w-full max-w-md mx-auto p-4 bg-gray-800 rounded-lg">
@@ -180,10 +177,6 @@ const CreateSpaceForm: React.FC = () => {
 						</div>
 					</div>
 				</div>
-			)}
-
-			{createError && (
-				<div className="mt-2 text-red-500">Error: {createError}</div>
 			)}
 		</div>
 	);

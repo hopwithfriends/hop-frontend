@@ -6,8 +6,8 @@ import CreateSpaceButton from "./CreateSpaceButton";
 import RemoveSpaceButton from "@components/space/RemoveSpace";
 import { FaLink, FaSearch } from "react-icons/fa";
 import FriendSearch from "./popupCreateSpace/FriendSearch";
-import useAddUserToSpace from "@components/hooks/spaceHooks/useAddUserToSpace";
 import dotenv from "dotenv";
+import { useAddFriendToSpace } from "@components/hooks/spaceHooks/useAddFriendToSpace";
 dotenv.config();
 
 interface Space {
@@ -33,12 +33,7 @@ const UserSpaces = () => {
 	const [selectedSpaceId, setSelectedSpaceId] = useState<string | null>(null);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
 	const [selectedFriends, setSelectedFriends] = useState<Friend[]>([]);
-	const {
-		addUser,
-		loading: addingUser,
-		error: addUserError,
-		success: addUserSuccess,
-	} = useAddUserToSpace();
+	const { addFriendToSpace, loading: addingUser } = useAddFriendToSpace();
 
 	const fetchSpaces = async () => {
 		setLoading(true);
@@ -55,8 +50,6 @@ const UserSpaces = () => {
 			const serviceMethods = new ServiceMethods(accessToken, refreshToken);
 			const response = await serviceMethods.fetchUserSpaces();
 
-			console.log("Fetched user spaces:", response);
-
 			if (Array.isArray(response) && response.length > 0) {
 				setSpaces(response);
 			} else {
@@ -64,12 +57,7 @@ const UserSpaces = () => {
 			}
 		} catch (err) {
 			console.error("Error fetching user spaces:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching user spaces.",
-			);
-		} finally {
+
 			setLoading(false);
 		}
 	};
@@ -113,19 +101,17 @@ const UserSpaces = () => {
 		setSelectedFriends((prev) => [...prev, friend]);
 	};
 
-	const handleRemoveFriend = (friend: Friend) => {
-		setSelectedFriends((prev) => prev.filter((f) => f.id !== friend.id));
+	const handleRemoveFriend = (removedFriend: Friend) => {
+		setSelectedFriends((prev) =>
+			prev.filter((friend) => friend.id !== removedFriend.id),
+		);
 	};
 
 	const handleAddFriendsToSpace = async () => {
 		if (!selectedSpaceId) return;
 
 		for (const friend of selectedFriends) {
-			await addUser({
-				spaceId: selectedSpaceId,
-				userId: friend.id,
-				role: "member",
-			});
+			await addFriendToSpace(selectedSpaceId, friend.id, "anonymous");
 		}
 
 		setIsSearchVisible(false);
@@ -177,14 +163,7 @@ const UserSpaces = () => {
 								onRemoveFriend={handleRemoveFriend}
 							/>
 							<div className="absolute bottom-3 right-3 flex items-center">
-								{addUserError && (
-									<p className="text-red-500 mr-5 text-md">{addUserError}</p>
-								)}
-								{addUserSuccess && (
-									<p className="text-green-500 mr-5 text-md">
-										Friends added successfully!
-									</p>
-								)}
+
 								<button
 									type="button"
 									onClick={handleAddFriendsToSpace}

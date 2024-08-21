@@ -127,7 +127,6 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 				} else {
 					timeoutId = setTimeout(fetchSpaceData, 5000);
 				}
-
 			} catch (err) {
 				if (isMounted) {
 					setError(
@@ -150,9 +149,10 @@ const VncDisplay: React.FC<VncDisplayProps> = ({ spaceId }) => {
 	}, [user, spaceId, flyUrl]);
 
 	if (loading) {
+		const color= "border-gray-500"
 		return (
 			<div className="flex justify-center items-center w-full h-full">
-				<LoadingSpinner />
+				<LoadingSpinner border={color} />
 				<p className="ml-4 text-center">Waiting for VNC to be ready...</p>
 			</div>
 		);

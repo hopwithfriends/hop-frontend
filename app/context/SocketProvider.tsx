@@ -43,7 +43,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		const newSocket = io("wss://hop-backend.fly.dev", {
 			autoConnect: false,
-			reconnectionAttempts: 5,
+			reconnectionAttempts: 20,
 			reconnectionDelay: 2000,
 			auth: {
 				token: user?.id,

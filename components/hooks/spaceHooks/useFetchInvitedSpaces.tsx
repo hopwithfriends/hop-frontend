@@ -25,13 +25,7 @@ export const useFetchInvitedSpaces = () => {
 			return invitedSpaces;
 		} catch (err) {
 			console.error("Error fetching invited spaces:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching invited spaces.",
-			);
-			return null;
-		} finally {
+
 			setLoading(false);
 		}
 	}, [user]);

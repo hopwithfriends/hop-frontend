@@ -31,13 +31,7 @@ export const useFetchUserId = () => {
 			return userInfo.id;
 		} catch (err) {
 			console.error("Error fetching user information:", err);
-			setError(
-				err instanceof Error
-					? err.message
-					: "An unexpected error occurred while fetching user ID.",
-			);
-			return null;
-		} finally {
+
 			setLoading(false);
 		}
 	}, [user]);

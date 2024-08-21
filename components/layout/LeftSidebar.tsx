@@ -1,6 +1,7 @@
+"use client";
+
 import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
-// import { FaUserFriends } from "react-icons/fa";
 import OnlineFriendsContainer from "./OnlineFriendsContainer";
 import type { FriendsType } from "@app/context/SocketProvider";
 import FriendInvitesContainer from "@components/dashboard/FriendInvitesContainer";
@@ -8,8 +9,6 @@ import SpaceInvitesContainer from "@components/dashboard/SpaceInvitesContainer";
 import { useEffect, useState } from "react";
 import { useFetchFriendRequests } from "@components/hooks/friendHooks/useFetchFriendRequests";
 import { useUser } from "@stackframe/stack";
-import { ServiceMethods } from "@lib/servicesMethods";
-import { IoMdReturnLeft } from "react-icons/io";
 import { useFetchSpaceRequests } from "@components/hooks/spaceHooks/useFetchSpaceRequests";
 
 interface LeftSidebarProps {
@@ -63,6 +62,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 		useFetchFriendRequests();
 	const { fetchSpaceRequests } = useFetchSpaceRequests();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const fetchFriendRequestsData = async () => {
 			const friendRequests = await fetchFriendRequests();
@@ -109,7 +109,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 						<h1 className="text-2xl font-bold text-white mb-1">invites</h1>
 					) : null}
 					<div>
-						{friendInvites.length > 0 && (
+						{friendInvites && friendInvites.length > 0 && (
 							<h2 className="text-sm font-bold text-hop-purple-400 mb-2">
 								FRIEND REQUESTS
 							</h2>
@@ -122,7 +122,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 					<div>
 						{spaceRequests.length > 0 && (
 							<h2
-								className={`text-sm font-bold text-hop-purple-400 mb-2 ${friendInvites.length === 0 ? "mt-2" : "mt-8"}`}
+								className={`text-sm font-bold text-hop-purple-400 mb-2 ${friendInvites && friendInvites.length === 0 ? "mt-2" : "mt-8"}`}
 							>
 								SPACE INVITES
 							</h2>

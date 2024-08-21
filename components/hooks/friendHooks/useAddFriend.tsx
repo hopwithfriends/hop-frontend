@@ -26,13 +26,6 @@ export const useAddFriend = () => {
 				return result;
 			} catch (err) {
 				console.error("Error adding friend:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while adding friend.",
-				);
-				return null;
-			} finally {
 				setLoading(false);
 			}
 		},

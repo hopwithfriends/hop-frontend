@@ -63,17 +63,15 @@ const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
 				setFriendId("");
 				onAddFriend(friendId);
 			} else {
-				throw new Error(result.message || "Failed to add friend");
+				console.error(result.message || "Failed to add friend");
 			}
 		} catch (err) {
 			console.error("Error adding friend:", err);
 			if (err instanceof Error) {
 				setError(`Failed to add friend: ${err.message}`);
 			} else {
-				setError("An unexpected error occurred while adding friend.");
+				setLoading(false);
 			}
-		} finally {
-			setLoading(false);
 		}
 	};
 
@@ -109,16 +107,6 @@ const AddFriendComponent: React.FC<AddFriendComponentProps> = ({
 							</button>
 						</div>
 					</form>
-
-					{error && (
-						<div
-							className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg"
-							role="alert"
-						>
-							<div className="font-medium">Error</div>
-							<div>{error}</div>
-						</div>
-					)}
 
 					{success && (
 						<div

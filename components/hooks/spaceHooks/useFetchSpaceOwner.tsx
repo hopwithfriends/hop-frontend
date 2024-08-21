@@ -26,13 +26,7 @@ export const useFetchSpaceOwner = () => {
 				return spaceOwner;
 			} catch (err) {
 				console.error("Error fetching space owner:", err);
-				setError(
-					err instanceof Error
-						? err.message
-						: "An unexpected error occurred while fetching space owner.",
-				);
-				return null;
-			} finally {
+
 				setLoading(false);
 			}
 		},
