@@ -14,6 +14,7 @@ interface Space {
 	flyUrl: string;
 	id: string;
 	name: string;
+	thumbnail: string;
 	theme: string;
 	password: string;
 }
@@ -124,22 +125,21 @@ const UserSpaces = () => {
 
 	return (
 		<div>
-			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
 			<div className="flex gap-4">
 				<CreateSpaceButton />
 				{spaces.map((space) => (
 					<div key={space.id} className="min-w-[25%] max-w-[33%]">
-						<div className="relative w-full h-full rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer">
+						<div className="relative w-full h-full rounded-2xl border-4 border-purple-800 overflow-hidden cursor-pointer transition-colors duration-500 ease-in-out hover:border-purple-400">
 							<div
 								onKeyUp={() => {}}
 								onClick={() => openVNC(space.id)}
 								className="w-full h-full relative"
 							>
 								<Image
-									src="/placeholder.jpg"
+									src={ space.thumbnail || "/placeholder.jpg"}
 									alt={space.name}
 									fill={true}
-									sizes="100%"
+									sizes="90%"
 									priority
 									className="object-cover"
 								/>
