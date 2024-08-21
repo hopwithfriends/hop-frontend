@@ -98,13 +98,14 @@ const CreateSpaceForm: React.FC = () => {
 		: null;
 
 	return (
-		<div className="w-full max-w-md mx-auto p-4 bg-[#160b38] rounded-lg">
+		<div className="w-full max-w-lg mx-auto p-4 rounded-lg">
 			<input
 				type="text"
-				placeholder="Space name"
+				placeholder="Space Name"
 				value={spaceName}
 				onChange={(e) => setSpaceName(e.target.value)}
-				className="w-full h-10 px-3 py-1 mb-6 bg-white text-black placeholder-gray-400 focus:outline-none rounded-xl text-sm"
+				className="w-full h-16 mb-6 px-4 py-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none rounded-lg text-lg"
+				autoFocus
 			/>
 
 			<FriendSearch
@@ -141,7 +142,7 @@ const CreateSpaceForm: React.FC = () => {
 			<button
 				type="button"
 				onClick={handleCreateSpace}
-				className="w-full bg-purple-500 text-white py-2 rounded-xl hover:bg-purple-600 transition-colors duration-200"
+				className="w-full h-12 bg-purple-500 text-white font-semibold py-2 rounded-xl hover:bg-purple-600 transition-colors duration-200"
 			>
 				Create Space
 			</button>

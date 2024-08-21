@@ -64,27 +64,27 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 	};
 
 	return (
-		<div className="w-[400px] h-[500px] bg-hop-purple rounded-lg flex flex-col  p-4 ">
-			<button
+		<div className="w-full rounded-lg flex flex-col">
+			{/* <button
 				type="button"
 				onClick={onClose}
 				className=" top-4 right-2 flex  mb-5 justify-end text-gray-600 hover:text-gray-800"
 				aria-label="Close"
 			>
 				<XCircle size={24} />
-			</button>
+			</button> */}
 			<form onSubmit={handleSearch} className="relative">
-				<div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+				<div className="flex items-center rounded-lg overflow-hidden">
 					<input
 						type="text"
 						placeholder="Search friends"
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						className="flex-grow h-12 px-4 py-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-l-lg text-sm"
+						className="flex-grow h-16 px-4 py-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none rounded-l-lg text-lg"
 					/>
 					<button
 						type="submit"
-						className="h-12 bg-purple-500 text-white px-4 rounded-r-lg hover:bg-purple-600 transition-colors duration-150 flex items-center justify-center"
+						className="h-16 bg-purple-500 text-white px-4 rounded-r-lg hover:bg-purple-600 transition-colors duration-150 flex items-center justify-center"
 					>
 						<Search size={16} />
 					</button>
@@ -103,24 +103,22 @@ const FriendSearch: React.FC<FriendSearchProps> = ({
 				</div>
 			</form>
 
-			<div>
-				<div className=" h-70 mt-3 overflow-y-auto space-y-1">
-					{selectedFriends.map((friend) => (
-						<div
-							key={friend.id}
-							className="flex items-center justify-between bg-gray-100 border border-gray-200 rounded-lg p-3"
+			<div className=" h-70 mt-3 overflow-y-auto space-y-1">
+				{selectedFriends.map((friend) => (
+					<div
+						key={friend.id}
+						className="flex items-center justify-between bg-gray-100 border border-gray-200 rounded-lg p-3"
+					>
+						<span className="text-gray-900">{friend.username}</span>
+						<button
+							type="button"
+							onClick={() => onRemoveFriend(friend)}
+							className="text-red-500 hover:text-red-600 transition-colors duration-150"
 						>
-							<span className="text-gray-900">{friend.username}</span>
-							<button
-								type="button"
-								onClick={() => onRemoveFriend(friend)}
-								className="text-red-500 hover:text-red-600 transition-colors duration-150"
-							>
-								<X size={16} />
-							</button>
-						</div>
-					))}
-				</div>
+							<X size={16} />
+						</button>
+					</div>
+				))}
 			</div>
 		</div>
 	);

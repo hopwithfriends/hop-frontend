@@ -57,20 +57,18 @@ const SpacePopup: React.FC<SpacePopupProps> = ({
 
 	return (
 		<div
-			className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
+			className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ${
 				isOpen ? "bg-black bg-opacity-50 backdrop-blur-sm" : "bg-transparent"
 			}`}
 		>
 			<div
 				ref={popupRef}
-				className={`bg-[#0a041c] rounded-xl shadow-xl transition-all duration-300 transform ${
+				className={`bg-[#311f64] rounded-xl shadow-xl transition-all duration-300 transform ${
 					isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
 				} overflow-hidden`}
 				style={{
 					width: "90%",
-					maxWidth: "400px",
-					height: "60%",
-					maxHeight: "80%",
+					maxWidth: "600px",
 				}}
 				onAnimationEnd={handleAnimationEnd}
 			>
