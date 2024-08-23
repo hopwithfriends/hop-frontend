@@ -116,7 +116,7 @@ const ProfilePage = () => {
 						</label>
 						<input
 							type="email"
-							placeholder={user.primaryEmail}
+							placeholder={user.primaryEmail ?? ""}
 							id="email"
 							className="bg-hop-friend-bg px-5 py-4 rounded-md text-white text-2xl placeholder:text-white focus:outline-none"
 						/>
