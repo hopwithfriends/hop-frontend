@@ -1,5 +1,5 @@
 type LinkIconProps = {
-	onClick: (e: MouseEvent<SVGSVGElement>) => void;
+	onClick: (e: React.MouseEvent<SVGSVGElement>) => void;
 };
 
 export default function LinkIcon({ onClick }: LinkIconProps) {
