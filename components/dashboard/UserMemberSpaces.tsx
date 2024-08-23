@@ -9,10 +9,12 @@ import { FaLink } from "react-icons/fa";
 import { useRemoveUserFromSpace } from "@components/hooks/spaceHooks/useRemoveUserFromSpace";
 import { useFetchUserId } from "@components/hooks/useFetchUserId";
 import dotenv from "dotenv";
+import LinkIcon from "./LinkIcon";
 dotenv.config();
 
 interface Space {
 	flyUrl: string;
+	thumbnail: string;
 	id: string;
 	name: string;
 	theme: string;
@@ -95,9 +97,9 @@ const UserMemberSpaces = () => {
 	return (
 		<div className="">
 			{error && <p className="text-red-500 mt-2 mb-4">{error}</p>}
-			<div className="flex gap-4 justify-between">
+			<div className="flex gap-4 justify-between max-w-full flex-wrap gap-y-10">
 				{spaces.map((space) => (
-					<div key={space.id} className="flex flex-col min-w-[25%] max-w-[33%]">
+					<div key={space.id} className="flex flex-col min-w-[23.5%]">
 						<div
 							className="relative w-full h-56 rounded-2xl border-4 border-gray-800 overflow-hidden cursor-pointer"
 							onClick={() => openVNC(space.id)}
@@ -105,7 +107,7 @@ const UserMemberSpaces = () => {
 							onKeyUp={() => {}}
 						>
 							<Image
-								src="/placeholder.jpg"
+								src={space.thumbnail || "/placeholder.jpg"}
 								alt={space.name}
 								fill={true}
 								sizes="100%"
@@ -121,22 +123,22 @@ const UserMemberSpaces = () => {
 						</div>
 						<div className="flex items-center justify-between text-sm sm:text-base mt-2">
 							<div className="flex items-center">
-								<p className="font-bold truncate max-w-[150px]">{space.name}</p>
+								<p className="font-bold truncate max-w-[150px] mr-2">
+									{space.name}
+								</p>
+							</div>
+							<div className="flex items-center gap-1">
 								{copiedSpaceId === space.id ? (
 									<span className="ml-2 text-green-500">Copied</span>
 								) : (
-									<FaLink
-										className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
-										onClick={(e) => {
+									<LinkIcon
+										onClick={(e: React.MouseEvent<SVGSVGElement>) => {
 											e.stopPropagation();
 											copyToClipboard(space);
 										}}
-										title="Copy space URL and password to clipboard"
 									/>
 								)}
-							</div>
-							<div className="flex items-center">
-								<div className="w-6 h-6 bg-gray-300 rounded-[10px]" />
+								<div className="w-6 h-6 bg-gray-300 rounded-[20px]" />
 							</div>
 						</div>
 					</div>
