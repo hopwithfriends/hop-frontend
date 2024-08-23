@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { ServiceMethods } from "@lib/servicesMethods";
 import { useUser } from "@stackframe/stack";
 import Image from "next/image";
@@ -8,6 +8,9 @@ import { FaLink, FaSearch } from "react-icons/fa";
 import FriendSearch from "./popupCreateSpace/FriendSearch";
 import dotenv from "dotenv";
 import { useAddFriendToSpace } from "@components/hooks/spaceHooks/useAddFriendToSpace";
+import LinkIcon from "./LinkIcon";
+import AddFriendIcon from "./AddFriendIcon";
+
 dotenv.config();
 
 interface Space {
@@ -69,7 +72,6 @@ const UserSpaces = () => {
 	}, []);
 
 	const openVNC = (spaceId: string) => {
-		//const spaceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000"}/space/${spaceId}`;
 		const spaceUrl = `http://localhost:3000/space/${spaceId}`;
 		window.open(spaceUrl, "_blank");
 	};
@@ -128,7 +130,7 @@ const UserSpaces = () => {
 			<div className="flex gap-4">
 				<CreateSpaceButton />
 				{spaces.map((space) => (
-					<div key={space.id} className="min-w-[25%] max-w-[33%]">
+					<div key={space.id} className="min-w-[23.5%] max-w-[33%]">
 						<div className="relative w-full h-full rounded-2xl border-4 border-purple-800 overflow-hidden cursor-pointer transition-colors duration-500 ease-in-out hover:border-purple-400">
 							<div
 								onKeyUp={() => {}}
@@ -136,7 +138,7 @@ const UserSpaces = () => {
 								className="w-full h-full relative"
 							>
 								<Image
-									src={ space.thumbnail || "/placeholder.jpg"}
+									src={space.thumbnail || "/placeholder.jpg"}
 									alt={space.name}
 									fill={true}
 									sizes="90%"
@@ -181,22 +183,21 @@ const UserSpaces = () => {
 						</div>
 						<div className="flex items-center justify-between text-sm sm:text-base mt-2">
 							<p className="font-bold truncate max-w-[150px]">{space.name}</p>
-							<div className="flex items-center">
+							<div className="flex items-center gap-1">
 								{copiedSpaceId === space.id ? (
 									<span className="ml-2 text-green-500">Copied</span>
 								) : (
-									<FaLink
-										className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
-										onClick={(e) => {
+									<LinkIcon
+										onClick={(e: React.MouseEvent<SVGSVGElement>) => {
 											e.stopPropagation();
 											copyToClipboard(space);
 										}}
-										title="Copy space URL and password to clipboard"
 									/>
 								)}
-								<FaSearch
-									className="w-5 h-5 ml-2 text-gray-500 cursor-pointer"
-									onClick={() => toggleSearchBar(space.id)}
+								<AddFriendIcon
+									onClick={(e: React.MouseEvent<SVGSVGElement>) => {
+										toggleSearchBar(space.id);
+									}}
 								/>
 							</div>
 						</div>
