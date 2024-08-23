@@ -6,7 +6,7 @@ export default function Home() {
 	return (
 		<div>
 			<div className="w-svw  h-full bg-[#26203E]">
-				<div className="absolute w-svw h-[150rem] inset-0 z-0 pointer-events-none ">
+				<div className="absolute w-svw h-[182rem] inset-0 z-0 pointer-events-none ">
 					<div className="relative h-full overflow-x-hidden overflow-y-hidden">
 						<div
 							className="absolute bg-gradient-to-br from-[#6249CC] via-[#A08EEF] to-[#23194F] rounded-full opacity-25 blur-3xl"
@@ -97,7 +97,7 @@ export default function Home() {
 
 					<div className="flex flex-wrap center justify-center pb-10 w-full">
 						<Image
-							src="/images/hop-hero-browser.png"
+							src="/images/hop-hero-browser-3.png"
 							alt="placeholder"
 							width={1440}
 							height={1080}
@@ -196,23 +196,28 @@ export default function Home() {
 					<div className="flex flex-wrap justify-center pt-20 text-white">
 						<div className="h-[26rem] w-[60rem] bg-purple-400 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100 flex">
 							<div className="w-full flex flex-row items-start p-10">
-								<div className="w-full h-full  bg-white rounded-xl">
-									{/* Harouni image here */}
+								<div className="w-full h-full bg-indigo-400 rounded-xl flex justify-center items-center ml-8">
+									<Image
+										alt="Img"
+										src={"/images/hop-sub-2.png"}
+										width={400}
+										height={300}
+										className="rounded-lg"
+									/>
 								</div>
-								<div className="flex flex-col pl-10 w-full">
-
-									<h2 className="text-5xl font-bold pb-5">
-										Shareable Browsers
-									</h2>
-									<p className="text-lg">
-										Introducing Shareable Browsers – the ultimate way to connect
-										and collaborate with others in real-time. Whether you're
-										hosting a watch party, working on a project, or exploring
-										new ideas, our shareable browsers let everyone take the
-										reins effortlessly. Perfect for showcasing product demos,
-										planning trips, or shopping together, it’s never been easier
-										to stay in sync with your team or friends.
-									</p>
+								<div className="flex flex-col pl-7 w-full justify-center items-center mt-2">
+									<div className="w-5/6 flex flex-col">
+										<h2 className="text-5xl font-bold pb-5">
+											Shareable Browsers
+										</h2>
+										<p className="text-lg">
+											Introducing Shareable Browsers – the ultimate way to
+											connect and collaborate with others in real-time. Whether
+											you're hosting a watch party, working on a project, or
+											exploring new ideas, our shareable browsers let everyone
+											take the reins effortlessly.
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -221,9 +226,8 @@ export default function Home() {
 					<div className="flex flex-wrap justify-center pt-14 pb-14 text-white">
 						<div className="h-[26rem] w-[60rem] bg-purple-400 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100 flex">
 							<div className="w-full flex flex-row items-start p-10">
-								<div className="flex flex-col pr-10 w-full">
-
-									<h2 className="text-5xl font-bold pb-5">
+								<div className="flex flex-col pr-10 w-full ml-3">
+									<h2 className="text-5xl font-bold pb-5 mt-3">
 										Stay Connected with Friends
 									</h2>
 									<p className="text-lg">
@@ -232,11 +236,16 @@ export default function Home() {
 										into shared experiences together. Invite your friends with a
 										single click and enjoy seamless, spontaneous connections
 										like never before.
-
 									</p>
 								</div>
-								<div className="w-full h-full  bg-white rounded-xl">
-									{/* Haloumi image here */}
+								<div className="w-full h-full bg-indigo-400 rounded-xl flex justify-center items-center">
+									<Image
+										alt="Img"
+										src={"/images/hop-sub-1.png"}
+										width={300}
+										height={300}
+										className="rounded-lg"
+									/>
 								</div>
 							</div>
 						</div>
