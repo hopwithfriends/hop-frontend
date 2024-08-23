@@ -50,7 +50,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 	useEffect(() => {
 		const fetchFriendRequestsData = async () => {
 			const friendRequests = await fetchFriendRequests();
-			if (friendRequests === null) {
+			if (!friendRequests) {
 				setFriendInvites([]);
 				return;
 			}
@@ -59,12 +59,11 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ friends }) => {
 
 		const fetchSpaceRequestsData = async () => {
 			const spaceRequestsData = await fetchSpaceRequests();
-			if (spaceRequestsData === null) {
+			if (!spaceRequestsData) {
 				setSpaceRequests([]);
 				return;
 			}
 			setSpaceRequests(spaceRequestsData);
-			console.log("Space Requests Data", spaceRequestsData);
 		};
 		fetchFriendRequestsData();
 		fetchSpaceRequestsData();
